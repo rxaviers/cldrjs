@@ -1,7 +1,7 @@
 require.config({
 	paths: {
-		jquery: "bower_components/jquery/jquery",
-		cldr: "./src"
+		jquery: "../bower_components/jquery/jquery",
+		cldr: "../src"
 	}
 });
 
