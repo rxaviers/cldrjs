@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 					urls: [ "http://localhost:<%= connect.options.port %>/index.html" ]
 				}
 			}
-		},
+		}
 	});
 
 	require( "matchdep" ).filterDev( "grunt-*" ).forEach( grunt.loadNpmTasks );
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 		"mocha"
 	]);
 
-	grunt.registerTask( "default", [ "jshint" ] );
+	grunt.registerTask( "default", [ "jshint", "test" ] );
 
 };
 
