@@ -6,7 +6,9 @@ require.config({
 
 require([
 
-	"./spec/data/get"
+	"./spec/resource/get",
+	"./spec/resource/set",
+	"./spec/path/normalize"
 
 ], function() {
 	mocha.run();
