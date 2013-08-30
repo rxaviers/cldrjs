@@ -1,0 +1,31 @@
+{
+  "name": "cldr",
+  "version": "0.0.0",
+  "description": "Simple CLDR API",
+  "keywords": [
+    "utility",
+    "globalization",
+    "internationalization",
+    "multilingualization",
+    "localization",
+    "g11n",
+    "i18n",
+    "m17n",
+    "L10n",
+    "localize",
+    "locale",
+    "cldr",
+    "json",
+    "inheritance",
+    "compiler"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rxaviers/cldr.git"
+  },
+  "devDependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-jshint": "0.6.x",
+    "matchdep": "*"
+  }
+}
