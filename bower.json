@@ -1,0 +1,9 @@
+{
+  "name": "cldr",
+  "version": "0.0.0",
+  "devDependencies": {
+    "chai": "1.7.x",
+    "mocha": "1.12.x",
+    "requirejs": "2.1.x"
+  }
+}
