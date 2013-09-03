@@ -10,7 +10,8 @@ require([
 	"./spec/resource/get",
 	"./spec/resource/set",
 	"./spec/path/normalize",
-	"./spec/bundle/parent-lookup"
+	"./spec/bundle/parent-lookup",
+	"./spec/item/lookup"
 
 ], function() {
 	mocha.run();
