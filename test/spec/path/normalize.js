@@ -19,6 +19,12 @@ define([
 			expect( value ).to.eql( [ "supplemental", "likelySubtags" ] );
 		});
 
+		it( "should ignore a leading slash / on path", function() {
+			var value = pathNormalize( locale, "/supplemental/likelySubtags" );
+			expect( value ).to.be.instanceof( Array );
+			expect( value ).to.eql( [ "supplemental", "likelySubtags" ] );
+		});
+
 		it( "should insert locale after main", function() {
 			expect( pathNormalize( locale, "main/numbers/decimalFormats-numberSystem-latn" ) ).to.eql( [ "main", "root", "numbers", "decimalFormats-numberSystem-latn" ] );
 		});

@@ -4,7 +4,10 @@ define([
 
 	return function( locale, path ) {
 		if ( typeof path === "string" ) {
-			path = path.split( "/" );
+			// 1: Ignore leading slash `/`
+			path = path
+				.replace( /^\// , "" ) /* 1 */
+				.split( "/" );
 		}
 		if ( !arrayIsArray( path ) ) {
 			throw new Error( "invalid path \"" + path + "\"" );
