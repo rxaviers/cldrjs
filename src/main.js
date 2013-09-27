@@ -15,12 +15,18 @@ define([
 	// Load unresolved cldr data
 	// @json [JSON]
 	Cldr.loadUnresolved = function( json ) {
+		if ( typeof json !== "object" ) {
+			throw new Error( "invalid json" );
+		}
 		objectExtend( Cldr._raw, json );
 	};
 
 	// Load resolved cldr data
 	// @json [JSON]
 	Cldr.load = function( json ) {
+		if ( typeof json !== "object" ) {
+			throw new Error( "invalid json" );
+		}
 		objectExtend( Cldr._resolved, json );
 	};
 

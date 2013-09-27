@@ -13,6 +13,9 @@ define([
 	// Load resolved cldr data
 	// @json [JSON]
 	Cldr.load = function( json ) {
+		if ( typeof json !== "object" ) {
+			throw new Error( "invalid json" );
+		}
 		objectExtend( Cldr._resolved, json );
 	};
 
