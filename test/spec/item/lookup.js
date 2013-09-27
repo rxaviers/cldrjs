@@ -3,7 +3,7 @@ define([
 	"cldr/item/lookup"
 ], function( Cldr, itemLookup ) {
 
-	Cldr.load({
+	Cldr.loadUnresolved({
 		main: {
 			pt: {
 				numbers: {

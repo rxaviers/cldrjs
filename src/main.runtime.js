@@ -10,7 +10,9 @@ define([
 
 	Cldr._resolved = {};
 
-	Cldr.loadResolved = function( json ) {
+	// Load resolved cldr data
+	// @json [JSON]
+	Cldr.load = function( json ) {
 		objectExtend( Cldr._resolved, json );
 	};
 

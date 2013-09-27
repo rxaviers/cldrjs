@@ -3,7 +3,7 @@ define([
 	"cldr/bundle/parent-lookup"
 ], function( Cldr, parentLookup ) {
 
-	Cldr.loadResolved({
+	Cldr.load({
 		supplemental: {
 			parentLocales: {
 				parentLocale: {

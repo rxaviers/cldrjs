@@ -12,11 +12,15 @@ define([
 	Cldr._resolved = {};
 	Cldr._raw = {};
 
-	Cldr.load = function( json ) {
+	// Load unresolved cldr data
+	// @json [JSON]
+	Cldr.loadUnresolved = function( json ) {
 		objectExtend( Cldr._raw, json );
 	};
 
-	Cldr.loadResolved = function( json ) {
+	// Load resolved cldr data
+	// @json [JSON]
+	Cldr.load = function( json ) {
 		objectExtend( Cldr._resolved, json );
 	};
 
