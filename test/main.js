@@ -1,12 +1,12 @@
 require.config({
 	paths: {
-		jquery: "../bower_components/jquery/jquery",
 		cldr: "../src"
 	}
 });
 
 require([
 
+	"./spec/util/json/merge",
 	"./spec/resource/get",
 	"./spec/resource/set",
 	"./spec/path/normalize",

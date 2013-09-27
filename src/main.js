@@ -2,8 +2,8 @@ define([
 	"./init",
 	"./item/lookup",
 	"./item/get-resolved",
-	"./util/object/extend"
-], function( init, itemLookup, itemGetResolved, objectExtend ) {
+	"./util/json/merge"
+], function( init, itemLookup, itemGetResolved, jsonMerge ) {
 
 	var Cldr = function() {
 		init.apply( this, arguments );
@@ -18,7 +18,7 @@ define([
 		if ( typeof json !== "object" ) {
 			throw new Error( "invalid json" );
 		}
-		objectExtend( Cldr._raw, json );
+		Cldr._raw = jsonMerge( Cldr._raw, json );
 	};
 
 	// Load resolved cldr data
@@ -27,7 +27,7 @@ define([
 		if ( typeof json !== "object" ) {
 			throw new Error( "invalid json" );
 		}
-		objectExtend( Cldr._resolved, json );
+		Cldr._resolved = jsonMerge( Cldr._resolved, json );
 	};
 
 	Cldr.prototype = {

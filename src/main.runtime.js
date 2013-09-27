@@ -1,8 +1,8 @@
 define([
 	"./init",
 	"./item/get-resolved",
-	"./util/object/extend"
-], function( init, itemGetResolved, objectExtend ) {
+	"./util/json/merge"
+], function( init, itemGetResolved, jsonMerge ) {
 
 	var Cldr = function() {
 		init.apply( this, arguments );
@@ -16,7 +16,7 @@ define([
 		if ( typeof json !== "object" ) {
 			throw new Error( "invalid json" );
 		}
-		objectExtend( Cldr._resolved, json );
+		Cldr._resolved = jsonMerge( Cldr._resolved, json );
 	};
 
 	Cldr.prototype = {

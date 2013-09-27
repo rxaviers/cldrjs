@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "devDependencies": {
     "chai": "1.7.x",
-    "jquery": "2.0.3",
     "mocha": "1.12.x",
     "requirejs": "2.1.x"
   }
