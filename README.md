@@ -111,7 +111,7 @@ The cldr js has a UMD wrapper to allow use in node.js or via AMD (in node.js or 
 ```javascript
 require.config({
 	path: {
-		"cldr": "bower_components/cldr/dist/cldr.runtime.js"
+		"cldr": "bower_components/cldr/dist/cldr.runtime"
 	}
 });
 
