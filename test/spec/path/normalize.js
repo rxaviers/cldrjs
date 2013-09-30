@@ -25,6 +25,14 @@ define([
 			expect( value ).to.eql( [ "supplemental", "likelySubtags" ] );
 		});
 
+		it( "should ignore a leading /cldr/ or cldr/ on path", function() {
+			[ "/cldr/supplemental/likelySubtags", "cldr/supplemental/likelySubtags" ].forEach(function( path ) {
+				var value = pathNormalize( locale, path );
+				expect( value ).to.be.instanceof( Array );
+				expect( value ).to.eql( [ "supplemental", "likelySubtags" ] );
+			});
+		});
+
 		it( "should insert locale after main", function() {
 			expect( pathNormalize( locale, "main/numbers/decimalFormats-numberSystem-latn" ) ).to.eql( [ "main", "root", "numbers", "decimalFormats-numberSystem-latn" ] );
 		});
@@ -32,6 +40,10 @@ define([
 		it( "should not insert locale on supplemental data", function() {
 			// OBS: this is already tested above.
 			expect( pathNormalize( locale, "supplemental/likelySubtags" ) ).to.eql( [ "supplemental", "likelySubtags" ] );
+		});
+
+		it( "should split the inner Strings of an Array into a flatten Array", function() {
+			expect( pathNormalize( locale, [ "main/numbers", "decimalFormats-numberSystem-latn" ] ) ).to.eql( [ "main", "root", "numbers", "decimalFormats-numberSystem-latn" ] );
 		});
 
 	});

@@ -3,15 +3,18 @@ define([
 ], function( arrayIsArray ) {
 
 	return function( locale, path ) {
-		if ( typeof path === "string" ) {
-			// 1: Ignore leading slash `/`
-			path = path
-				.replace( /^\// , "" ) /* 1 */
-				.split( "/" );
+		if ( arrayIsArray( path ) ) {
+			path = path.join( "/" );
 		}
-		if ( !arrayIsArray( path ) ) {
+		if ( typeof path !== "string" ) {
 			throw new Error( "invalid path \"" + path + "\"" );
 		}
+		// 1: Ignore leading slash `/`
+		// 2: Ignore leading `cldr/`
+		path = path
+			.replace( /^\// , "" ) /* 1 */
+			.replace( /^cldr\// , "" ) /* 2 */
+			.split( "/" );
 
 		// Supplemental
 		if ( path[ 0 ] === "supplemental" ) {
