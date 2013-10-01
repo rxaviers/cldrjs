@@ -3,9 +3,9 @@ define([
 	"../path/normalize"
 ], function( resourceGet, pathNormalize ) {
 
-	return function( Cldr, locale, path ) {
+	return function( Cldr, path, attributes ) {
 		// Resolve path
-		path = pathNormalize( locale, path );
+		path = pathNormalize( path, attributes );
 
 		return resourceGet( Cldr._resolved, path );
 	};

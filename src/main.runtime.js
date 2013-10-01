@@ -5,7 +5,11 @@ define([
 ], function( init, itemGetResolved, jsonMerge ) {
 
 	var Cldr = function() {
-		init.apply( this, arguments );
+		// Inserting Cldr as first argument
+		var args = [].slice.call( arguments, 0 );
+		args.splice( 0, 0, Cldr );
+
+		init.apply( this, args );
 	};
 
 	Cldr._resolved = {};
@@ -21,7 +25,7 @@ define([
 
 	Cldr.prototype = {
 		get: function( path ) {
-			return itemGetResolved( Cldr, this.locale, path );
+			return itemGetResolved( Cldr, path, this.attributes );
 		}
 	};
 

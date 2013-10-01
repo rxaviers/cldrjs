@@ -18,6 +18,9 @@ define([
 				personList: {
 					de: "neutral"
 				}
+			},
+			likelySubtags: {
+				"pt": "pt_Latn_BR"
 			}
 		}
 	});
@@ -25,13 +28,13 @@ define([
 	describe( "Item Lookup", function() {
 
 		it( "should get resolved items", function() {
-			var cldr = new Cldr("root");
+			var cldr = new Cldr( "root" );
 			expect( itemLookup( Cldr, cldr, "root", "/supplemental/gender/personList/de" ) ).to.equal( "neutral" );
 		});
 
 		it( "should resolve and get unresolved items", function() {
-			var cldr = new Cldr("pt_BR");
-			expect( itemLookup( Cldr, cldr, "pt_BR", "/main/numbers/symbols-numberSystem-latn/decimal" ) ).to.equal( "," );
+			var cldr = new Cldr( "pt_BR" );
+			expect( itemLookup( Cldr, cldr, "pt_BR", "/main/{languageId}/numbers/symbols-numberSystem-latn/decimal" ) ).to.equal( "," );
 		});
 
 	});

@@ -2,7 +2,7 @@ define([
 	"../util/array/is-array"
 ], function( arrayIsArray ) {
 
-	return function( locale, path ) {
+	return function( path, attributes ) {
 		if ( arrayIsArray( path ) ) {
 			path = path.join( "/" );
 		}
@@ -13,18 +13,18 @@ define([
 		// 2: Ignore leading `cldr/`
 		path = path
 			.replace( /^\// , "" ) /* 1 */
-			.replace( /^cldr\// , "" ) /* 2 */
-			.split( "/" );
+			.replace( /^cldr\// , "" ); /* 2 */
 
-		// Supplemental
-		if ( path[ 0 ] === "supplemental" ) {
-			return path;
-		}
+		// Replace {attribute}'s
+		path = path.replace( /{[a-zA-Z]+}/g, function( name ) {
+			name = name.replace( /^{([^}]*)}$/, "$1" );
+			return attributes[ name ];
+		});
 
 		// Main, Casing, Collation, Rbnf: insert locale on path[ 1 ].
-		path.splice( 1, 0, locale );
+		//path.splice( 1, 0, locale );
 
-		return path;
+		return path.split( "/" );
 	};
 
 });

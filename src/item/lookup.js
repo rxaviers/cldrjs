@@ -17,7 +17,7 @@ define([
 		}
 
 		// Resolve path
-		normalizedPath = pathNormalize( locale, path );
+		normalizedPath = pathNormalize( path, cldr.attributes );
 
 		// Check resolved (cached) data first
 		value = resourceGet( Cldr._resolved, normalizedPath );

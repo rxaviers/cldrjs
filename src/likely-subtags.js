@@ -45,7 +45,7 @@ define([
 		}
 
 		// Skip if no supplemental likelySubtags data is present
-		if ( typeof resourceGet( Cldr._resolved, pathNormalize( Cldr._resolved, "supplemental/likelySubtags" ) ) === "undefined" ) {
+		if ( typeof resourceGet( Cldr._resolved, pathNormalize( "supplemental/likelySubtags" ) ) === "undefined" ) {
 			return;
 		}
 
@@ -57,7 +57,7 @@ define([
 			[ language ],
 			[ "und", script ]
 		], function( test ) {
-			return match = !(/\b(Zzzz|ZZ)\b/).test( test.join( "_" ) ) /* [1.4] */ && resourceGet( Cldr._resolved, pathNormalize( Cldr._resolved, [ "supplemental/likelySubtags", test.join( "_" ) ] ) );
+			return match = !(/\b(Zzzz|ZZ)\b/).test( test.join( "_" ) ) /* [1.4] */ && resourceGet( Cldr._resolved, pathNormalize( [ "supplemental/likelySubtags", test.join( "_" ) ] ) );
 		});
 
 		// [3]
@@ -71,7 +71,7 @@ define([
 			];
 		} else if ( options.force ) {
 			// [3.1.2]
-			return resourceGet( Cldr._resolved, pathNormalize( Cldr._resolved, "supplemental/likelySubtags/und" ) ).split( "_" );
+			return resourceGet( Cldr._resolved, pathNormalize( "supplemental/likelySubtags/und" ) ).split( "_" );
 		} else {
 			// [3.1.1]
 			return;
