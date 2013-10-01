@@ -12,6 +12,7 @@ require([
 	"./spec/path/normalize",
 
 	"./spec/likely-subtags",
+	"./spec/remove-likely-subtags",
 
 	"./spec/bundle/parent-lookup",
 	"./spec/item/lookup"
