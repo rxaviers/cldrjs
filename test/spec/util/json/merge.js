@@ -9,7 +9,7 @@ define([
 	describe( "Util Json Merge", function() {
 
 		it( "should merge two JSONs deeply", function() {
-			expect( jsonMerge( data1, data2 ) ).to.eql( { a: { b: 3, d: 4 } } );
+			expect( jsonMerge( data1, data2 ) ).to.eql( { a: { b: 3, c: 2, d: 4 } } );
 		});
 
 		it( "should merge empty JSONs", function() {

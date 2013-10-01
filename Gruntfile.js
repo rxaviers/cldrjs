@@ -106,7 +106,7 @@ module.exports = function(grunt) {
 						.replace( /define\(\[[^\]]+\]\)[\W\n]+$/, "" ); /* 3 */
 
 					// Type b (not as simple as a single return)
-					if ( id === "item/lookup" ) {
+					if ( id === "item/lookup" || id === "util/json/merge" ) {
 						contents = "	var " + camelCase( name ) + " = (function() {" +
 							contents + "}());";
 					}
