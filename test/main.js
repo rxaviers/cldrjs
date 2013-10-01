@@ -10,6 +10,9 @@ require([
 	"./spec/resource/get",
 	"./spec/resource/set",
 	"./spec/path/normalize",
+
+	"./spec/likely-subtags",
+
 	"./spec/bundle/parent-lookup",
 	"./spec/item/lookup"
 
