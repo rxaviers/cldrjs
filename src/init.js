@@ -3,7 +3,7 @@ define([
 	"./remove-likely-subtags"
 ], function( likelySubtags, removeLikelySubtags ) {
 
-	return function( Cldr, locale ) {
+	return function( locale ) {
 		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant;
 
 		if ( typeof locale !== "string" ) {
@@ -71,13 +71,13 @@ define([
 		}
 
 		// When a locale id does not specify a language, or territory (region), or script, they are obtained by Likely Subtags.
-		maxLanguageId = likelySubtags( Cldr, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
+		maxLanguageId = likelySubtags( this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
 		language = maxLanguageId[ 0 ];
 		script = maxLanguageId[ 1 ];
 		territory  = maxLanguageId[ 2 ];
 
 		// TODO json content distributed on zip file use languageId with `-` on main.<lang>. Why `-` vs. `_` ?
-		languageId = removeLikelySubtags( Cldr, maxLanguageId ).join( "_" );
+		languageId = removeLikelySubtags( this, maxLanguageId ).join( "_" );
 
 		// Set attributes
 		this.attributes = {

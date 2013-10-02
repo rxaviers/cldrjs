@@ -6,11 +6,7 @@ define([
 ], function( init, itemLookup, itemGetResolved, jsonMerge ) {
 
 	var Cldr = function() {
-		// Inserting Cldr as first argument
-		var args = [].slice.call( arguments, 0 );
-		args.splice( 0, 0, Cldr );
-
-		init.apply( this, args );
+		init.apply( this, arguments );
 	};
 
 	Cldr._resolved = {};

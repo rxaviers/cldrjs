@@ -16,24 +16,26 @@ define([
 
 	describe( "Remove Likely Subtags", function() {
 
+		var cldr = new Cldr( "root" );
+
 		it( "Should reduce \"en_Latn_US\" into \"en\"", function() {
-			expect( removeLikelySubtags( Cldr, [ "en", "Latn", "US" ] ) ).to.eql( [ "en" ] );
+			expect( removeLikelySubtags( cldr, [ "en", "Latn", "US" ] ) ).to.eql( [ "en" ] );
 		});
 
 		it( "Should reduce \"pt_Latn_BR\" into \"pt\"", function() {
-			expect( removeLikelySubtags( Cldr, [ "pt", "Latn", "BR" ] ) ).to.eql( [ "pt" ] );
+			expect( removeLikelySubtags( cldr, [ "pt", "Latn", "BR" ] ) ).to.eql( [ "pt" ] );
 		});
 
 		it( "Should reduce \"en_Latn_GB\" into \"en_GB\"", function() {
-			expect( removeLikelySubtags( Cldr, [ "en", "Latn", "GB" ] ) ).to.eql( [ "en", "GB" ] );
+			expect( removeLikelySubtags( cldr, [ "en", "Latn", "GB" ] ) ).to.eql( [ "en", "GB" ] );
 		});
 
 		it( "Should reduce \"zh_Hant_HK\" into \"zh_HK\"", function() {
-			expect( removeLikelySubtags( Cldr, [ "zh", "Hant", "HK" ] ) ).to.eql( [ "zh", "HK" ] );
+			expect( removeLikelySubtags( cldr, [ "zh", "Hant", "HK" ] ) ).to.eql( [ "zh", "HK" ] );
 		});
 
 		it( "Should reduce \"az_Arab_IR\" into \"az_Arab\"", function() {
-			expect( removeLikelySubtags( Cldr, [ "az", "Arab", "IR" ] ) ).to.eql( [ "az", "Arab" ] );
+			expect( removeLikelySubtags( cldr, [ "az", "Arab", "IR" ] ) ).to.eql( [ "az", "Arab" ] );
 		});
 
 	});

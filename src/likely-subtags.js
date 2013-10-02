@@ -32,7 +32,7 @@ define([
 
 	//
 	// @subtags [Array] normalized language id subtags tuple (see init.js).
-	return function( Cldr, subtags, options ) {
+	return function( cldr, subtags, options ) {
 		var match, matchFound,
 			language = subtags[ 0 ],
 			script = subtags[ 1 ],
@@ -45,7 +45,7 @@ define([
 		}
 
 		// Skip if no supplemental likelySubtags data is present
-		if ( typeof resourceGet( Cldr._resolved, pathNormalize( "supplemental/likelySubtags" ) ) === "undefined" ) {
+		if ( typeof cldr.get( "supplemental/likelySubtags" ) === "undefined" ) {
 			return;
 		}
 
@@ -57,7 +57,7 @@ define([
 			[ language ],
 			[ "und", script ]
 		], function( test ) {
-			return match = !(/\b(Zzzz|ZZ)\b/).test( test.join( "_" ) ) /* [1.4] */ && resourceGet( Cldr._resolved, pathNormalize( [ "supplemental/likelySubtags", test.join( "_" ) ] ) );
+			return match = !(/\b(Zzzz|ZZ)\b/).test( test.join( "_" ) ) /* [1.4] */ && cldr.get( [ "supplemental/likelySubtags", test.join( "_" ) ] );
 		});
 
 		// [3]
@@ -71,7 +71,7 @@ define([
 			];
 		} else if ( options.force ) {
 			// [3.1.2]
-			return resourceGet( Cldr._resolved, pathNormalize( "supplemental/likelySubtags/und" ) ).split( "_" );
+			return cldr.get( "supplemental/likelySubtags/und" ).split( "_" );
 		} else {
 			// [3.1.1]
 			return;
