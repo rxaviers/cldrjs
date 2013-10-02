@@ -1,7 +1,8 @@
 define([
 	"./likely-subtags",
-	"./remove-likely-subtags"
-], function( likelySubtags, removeLikelySubtags ) {
+	"./remove-likely-subtags",
+	"./supplemental"
+], function( likelySubtags, removeLikelySubtags, supplemental ) {
 
 	return function( locale ) {
 		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant;
@@ -95,6 +96,9 @@ define([
 		};
 
 		this.locale = [ languageId, variant ].join( "_" );
+
+		// Inlcude supplemental helper
+		this.supplemental = supplemental( this );
 	};
 
 });
