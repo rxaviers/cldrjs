@@ -11,7 +11,7 @@ define([
 		}
 
 		// First, try to find parent on supplemental data.
-		parent = resourceGet( Cldr._resolved, pathNormalize( [ "supplemental/parentLocales/parentLocale",  locale ] ) );
+		parent = resourceGet( Cldr._resolved, pathNormalize( [ "supplemental/parentLocales/parentLocale", locale ] ) );
 		if ( parent ) {
 			return parent;
 		}
