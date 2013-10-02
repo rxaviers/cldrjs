@@ -4,8 +4,8 @@
 
 | File | Minified size | Resolved CLDR data | Unresolved CLDR data |
 |---|---|---|---|
-| cldr.runtime.js | 1KB | ✔ | ✘ |
-| cldr.js | 2KB | ✔ | ✔ ([locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance) support) |
+| cldr.runtime.js | 3.0KB | ✔ | ✘ |
+| cldr.js | 3.6KB | ✔ | ✔ ([locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance) support) |
 
 ## Getting Started
 
@@ -20,9 +20,8 @@ Cldr.load( data );
 // Instantiate it by passing a locale
 var cldr = new Cldr( "pt_BR" );
 
-// Get item data
-cldr.get( "/cldr/main/numbers/symbols-numberSystem-latn/decimal" );
-// -> ","
+// Get item data (output is ",")
+cldr.get( "/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
 ```
 
 ## Get CLDR JSON data
@@ -46,7 +45,7 @@ Cldr.load({
 	main: {
 		"pt_BR": {
 			numbers: {
-				"symbols-numberSystem-latn": {|
+				"symbols-numberSystem-latn": {
 					decimal: ","
 				}
 			}
@@ -62,7 +61,7 @@ Cldr.load({
 load unresolved json data.
 
 ```javascript
-cldr.load({
+cldr.loadUnresolved({
 	main: {
 		pt: {
 			numbers: {
@@ -75,15 +74,16 @@ cldr.load({
 });
 ```
 
+Note, **not available** on `cldr.runtime.js`.
+
 ### cldr.get( path )
 
-- **path** String eg. `"/cldr/main/numbers/symbols-numberSystem-latn/decimal"`, or Array eg. `[ "cldr", "main", "numbers", "symbols-numberSystem-latn", "decimal" ]` or `[ "cldr/main", "numbers/symbols-numberSystem-latn/"decimal" ]`. Note the Array can have path elements. Also note leading "/cldr" can be ommited. 
+- **path** String eg. `"/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal"`, or Array eg. `[ "cldr", "main", "{languageId}", "numbers", "symbols-numberSystem-latn", "decimal" ]` or `[ "cldr/main", "{languageId}", "numbers/symbols-numberSystem-latn/"decimal" ]`. Note leading "/cldr" can be ommited. Note the attributes (ie. subtags, or tags) `{<attribute>}` are appropriately replaced.
 
 Get item data given its path.
 
 ```javascript
-cldr.get( "/cldr/main/numbers/symbols-numberSystem-latn/decimal" );
-});
+cldr.get( "/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
 ```
 
 *cldr.runtime.js*
@@ -94,19 +94,17 @@ On the runtime version, it gets the item data directly or return `undefined`.
 
 On the full version, it gets the item data directly or lookup by following [locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance), set a local resolved cache if it's found (for subsequent faster access), or return `undefined`.
 
-## Development
+## Use
 
 The cldr js has no external dependencies. You can include it in the script tag of your page, as shown in Getting Started above, and you're ready to go.
 
-You can use bower to download it.
+We are UMD wrapped, so you can also use this lib on node.js via CommonJS or on browsers via AMD.
+
+### AMD
 
 ```bash
-bower install rxaviers/cldr
+bower install rxaviers/cldr#<tagged version>
 ```
-
-### AMD/Commonjs
-
-The cldr js has a UMD wrapper to allow use in node.js or via AMD (in node.js or browsers).
 
 ```javascript
 require.config({
@@ -120,7 +118,17 @@ require(["cldr"], function(Cldr) {
 });
 ```
 
-## Contributing
+### CommonJS
+
+```bash
+npm install rxaviers/cldr#<tagged version>
+```
+
+```javascript
+var Cldr = require( "cldr" );
+```
+
+## Development / Contributing
 
 Install grunt and tests external dependencies. First, install the [grunt-cli](http://gruntjs.com/getting-started#installing-the-cli) and [bower](http://bower.io/) packages if you haven't before. These should be done as global installs. Then:
 
