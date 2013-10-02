@@ -1,9 +1,10 @@
 define([
+	"./common",
 	"./init",
 	"./item/lookup",
 	"./item/get-resolved",
 	"./util/json/merge"
-], function( init, itemLookup, itemGetResolved, jsonMerge ) {
+], function( common, init, itemLookup, itemGetResolved, jsonMerge ) {
 
 	var Cldr = function() {
 		init.apply( this, arguments );
@@ -39,6 +40,8 @@ define([
 				itemLookup( Cldr, locale, path, this.attributes );
 		}
 	};
+
+	common( Cldr );
 
 	return Cldr;
 

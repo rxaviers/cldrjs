@@ -14,6 +14,7 @@ require([
 	"./spec/likely-subtags",
 	"./spec/remove-likely-subtags",
 	"./spec/init",
+	"./spec/common",
 
 	"./spec/bundle/parent-lookup",
 	"./spec/item/lookup"

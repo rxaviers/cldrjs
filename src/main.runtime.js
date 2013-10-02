@@ -1,8 +1,9 @@
 define([
+	"./common",
 	"./init",
 	"./item/get-resolved",
 	"./util/json/merge"
-], function( init, itemGetResolved, jsonMerge ) {
+], function( common, init, itemGetResolved, jsonMerge ) {
 
 	var Cldr = function() {
 		init.apply( this, arguments );
@@ -24,6 +25,8 @@ define([
 			return itemGetResolved( Cldr, path, this.attributes );
 		}
 	};
+
+	common( Cldr );
 
 	return Cldr;
 
