@@ -1,14 +1,15 @@
 define([
 	"../bundle/parent-lookup",
+	"../path/normalize",
 	"../resource/get",
 	"../resource/set",
-	"../path/normalize"
-], function( bundleParentLookup, resourceGet, resourceSet, pathNormalize ) {
+	"../util/json/merge"
+], function( bundleParentLookup, pathNormalize, resourceGet, resourceSet, jsonMerge ) {
 
 	var lookup;
 
-	lookup = function( Cldr, cldr, locale, path, childLocale ) {
-		var normalizedPath, value;
+	lookup = function( Cldr, locale, path, attributes, childLocale ) {
+		var normalizedPath, parent, value;
 
 		// 1: Finish recursion
 		// 2: Avoid infinite loop
@@ -17,7 +18,7 @@ define([
 		}
 
 		// Resolve path
-		normalizedPath = pathNormalize( path, cldr.attributes );
+		normalizedPath = pathNormalize( path, attributes );
 
 		// Check resolved (cached) data first
 		value = resourceGet( Cldr._resolved, normalizedPath );
@@ -30,7 +31,8 @@ define([
 
 		if ( !value ) {
 			// Or, lookup at parent locale
-			value = lookup( Cldr, cldr, bundleParentLookup( Cldr, locale ), path, locale );
+			parent = bundleParentLookup( Cldr, locale );
+			value = lookup( Cldr, parent, path, jsonMerge( attributes, { languageId: parent }), locale );
 		}
 
 		// Set resolved (cached)
