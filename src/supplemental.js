@@ -16,6 +16,12 @@ define([
 				cldr.get( "supplemental/weekData/firstDay/001" );
 		};
 
+		supplemental.minDays = function() {
+			var minDays = cldr.get( "supplemental/weekData/minDays/{territory}" ) ||
+				cldr.get( "supplemental/weekData/minDays/001" );
+			return parseInt( minDays, 10 );
+		};
+
 		return supplemental;
 
 	};
