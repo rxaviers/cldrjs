@@ -27,20 +27,20 @@ define([
 			fr = new Cldr( "fr" ),
 			ptBr = new Cldr( "pt_BR" );
 
-		it( "should get firstDay", function() {
-			// Defined firstDays.
-			expect( en.supplemental.firstDay() ).to.equal( "sun" );
+		it( "should get weekData.firstDay", function() {
+			// Explicitly defined firstDay.
+			expect( en.supplemental.weekData.firstDay() ).to.equal( "sun" );
 
 			// Or default (001).
-			expect( ptBr.supplemental.firstDay() ).to.equal( "mon" );
+			expect( ptBr.supplemental.weekData.firstDay() ).to.equal( "mon" );
 		});
 
-		it( "should get minDays", function() {
-			// Defined firstDays.
-			expect( fr.supplemental.minDays() ).to.equal( 4 );
+		it( "should get weekData.minDays", function() {
+			// Explicitly defined minDays.
+			expect( fr.supplemental.weekData.minDays() ).to.equal( 4 );
 
 			// Or default (001).
-			expect( en.supplemental.minDays() ).to.equal( 1 );
+			expect( en.supplemental.weekData.minDays() ).to.equal( 1 );
 		});
 
 	});
