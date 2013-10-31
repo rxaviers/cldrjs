@@ -36,7 +36,7 @@ You can opt to generate unresolved data to save space (or bandwidth) (`-r false`
 
 ### Cldr.load( json )
 
-- **json** Object with resolved CLDR JSON data.
+- **json** Object with resolved or unresolved [1] CLDR JSON data.
 
 Load resolved JSON data.
 
@@ -54,27 +54,7 @@ Cldr.load({
 });
 ```
 
-### Cldr.loadUnresolved( json )
-
-- **json** Object with unresolved CLDR JSON data.
-
-load unresolved json data.
-
-```javascript
-cldr.loadUnresolved({
-	main: {
-		pt: {
-			numbers: {
-				"symbols-numbersystem-latn": {
-					decimal: ","
-				}
-			}
-		}
-	}
-});
-```
-
-Note, **not available** on `cldr.runtime.js`.
+1: **not available** on `cldr.runtime.js`, which loads resolved data only.
 
 ### cldr.get( path )
 
