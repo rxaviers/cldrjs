@@ -26,11 +26,11 @@ cldr.get( "/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
 
 ## Get CLDR JSON data
 
-CLDR makes available a file for download ([`json.zip`](http://www.unicode.org/Public/cldr/latest/)) with the data of the top 20 (by the time of this writting) languages they consider to be the "most used" languages. It contains the complete amount of data per language. Also, all this information have been fully resolved, ie. they can be loaded with `Cldr.load( data )`.
+CLDR makes available a file for download ([`json.zip`](http://www.unicode.org/Public/cldr/latest/)) with the data of the top 20 (by the time of this writting) languages they consider to be the "most used" languages. It contains the complete amount of data per language. Also, all this information have been fully resolved.
 
 You can generate the JSON representation of the languages not available in the ZIP file by using the official conversion tool ([`tools.zip`](http://www.unicode.org/Public/cldr/latest/)). This ZIP contains a README with instructions on how to build the data. `tools/scripts/CLDRWrapper` may also be useful.
 
-You can opt to generate unresolved data to save space (or bandwidth) (`-r false` option of the conversion tool). In this case, load the data using `Cldr.loadUnresolved( data )`, and have it resolved during execution time.
+You can opt to generate unresolved data to save space (or bandwidth) (`-r false` option of the conversion tool), and have it resolved during execution time (not available on `cldr.runtime.js`).
 
 ## API
 
