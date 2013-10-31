@@ -1,6 +1,6 @@
 {
   "name": "cldr",
-  "version": "0.2.0-pre",
+  "version": "0.2.0",
   "description": "Simple CLDR API",
   "keywords": [
     "utility",
