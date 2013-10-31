@@ -30,6 +30,20 @@ define([
 			return parseInt( minDays, 10 );
 		};
 
+		// Time Data
+		// http://www.unicode.org/reports/tr35/tr35-dates.html#Time_Data
+		supplemental.timeData = prepend( "supplemental/timeData" );
+
+		supplemental.timeData.allowed = function() {
+			return cldr.get( "supplemental/timeData/{territory}/_allowed" ) ||
+				cldr.get( "supplemental/timeData/001/_allowed" );
+		};
+
+		supplemental.timeData.preferred = function() {
+			return cldr.get( "supplemental/timeData/{territory}/_preferred" ) ||
+				cldr.get( "supplemental/timeData/001/_preferred" );
+		};
+
 		return supplemental;
 
 	};

@@ -9,6 +9,20 @@ define([
 				"fr": "fr_Latn_FR",
 				"pt": "pt_Latn_BR"
 			},
+			timeData: {
+				"001": {
+					"_allowed": "H h",
+					"_preferred": "H"
+				},
+				"BR": {
+					"_allowed": "H",
+					"_preferred": "H"
+				},
+				"US": {
+					"_allowed": "H h",
+					"_preferred": "h"
+				}
+			},
 			weekData: {
 				firstDay: {
 					"001": "mon",
@@ -24,6 +38,7 @@ define([
 
 	describe( "Supplemental", function() {
 		var en = new Cldr( "en" ),
+			enGb = new Cldr( "en_GB" ),
 			fr = new Cldr( "fr" ),
 			ptBr = new Cldr( "pt_BR" );
 
@@ -41,6 +56,24 @@ define([
 
 			// Or default (001).
 			expect( en.supplemental.weekData.minDays() ).to.equal( 1 );
+		});
+
+		it( "should get timeData.allowed", function() {
+			// Explicitly defined allowed.
+			expect( en.supplemental.timeData.allowed() ).to.equal( "H h" );
+			expect( ptBr.supplemental.timeData.allowed() ).to.equal( "H" );
+
+			// Or default (001).
+			expect( enGb.supplemental.timeData.allowed() ).to.equal( "H h" );
+		});
+
+		it( "should get timeData.preferred", function() {
+			// Explicitly defined preferred.
+			expect( en.supplemental.timeData.preferred() ).to.equal( "h" );
+			expect( ptBr.supplemental.timeData.preferred() ).to.equal( "H" );
+
+			// Or default (001).
+			expect( enGb.supplemental.timeData.preferred() ).to.equal( "H" );
 		});
 
 	});
