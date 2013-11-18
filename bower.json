@@ -1,5 +1,5 @@
 {
-  "name": "cldr",
+  "name": "cldr.js",
   "version": "0.2.1-pre",
   "devDependencies": {
     "chai": "1.7.x",

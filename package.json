@@ -1,5 +1,5 @@
 {
-  "name": "cldr",
+  "name": "cldr.js",
   "version": "0.2.1-pre",
   "description": "Simple CLDR API",
   "keywords": [
