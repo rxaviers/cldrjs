@@ -95,7 +95,7 @@ define([
 			variant: variant
 		};
 
-		this.locale = [ languageId, variant ].join( "_" );
+		this.locale = variant ? [ languageId, variant ].join( "_" ) : languageId;
 
 		// Inlcude supplemental helper
 		this.supplemental = supplemental( this );
