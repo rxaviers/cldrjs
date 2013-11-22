@@ -21,9 +21,6 @@ define([
 			return attributes[ name ];
 		});
 
-		// Main, Casing, Collation, Rbnf: insert locale on path[ 1 ].
-		// path.splice( 1, 0, locale );
-
 		return path.split( "/" );
 	};
 
