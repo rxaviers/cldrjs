@@ -5,9 +5,9 @@ define([
 
 	return function( Cldr, path, attributes ) {
 		// Resolve path
-		path = pathNormalize( path, attributes );
+		var normalizedPath = pathNormalize( path, attributes );
 
-		return resourceGet( Cldr._resolved, path );
+		return resourceGet( Cldr._resolved, normalizedPath );
 	};
 
 });

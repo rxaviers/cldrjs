@@ -1,8 +1,7 @@
 define([
 	"./path/normalize",
-	"./resource/get",
 	"./util/array/some"
-], function( pathNormalize, resourceGet, arraySome ) {
+], function( pathNormalize, arraySome ) {
 
 	// Return the maximized language id as defined in
 	// http://www.unicode.org/reports/tr35/#Likely_Subtags

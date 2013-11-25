@@ -26,6 +26,7 @@ define([
 		// Simplify locale using languageId (there are no other resource bundles)
 		// 1: during init(), get is called, but languageId is not defined. Use "" as a workaround in this very specific scenario.
 		var locale = this.attributes && this.attributes.languageId || "" /* 1 */;
+
 		return itemGetResolved( Cldr, path, this.attributes ) ||
 			itemLookup( Cldr, locale, path, this.attributes );
 	};
