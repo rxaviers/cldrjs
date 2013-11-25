@@ -20,10 +20,8 @@ define([
 		Cldr._resolved = jsonMerge( Cldr._resolved, json );
 	};
 
-	Cldr.prototype = {
-		get: function( path ) {
-			return itemGetResolved( Cldr, path, this.attributes );
-		}
+	Cldr.prototype.get = function( path ) {
+		return itemGetResolved( Cldr, path, this.attributes );
 	};
 
 	common( Cldr );
