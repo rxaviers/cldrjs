@@ -21,7 +21,7 @@
 		module.exports = factory();
 	} else {
 		// Global
-		root.cldr = factory();
+		root.Cldr = factory();
 	}
 
 }( this, function() {
