@@ -13,7 +13,7 @@ define([
 
 		// 1: Finish recursion
 		// 2: Avoid infinite loop
-		if ( !locale /* 1 */ || locale === childLocale /* 2 */ ) {
+		if ( typeof locale === "undefined" /* 1 */ || locale === childLocale /* 2 */ ) {
 			return;
 		}
 
