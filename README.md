@@ -15,6 +15,7 @@
 
 ```javascript
 // Load the appropriate portion of CLDR JSON data.
+// See "How to get CLDR JSON data?" below for more information on how to get that data.
 Cldr.load( data );
 
 // Instantiate it by passing a locale.
@@ -23,6 +24,8 @@ var ptBr = new Cldr( "pt_BR" );
 // Get CLDR item data given its path.
 ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
 // ➡ ","
+// Equivalent to:
+// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
 ```
 
 Quickly jump to:
@@ -47,6 +50,8 @@ Cldr.load( enData );
 Cldr.load( ptBrData );
 ```
 
+See [How to get CLDR JSON data?](#how-to-get-cldr-json-data) below for more information on how to get that data.
+
 ### Instantiate a locale and get it normalized
 
 ```javascript
@@ -60,87 +65,61 @@ en.attributes;
 //   "territory": "US",
 //   "region": "US"
 // }
-
-var enUs = new Cldr( "en_US" );
-enUs.attributes;
-// {
-//   "languageId": "en",
-//   "maxLanguageId": "en_Latn_US",
-//   "language": "en",
-//   "script": "Latn",
-//   "territory": "US",
-//   "region": "US"
-// }
-
-var zh = new Cldr( "zh" );
-zh.attributes;
-// {
-//   "languageId": "zh",
-//   "maxLanguageId": "zh_Hans_CN",
-//   "language": "zh",
-//   "script": "Hans",
-//   "territory": "CN",
-//   "region": "CN"
-// }
-
-var zhTw = new Cldr( "zh_TW" );
-zhTw.attributes;
-// {
-//   "languageId": "zh_TW",
-//   "maxLanguageId": "zh_Hant_TW",
-//   "language": "zh",
-//   "script": "Hant",
-//   "territory": "TW",
-//   "region": "TW"
-// }
-
-var ar = new Cldr( "ar" );
-ar.attributes;
-// {
-//   "languageId": "ar",
-//   "maxLanguageId": "ar_Arab_EG",
-//   "language": "ar",
-//   "script": "Arab",
-//   "territory": "EG",
-//   "region": "EG"
-// }
-
-var ptBr = new Cldr( "pt_BR" );
-ptBr.attributes;
-// {
-//   "languageId": "pt",
-//   "maxLanguageId": "pt_Latn_BR",
-//   "language": "pt",
-//   "script": "Latn",
-//   "territory": "BR",
-//   "region": "BR"
-// }
 ```
 
 - `language`, `script`, `territory` (also aliased as `region`), and `maxLanguageId` are computed by [adding likely subtags](./src/likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
 - `languageId` is always in the succint form, obtained by [removing the likely subtags from `maxLanguageId`](./src/remove-likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
 
+Comparison between different locales.
+
+| locale | languageId | maxLanguageId | language | script | region |
+| --- | --- | --- | --- | --- | --- |
+| **en** |  `"en"` |  `"en_Latn_US"`  |  `"en"` |  `"Latn"` |  `"US"` |
+| **en_US** |  `"en"` |  `"en_Latn_US"`  |  `"en"` |  `"Latn"` |  `"US"` |
+| **de** |  `"de"` |  `"de_Latn_DE"`  |  `"de"` |  `"Latn"` |  `"DE"` |
+| **zh** |  `"zh"` |  `"zh_Hans_CN"`  |  `"zh"` |  `"Hans"` |  `"CN"` |
+| **zh_TW** |  `"zh_TW"` |  `"zh_Hant_TW"`  |  `"zh"` |  `"Hant"` | `"TW"` |
+| **ar** |  `"ar"` |  `"ar_Arab_EG"` |  `"ar"` |  `"Arab"` | `"EG"` |
+| **pt** | `"pt"` | `"pt_Latn_BR"` | `"pt"` | `"Latn"` | `"BR"` |
+| **pt_BR** | `"pt"` | `"pt_Latn_BR"` | `"pt"` | `"Latn"` | `"BR"` |
+| **pt_PT** | `"pt_PT"` | `"pt_Latn_PT"` | `"pt"` | `"Latn"` | `"PT"` |
+| **es** | `"es"` | `"es_Latn_ES"` | `"es"` | `"Latn"` | `"ES"` |
+| **es_AR** | `"es_AR"` | `"es_Latn_AR"` | `"es"` | `"Latn"` | `"AR"` |
+
 ### Get item given its path
-
-Have any attributes replaced with its corresponding value by embracing it with `{}`. In the example below, `{languageId}` is replaced by "en" and "pt_BR" respectively.
-
-```javascript
-en.get( "/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
-// ➡ "."
-
-ptBr.get( "/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
-// ➡ ","
-```
-
-Use aliases and make it even simpler.
 
 ```javascript
 en.main( "numbers/symbols-numberSystem-latn/decimal" );
 // ➡ "."
+// Equivalent to:
+// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
 
 ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
 // ➡ ","
+// Equivalent to:
+// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
+```
 
+Have any [locale attributes](#cldrattributes) replaced with their corresponding values by embracing it with `{}`. In the example below, `{language}` is replaced with `"en"`, and `{territory}` with `"US"`.
+
+```javascript
+var enGender = en.get( "supplemental/gender/personList/{language}" );
+// ➡ "neutral"
+// Notice the more complete way to get this data is:
+// cldr.get( "supplemental/gender/personList/{language}" ) ||
+// cldr.get( "supplemental/gender/personList/001" );
+
+var USCurrencies = en.get( "supplemental/currencyData/region/{territory}" );
+// ➡
+// [ { USD: { _from: "1792-01-01" } },
+//   { USN: { _tender: "false" } },
+//   { USS: { _tender: "false" } } ]
+
+var enMeasurementSystem = en.get( "supplemental/measurementData/measurementSystem/{territory}" );
+// ➡ "US"
+// Notice the more complete way to get this data is:
+// cldr.get( "supplemental/measurementData/measurementSystem/{territory}" ) ||
+// cldr.get( "supplemental/measurementData/measurementSystem/001" );
 ```
 
 Get `undefined` for non-existent data.
@@ -153,7 +132,7 @@ en.get( "/crazy/invalid/path" );
 enData && enData.crazy && enData.crazy.invalid && enData.crazy.invalid.path;
 ```
 
-### Optionally, resolve CLDR inheritances
+### Resolve CLDR inheritances
 
 If you are using unresolved JSON data, you can resolve them dynamically during runtime by loading the full cldr.js. Currently, we support bundle inheritance.
 
@@ -184,21 +163,15 @@ We offer some convenient helpers.
 ```javascript
 var usFirstDay = en.supplemental.weekData.firstDay();
 // ➡ sun
+// Equivalent to:
+// en.get( "supplemental/weekData/firstDay/{territory}" ) ||
+// en.get( "supplemental/weekData/firstDay/001" );
 
 var brFirstDay = ptBr.supplemental.weekData.firstDay();
 // ➡ mon
-
-// So, you don't need to:
-var usFirstDay = 
-    en.get( "supplemental/weekData/firstDay/{territory}" ) ||
-    en.get( "supplemental/weekData/firstDay/001" );
-// ➡ sun
-
-var brFirstDay = 
-    ptBr.get( "supplemental/weekData/firstDay/{territory}" ) ||
-    ptBr.get( "supplemental/weekData/firstDay/001" );
-// ➡ mon
-
+// Equivalent to:
+// ptBr.get( "supplemental/weekData/firstDay/{territory}" ) ||
+// ptBr.get( "supplemental/weekData/firstDay/001" );
 ```
 
 ## How to get CLDR JSON data?
@@ -236,13 +209,13 @@ If you find any bugs, please just let us know. We'll be glad to fix them for the
 ### AMD
 
 ```bash
-bower install rxaviers/cldr#<tagged version>
+bower install cldr.js
 ```
 
 ```javascript
 require.config({
 	path: {
-		"cldr": "bower_components/cldr/dist/cldr.runtime"
+		"cldr": "bower_components/cldr.js/dist/cldr.runtime"
 	}
 });
 
@@ -254,11 +227,11 @@ require(["cldr"], function(Cldr) {
 ### CommonJS / Node.js
 
 ```bash
-npm install rxaviers/cldr#<tagged version>
+npm install cldr.js
 ```
 
 ```javascript
-var Cldr = require( "cldr" );
+var Cldr = require( "cldr.js" );
 ```
 
 ## API
@@ -285,14 +258,39 @@ Cldr.load({
 
 1: On *cldr.runtime.js*, unresolved processing is **not available**, so it loads resolved data only.
 
+### cldr = new Cldr( locale )
+
+- **locale** String eg. `"en"`, `"pt_BR"`. More information in the [specification](http://www.unicode.org/reports/tr35/#Locale).
+
+Create a new instance of Cldr.
+
+### cldr.attributes
+
+Attributes is an Object created during instance initialization (construction), and are used internally by `.get()` to replace dynamic parts of an item path.
+
+| Attribute | Field | 
+| --- | --- |
+| `language` | Language Subtag ([spec](http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions)) | 
+| `script` | Script Subtag ([spec](http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions)) | 
+| `region` or `territory` | Region Subtag ([spec](http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions)) | 
+| `languageId` | Language Id ([spec](http://www.unicode.org/reports/tr35/#Unicode_language_identifier)) | 
+| `maxLanguageId` | Maximized Language Id ([spec](http://www.unicode.org/reports/tr35/#Likely_Subtags)) | 
+
+- `language`, `script`, `territory` (also aliased as `region`), and `maxLanguageId` are computed by [adding likely subtags](./src/likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
+- `languageId` is always in the succint form, obtained by [removing the likely subtags from `maxLanguageId`](./src/remove-likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
+
 ### cldr.get( path )
 
-- **path** String eg. `"/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal"`, or Array eg. `[ "cldr", "main", "{languageId}", "numbers", "symbols-numberSystem-latn", "decimal" ]` or `[ "cldr/main", "{languageId}", "numbers/symbols-numberSystem-latn/"decimal" ]`. Note the leading "/cldr" can be ommited. Note the attributes (ie. subtags, or tags) `{<attribute>}` are appropriately replaced.
+- **path**
+ - String, eg. `"/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal"`; or
+ - Array, eg. `[ "cldr", "main", "{languageId}", "numbers", "symbols-numberSystem-latn", "decimal" ]`, or `[ "cldr/main", "{languageId}", "numbers/symbols-numberSystem-latn/"decimal" ]` (notice the subpath parts);
+ - The leading "/cldr" can be ommited;
+ - [Locale attributes](#cldrattributes), eg. `{languageId}`, are replaced with their appropriate values;
 
 Get item data given its path.
 
 ```javascript
-ptBr.get( "/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
+ptBr.get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
 // ➡ ","
 ```
 
@@ -308,7 +306,7 @@ On the full version, it gets the item data directly or lookup by following [loca
 
 - **path** String or Array. Same specification of `cldr.get()`.
 
-Helper function. Get item of path prepended with `"/cldr/main/{languageId}"`.
+It's an alias for `.get([ "main/{languageId}", ... ])`.
 
 ```javascript
 ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
@@ -319,7 +317,7 @@ ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
 
 - **path** String or Array. Same specification of `cldr.get()`.
 
-Helper function. Get item of path prepended with `"/cldr/supplemental"`.
+It's an alias for `.get([ "supplemental", ... ])`
 
 ```javascript
 en.supplemental( "gender/personList/{language}" );
