@@ -1,11 +1,8 @@
-/**
+/*!
  * CLDR JavaScript Library v@VERSION
  * http://jquery.com/
  *
- * Includes Sizzle.js
- * http://sizzlejs.com/
- *
- * Copyright 2005, 2013 jQuery Foundation, Inc. and other contributors
+ * Copyright 2013 Rafael Xavier de Souza
  * Released under the MIT license
  * http://jquery.org/license
  *
