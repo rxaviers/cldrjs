@@ -375,3 +375,7 @@ Build distribution file.
 ```bash
 grunt
 ```
+
+## License
+
+MIT © [Rafael Xavier de Souza](http://rafael.xavier.blog.br)
