@@ -1,5 +1,5 @@
 define([
-	"./likely-subtags",
+	"./likely_subtags",
 	"./util/array/some"
 ], function( likelySubtags, arraySome ) {
 

@@ -1,5 +1,5 @@
 define([
-	"./util/always-array"
+	"./util/always_array"
 ], function( alwaysArray ) {
 
 	return function( Cldr ) {

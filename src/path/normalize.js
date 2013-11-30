@@ -1,5 +1,5 @@
 define([
-	"../util/array/is-array"
+	"../util/array/is_array"
 ], function( arrayIsArray ) {
 
 	return function( path, attributes ) {

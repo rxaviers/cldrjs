@@ -1,6 +1,6 @@
 define([
 	"cldr/main.runtime",
-	"cldr/remove-likely-subtags"
+	"cldr/remove_likely_subtags"
 ], function( Cldr, removeLikelySubtags ) {
 
 	Cldr.load({

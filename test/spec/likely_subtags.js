@@ -1,6 +1,6 @@
 define([
 	"cldr/main.runtime",
-	"cldr/likely-subtags"
+	"cldr/likely_subtags"
 ], function( Cldr, likelySubtags ) {
 
 	Cldr.load({

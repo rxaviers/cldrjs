@@ -1,6 +1,6 @@
 define([
-	"../array/for-each",
-	"../array/is-array"
+	"../array/for_each",
+	"../array/is_array"
 ], function( arrayForEach, arrayIsArray ) {
 
 	// Returns new deeply merged JSON.

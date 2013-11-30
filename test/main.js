@@ -11,13 +11,13 @@ require([
 	"./spec/resource/set",
 	"./spec/path/normalize",
 
-	"./spec/likely-subtags",
-	"./spec/remove-likely-subtags",
+	"./spec/likely_subtags",
+	"./spec/remove_likely_subtags",
 	"./spec/init",
 	"./spec/common",
 	"./spec/supplemental",
 
-	"./spec/bundle/parent-lookup",
+	"./spec/bundle/parent_lookup",
 	"./spec/item/lookup"
 
 ], function() {

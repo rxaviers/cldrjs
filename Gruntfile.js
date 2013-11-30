@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 		pkg = grunt.file.readJSON( "package.json" );
 
 	function camelCase( input ) {
-		return input.toLowerCase().replace( /[-/](.)/g, function( match, group1 ) {
+		return input.toLowerCase().replace( /[_/](.)/g, function( match, group1 ) {
 			return group1.toUpperCase();
 		});
 	}
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 			dist: {
 				src: [ "dist/cldr.js", "dist/cldr.runtime.js" ],
 				options: {
-					jshintrc: "src/.dist-jshintrc"
+					jshintrc: "src/.dist_jshintrc"
 				}
 			}
 		},

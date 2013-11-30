@@ -1,6 +1,6 @@
 define([
-	"./likely-subtags",
-	"./remove-likely-subtags",
+	"./likely_subtags",
+	"./remove_likely_subtags",
 	"./supplemental"
 ], function( likelySubtags, removeLikelySubtags, supplemental ) {
 

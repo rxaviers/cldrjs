@@ -1,7 +1,7 @@
 define([
 	"./common",
 	"./init",
-	"./item/get-resolved",
+	"./item/get_resolved",
 	"./util/json/merge"
 ], function( common, init, itemGetResolved, jsonMerge ) {
 

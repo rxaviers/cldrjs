@@ -1,5 +1,5 @@
 define([
-	"../bundle/parent-lookup",
+	"../bundle/parent_lookup",
 	"../path/normalize",
 	"../resource/get",
 	"../resource/set",
