@@ -1,4 +1,4 @@
-/*!
+/**
  * CLDR JavaScript Library v@VERSION
  * http://jquery.com/
  *
@@ -7,6 +7,10 @@
  * http://jquery.org/license
  *
  * Date: @DATE
+ */
+/*!
+ * CLDR JavaScript Library v@VERSION @DATE MIT license © Rafael Xavier
+ * http://git.io/h4lmVg
  */
 (function( root, factory ) {
 
