@@ -45,8 +45,5 @@
     "grunt-contrib-uglify": "0.2.x",
     "grunt-mocha": "0.3.x",
     "matchdep": "*"
-  },
-  "scripts": {
-    "install": "bower install"
   }
 }

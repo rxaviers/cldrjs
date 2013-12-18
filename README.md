@@ -365,7 +365,7 @@ en.supplemental.weekData.minDays();
 Install grunt and tests external dependencies. First, install the [grunt-cli](http://gruntjs.com/getting-started#installing-the-cli) and [bower](http://bower.io/) packages if you haven't before. These should be done as global installs. Then:
 
 ```bash
-npm install
+npm install && bower install
 ```
 Run tests
 ```bash
