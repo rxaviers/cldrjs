@@ -1,6 +1,6 @@
 define([
-	"cldr/main.runtime",
-	"cldr/bundle/parent_lookup"
+	"src/main",
+	"src/bundle/parent_lookup"
 ], function( Cldr, parentLookup ) {
 
 	Cldr.load({

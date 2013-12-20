@@ -1,6 +1,7 @@
 define([
-	"cldr/main.runtime"
-], function( Cldr ) {
+	"src/main",
+	"src/supplemental"
+], function( Cldr, supplemental ) {
 
 	Cldr.load({
 		supplemental: {
@@ -41,6 +42,11 @@ define([
 			enGb = new Cldr( "en_GB" ),
 			fr = new Cldr( "fr" ),
 			ptBr = new Cldr( "pt_BR" );
+
+		en.supplemental = supplemental( en );
+		enGb.supplemental = supplemental( enGb );
+		fr.supplemental = supplemental( fr );
+		ptBr.supplemental = supplemental( ptBr );
 
 		it( "should get weekData.firstDay", function() {
 			// Explicitly defined firstDay.

@@ -2,33 +2,15 @@
 
 [CLDR (unicode.org)](http://cldr.unicode.org/) provides locale content for I18n software. The data is provided in two formats: LDML (XML format), and JSON. Our goal is to provide a simple layer to facilitate I18n softwares to access and use the [official CLDR JSON data](http://cldr.unicode.org/index/cldr-spec/json).
 
-| File | Minified size | Resolved CLDR data | Unresolved CLDR data |
-|---|---|---|---|
-| cldr.runtime.js | 3.9KB | ✔ | ✘ |
-| cldr.js | 4.5KB | ✔ | ✔ ([locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance) support) |
+| File | Minified size | Summary |
+|---|--:|---|
+| cldr.js | 3.2KB | Core library |
+| cldr/unresolved.js | +1.1KB | Provides inheritance support for unresolved data |
+| cldr/supplemental.js | +1.2KB | Provides supplemental helper methods |
 
 ## Getting Started
 
-```html
-<script src="cldr.runtime.js"></script>
-```
-
-```javascript
-// Load the appropriate portion of CLDR JSON data.
-// See "How to get CLDR JSON data?" below for more information on how to get that data.
-Cldr.load( data );
-
-// Instantiate it by passing a locale.
-var ptBr = new Cldr( "pt_BR" );
-
-// Get CLDR item data given its path.
-ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
-// ➡ ","
-// Equivalent to:
-// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
-```
-
-Quickly jump to:
+Quick jump:
 - [What about cldr.js?](#what-about-cldrjs)
 - [How to get CLDR JSON data?](#how-to-get-cldr-json-data)
 - [Usage and installation](#usage-and-installation)
@@ -37,9 +19,17 @@ Quickly jump to:
 
 ## What about cldr.js?
 
+### Who uses cldr.js?
+
+| Organization | Project |
+|---|---|
+| ![jQuery](doc/asset/jquery.png) | https://github.com/jquery/globalize |
+
 ### Where to use it?
 
-It's designed to work both in the [browser](#browser-support), or in [node.js](#commonjs--nodejs). It supports [AMD](#amd), and [CommonJs](#commonjs--nodejs);
+It's designed to work both in the [browser](#usage-and-installation), or in [node.js](#commonjs--nodejs). It supports [AMD](#amd), and [CommonJs](#commonjs--nodejs);
+
+See [Usage and installation](#usage-and-installation).
 
 ### Load only the CLDR portion you need
 
@@ -134,7 +124,7 @@ enData && enData.crazy && enData.crazy.invalid && enData.crazy.invalid.path;
 
 ### Resolve CLDR inheritances
 
-If you are using unresolved JSON data, you can resolve them dynamically during runtime by loading the full cldr.js. Currently, we support bundle inheritance.
+If you are using unresolved JSON data, you can resolve them dynamically during runtime by loading the `cldr/unresolved.js` extension module. Currently, we support bundle inheritance.
 
 ```javascript
 Cldr.load( unresolvedEnData );
@@ -180,13 +170,64 @@ CLDR makes available a file for download ([`json.zip`](http://www.unicode.org/Pu
 
 You can generate the JSON representation of the languages not available in the ZIP file by using the official conversion tool ([`tools.zip`](http://www.unicode.org/Public/cldr/latest/)). This ZIP contains a README with instructions on how to build the data. `tools/scripts/CLDRWrapper` may also be useful.
 
-You can opt to generate unresolved data to save space (or bandwidth) (`-r false` option of the conversion tool), and have it resolved during execution time (not available on `cldr.runtime.js`).
+You can opt to generate unresolved data to save space (or bandwidth) (`-r false` option of the conversion tool), and have it resolved during execution time (available after loading the `cldr/unresolved.js` extension module).
 
 ## Usage and installation
 
 The cldr js has no external dependencies. You can include it in the script tag of your page, as shown in Getting Started above, and you're ready to go.
 
+```html
+<script src="cldr.js"></script>
+```
+
+```javascript
+// Load the appropriate portion of CLDR JSON data.
+// See "How to get CLDR JSON data?" below for more information on how to get that data.
+Cldr.load( data );
+
+// Instantiate it by passing a locale.
+var ptBr = new Cldr( "pt_BR" );
+
+// Get CLDR item data given its path.
+ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
+// ➡ ","
+// Equivalent to:
+// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
+```
+
 We are UMD wrapped, so you can also use this lib on node.js via CommonJS or on browsers via AMD.
+
+### AMD
+
+```bash
+bower install cldr.js
+```
+
+```javascript
+require.config({
+	path: {
+		"cldr": "bower_components/cldr.js/dist/cldr"
+	}
+});
+
+require([
+	"cldr",
+	"cldr/supplemental",
+	"cldr/unresolved"
+], function( Cldr ) {
+	...
+});
+```
+
+### CommonJS / Node.js
+
+```bash
+npm install cldr.js
+```
+
+```javascript
+var Cldr = require( "cldr.js" );
+```
 
 ### Browser support
 
@@ -206,41 +247,13 @@ Sniff tests show cldr.js also works on the following browsers:
 
 If you find any bugs, please just let us know. We'll be glad to fix them for the officially supported browsers, or at least update the documentation for the unsupported ones.
 
-### AMD
-
-```bash
-bower install cldr.js
-```
-
-```javascript
-require.config({
-	path: {
-		"cldr": "bower_components/cldr.js/dist/cldr.runtime"
-	}
-});
-
-require(["cldr"], function(Cldr) {
-	...
-});
-```
-
-### CommonJS / Node.js
-
-```bash
-npm install cldr.js
-```
-
-```javascript
-var Cldr = require( "cldr.js" );
-```
-
 ## API
 
 ### Cldr.load( json )
 
 - **json** Object with resolved or unresolved [1] CLDR JSON data.
 
-Load resolved JSON data.
+Load resolved or unresolved [1] JSON data.
 
 ```javascript
 Cldr.load({
@@ -256,7 +269,7 @@ Cldr.load({
 });
 ```
 
-1: On *cldr.runtime.js*, unresolved processing is **not available**, so it loads resolved data only.
+1: Unresolved processing is **only available** after loading `cldr/unresolved.js` extension module.
 
 ### cldr = new Cldr( locale )
 
@@ -287,20 +300,14 @@ Attributes is an Object created during instance initialization (construction), a
  - The leading "/cldr" can be ommited;
  - [Locale attributes](#cldrattributes), eg. `{languageId}`, are replaced with their appropriate values;
 
-Get item data given its path.
+Get the item data given its path, or return `undefined`.
+
+If extended with `cldr/unresolved.js`, get the item data or lookup by following [locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance), set a local resolved cache if it's found (for subsequent faster access), or return `undefined`.
 
 ```javascript
 ptBr.get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
 // ➡ ","
 ```
-
-*cldr.runtime.js*
-
-On the runtime version, it gets the item data directly or return `undefined`.
-
-*cldr.js*
-
-On the full version, it gets the item data directly or lookup by following [locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance), set a local resolved cache if it's found (for subsequent faster access), or return `undefined`.
 
 ### cldr.main( path )
 
@@ -317,7 +324,7 @@ ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
 
 - **path** String or Array. Same specification of `cldr.get()`.
 
-It's an alias for `.get([ "supplemental", ... ])`
+It's an alias for `.get([ "supplemental", ... ])`. Provided by `cldr/supplemental.js`.
 
 ```javascript
 en.supplemental( "gender/personList/{language}" );
@@ -326,7 +333,7 @@ en.supplemental( "gender/personList/{language}" );
 
 ### cldr.supplemental.timeData.allowed()
 
-Helper function. Return the supplemental timeData allowed of locale's territory.
+Helper function. Return the supplemental timeData allowed of locale's territory. Provided by `cldr/supplemental.js`.
 
 ```javascript
 en.supplemental.timeData.allowed();
@@ -335,7 +342,7 @@ en.supplemental.timeData.allowed();
 
 ### cldr.supplemental.timeData.preferred()
 
-Helper function. Return the supplemental timeData preferred of locale's territory.
+Helper function. Return the supplemental timeData preferred of locale's territory. Provided by `cldr/supplemental.js`.
 
 ```javascript
 en.supplemental.timeData.preferred();
@@ -344,7 +351,7 @@ en.supplemental.timeData.preferred();
 
 ### cldr.supplemental.weekData.firstDay()
 
-Helper function. Return the supplemental weekData firstDay of locale's territory.
+Helper function. Return the supplemental weekData firstDay of locale's territory. Provided by `cldr/supplemental.js`.
 
 ```javascript
 en.supplemental.weekData.firstDay();
@@ -353,7 +360,7 @@ en.supplemental.weekData.firstDay();
 
 ### cldr.supplemental.weekData.minDays()
 
-Helper function. Return the supplemental weekData minDays of locale's territory as a Number.
+Helper function. Return the supplemental weekData minDays of locale's territory as a Number. Provided by `cldr/supplemental.js`.
 
 ```javascript
 en.supplemental.weekData.minDays();

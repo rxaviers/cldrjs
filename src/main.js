@@ -1,37 +1,136 @@
 define([
-	"./common",
-	"./init",
-	"./item/lookup",
 	"./item/get_resolved",
+	"./likely_subtags",
+	"./path/normalize",
+	"./remove_likely_subtags",
+	"./resource/get",
+	"./util/always_array",
 	"./util/json/merge"
-], function( common, init, itemLookup, itemGetResolved, jsonMerge ) {
+], function( itemGetResolved, likelySubtags, pathNormalize, removeLikelySubtags, resourceGet, alwaysArray, jsonMerge ) {
 
-	var Cldr = function() {
-		init.apply( this, arguments );
+	var Cldr = function( locale ) {
+		this.init( locale );
 	};
 
 	Cldr._resolved = {};
-	Cldr._raw = {};
 
-	// Load resolved or unresolved cldr data
+	// Load resolved cldr data
 	// @json [JSON]
 	Cldr.load = function( json ) {
 		if ( typeof json !== "object" ) {
 			throw new Error( "invalid json" );
 		}
-		Cldr._raw = jsonMerge( Cldr._raw, json );
+		Cldr._resolved = jsonMerge( Cldr._resolved, json );
+	};
+
+	// Build optimization hack to avoid duplicating functions across modules.
+	Cldr._alwaysArray = alwaysArray;
+	Cldr._jsonMerge = jsonMerge;
+	Cldr._pathNormalize = pathNormalize;
+	Cldr._resourceGet = resourceGet;
+
+	Cldr.prototype.init = function( locale ) {
+		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant;
+
+		if ( typeof locale !== "string" ) {
+			throw new Error( "invalid locale type: \"" + JSON.stringify( locale ) + "\"" );
+		}
+
+		// Normalize locale code.
+		// Get (or deduce) the "triple subtags": language, territory (also aliased as region), and script subtags.
+		// Get the variant subtags (calendar, collation, currency, etc).
+		// refs:
+		// - http://www.unicode.org/reports/tr35/#Field_Definitions
+		// - http://www.unicode.org/reports/tr35/#Language_and_Locale_IDs
+		// - http://www.unicode.org/reports/tr35/#Unicode_locale_identifier
+
+		locale = locale.replace( /-/, "_" );
+
+		// TODO normalize unicode locale extensions. Currently, skipped.
+		// unicodeLocaleExtensions = locale.split( "_u_" )[ 1 ];
+		locale = locale.split( "_u_" )[ 0 ];
+
+		// TODO normalize transformed extensions. Currently, skipped.
+		// transformedExtensions = locale.split( "_t_" )[ 1 ];
+		locale = locale.split( "_t_" )[ 0 ];
+
+		unicodeLanguageId = locale;
+
+		// unicodeLanguageId = ...
+		switch ( true ) {
+
+			// language_script_territory..
+			case /^[a-z]{2}_[A-Z][a-z]{3}_[A-Z0-9]{2}(\b|_)/.test( unicodeLanguageId ):
+				language = unicodeLanguageId.split( "_" )[ 0 ];
+				script = unicodeLanguageId.split( "_" )[ 1 ];
+				territory = unicodeLanguageId.split( "_" )[ 2 ];
+				variant = unicodeLanguageId.split( "_" )[ 3 ];
+				break;
+
+			// language_script..
+			case /^[a-z]{2}_[A-Z][a-z]{3}(\b|_)/.test( unicodeLanguageId ):
+				language = unicodeLanguageId.split( "_" )[ 0 ];
+				script = unicodeLanguageId.split( "_" )[ 1 ];
+				territory = "ZZ";
+				variant = unicodeLanguageId.split( "_" )[ 2 ];
+				break;
+
+			// language_territory..
+			case /^[a-z]{2}_[A-Z0-9]{2}(\b|_)/.test( unicodeLanguageId ):
+				language = unicodeLanguageId.split( "_" )[ 0 ];
+				script = "Zzzz";
+				territory = unicodeLanguageId.split( "_" )[ 1 ];
+				variant = unicodeLanguageId.split( "_" )[ 2 ];
+				break;
+
+			// language.., or root
+			case /^([a-z]{2}|root)(\b|_)/.test( unicodeLanguageId ):
+				language = unicodeLanguageId.split( "_" )[ 0 ];
+				script = "Zzzz";
+				territory = "ZZ";
+				variant = unicodeLanguageId.split( "_" )[ 1 ];
+				break;
+
+			default:
+				language = "und";
+				break;
+		}
+
+		// When a locale id does not specify a language, or territory (region), or script, they are obtained by Likely Subtags.
+		maxLanguageId = likelySubtags( this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
+		language = maxLanguageId[ 0 ];
+		script = maxLanguageId[ 1 ];
+		territory  = maxLanguageId[ 2 ];
+
+		// TODO json content distributed on zip file use languageId with `-` on main.<lang>. Why `-` vs. `_` ?
+		languageId = removeLikelySubtags( this, maxLanguageId ).join( "_" );
+
+		// Set attributes
+		this.attributes = {
+
+			// Unicode Language Id
+			languageId: languageId,
+			maxLanguageId: maxLanguageId.join( "_" ),
+
+			// Unicode Language Id Subtabs
+			language: language,
+			script: script,
+			territory: territory,
+			region: territory, /* alias */
+			variant: variant
+		};
+
+		this.locale = variant ? [ languageId, variant ].join( "_" ) : languageId;
 	};
 
 	Cldr.prototype.get = function( path ) {
-		// Simplify locale using languageId (there are no other resource bundles)
-		// 1: during init(), get is called, but languageId is not defined. Use "" as a workaround in this very specific scenario.
-		var locale = this.attributes && this.attributes.languageId || "" /* 1 */;
-
-		return itemGetResolved( Cldr, path, this.attributes ) ||
-			itemLookup( Cldr, locale, path, this.attributes );
+		return itemGetResolved( Cldr, path, this.attributes );
 	};
 
-	common( Cldr );
+	Cldr.prototype.main = function( path ) {
+		path = alwaysArray( path );
+		return this.get( [ "main/{languageId}" ].concat( path ) );
+	};
 
 	return Cldr;
 

@@ -14,7 +14,9 @@
 	"unused": true,
 
 	"globals": {
+		"Cldr": false,
 		"define": false,
-		"module": false
+		"module": false,
+		"require": false
 	}
 }

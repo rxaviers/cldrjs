@@ -1,20 +1,31 @@
 define([
-	"cldr/main.runtime"
+	"src/main"
 ], function( Cldr ) {
 
 	Cldr.load({
+		main: {
+			en: {
+				numbers: {
+					"symbols-numberSystem-latn": {
+						decimal: "."
+					}
+				}
+			}
+		},
 		supplemental: {
 			likelySubtags: {
+				"en": "en_Latn_US",
 				"pt": "pt_Latn_BR",
-				"en": "en_Latn_US"
+				"und": "en_Latn_US"
 			}
 		}
 	});
 
-	describe( "Init", function() {
+	describe( "Cldr (core)", function() {
+		var cldr;
 
-		it( "should normalize a locale", function() {
-			var cldr = new Cldr( "pt-BR" );
+		it( "should normalize a locale on initialization", function() {
+			cldr = new Cldr( "pt-BR" );
 			expect( cldr.attributes.language ).to.equal( "pt" );
 			expect( cldr.attributes.script ).to.equal( "Latn" );
 			expect( cldr.attributes.territory ).to.equal( "BR" );
@@ -33,6 +44,11 @@ define([
 			expect( cldr.attributes.language ).to.equal( "en" );
 			expect( cldr.attributes.script ).to.equal( "Latn" );
 			expect( cldr.attributes.territory ).to.equal( "US" );
+		});
+
+		it( "should implement cldr.main as an alias of get( \"main/{languageId}...\" )", function() {
+			cldr = new Cldr( "en" );
+			expect( cldr.main( "numbers/symbols-numberSystem-latn/decimal" ) ).to.equal( "." );
 		});
 
 	});

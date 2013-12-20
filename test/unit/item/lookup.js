@@ -1,6 +1,7 @@
 define([
-	"cldr/main",
-	"cldr/item/lookup"
+	"src/main",
+	"src/item/lookup",
+	"src/main_unresolved"
 ], function( Cldr, itemLookup ) {
 
 	Cldr.load({

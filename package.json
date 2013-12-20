@@ -19,7 +19,7 @@
     "inheritance",
     "compiler"
   ],
-  "main": "dist/cldr.js",
+  "main": "dist/node_main.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/rxaviers/cldr.git"

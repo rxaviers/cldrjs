@@ -1,5 +1,5 @@
 define([
-	"cldr/resource/get",
+	"src/resource/get",
 ], function( resourceGet ) {
 
 	var data = { a: { b: { c: 5 } } };

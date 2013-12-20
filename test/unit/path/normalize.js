@@ -1,5 +1,5 @@
 define([
-	"cldr/path/normalize",
+	"src/path/normalize",
 ], function( pathNormalize ) {
 
 	describe("Path Normalize", function() {

@@ -1,5 +1,5 @@
 define([
-	"cldr/util/json/merge"
+	"src/util/json/merge"
 ], function( jsonMerge ) {
 
 	var data1 = { a: { b: 1, c: 2 } },
