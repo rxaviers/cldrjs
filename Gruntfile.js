@@ -72,6 +72,7 @@ module.exports = function(grunt) {
 		mocha: {
 			all: {
 				options: {
+					log: true,
 					urls: [
 						"http://localhost:<%= connect.options.port %>/unit.html",
 						"http://localhost:<%= connect.options.port %>/unit_unresolved.html"
