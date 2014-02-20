@@ -210,7 +210,9 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask( "default", [
-		"jshint:grunt:source:test",
+		"jshint:grunt",
+		"jshint:source",
+		"jshint:test",
 		"test",
 		"requirejs",
 		"copy",
