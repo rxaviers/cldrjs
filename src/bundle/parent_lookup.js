@@ -4,14 +4,15 @@ define([
 ], function( resourceGet, pathNormalize ) {
 
 	return function( Cldr, locale ) {
-		var parent;
+		var normalizedPath, parent;
 
 		if ( locale === "root" ) {
 			return;
 		}
 
 		// First, try to find parent on supplemental data.
-		parent = resourceGet( Cldr._resolved, pathNormalize( [ "supplemental/parentLocales/parentLocale", locale ] ) );
+		normalizedPath = pathNormalize( [ "supplemental/parentLocales/parentLocale", locale ] );
+		parent = resourceGet( Cldr._resolved, normalizedPath ) || resourceGet( Cldr._raw, normalizedPath );
 		if ( parent ) {
 			return parent;
 		}
