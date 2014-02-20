@@ -23,12 +23,10 @@ define([
 	// Overload Cldr.prototype.get().
 	getSuper = Cldr.prototype.get;
 	Cldr.prototype.get = function( path ) {
-		// Simplify locale using languageId (there are no other resource bundles)
-		// 1: during init(), get is called, but languageId is not defined. Use "" as a workaround in this very specific scenario.
-		var locale = this.attributes && this.attributes.languageId || "" /* 1 */;
-
+		// 1: use languageId as locale on item lookup for simplification purposes, because no other extended subtag is used anyway on bundle parent lookup.
+		// 2: during init(), this method is called, but languageId is yet not defined. Use "" as a workaround in this very specific scenario.
 		return getSuper.apply( this, arguments ) ||
-			itemLookup( Cldr, locale, path, this.attributes );
+			itemLookup( Cldr, this.attributes && this.attributes.languageId /* 1 */ || "" /* 2 */, path, this.attributes );
 	};
 
 	return Cldr;
