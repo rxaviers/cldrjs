@@ -11,13 +11,13 @@
 ## Getting Started
 
 Quick jump:
-- [What about cldr.js?](#what-about-cldrjs)
+- [About cldr.js?](#about-cldrjs)
 - [How to get CLDR JSON data?](#how-to-get-cldr-json-data)
 - [Usage and installation](#usage-and-installation)
 - [API](#api)
 - [Development / Contributing](#development--contributing)
 
-## What about cldr.js?
+## About cldr.js?
 
 ### Who uses cldr.js?
 
@@ -27,7 +27,7 @@ Quick jump:
 
 ### Where to use it?
 
-It's designed to work both in the [browser](#usage-and-installation), or in [node.js](#commonjs--nodejs). It supports [AMD](#amd), and [CommonJs](#commonjs--nodejs);
+It's designed to work both in the [browser](#usage-and-installation), or in [node.js](#commonjs--nodejs). It supports [AMD](#usage-and-installation), and [CommonJs](#usage-and-installation);
 
 See [Usage and installation](#usage-and-installation).
 
@@ -58,7 +58,7 @@ en.attributes;
 ```
 
 - `language`, `script`, `territory` (also aliased as `region`), and `maxLanguageId` are computed by [adding likely subtags](./src/likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
-- `languageId` is always in the succint form, obtained by [removing the likely subtags from `maxLanguageId`](./src/remove-likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
+- `languageId` is always in the succinct form, obtained by [removing the likely subtags from `maxLanguageId`](./src/remove-likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
 
 Comparison between different locales.
 
@@ -164,71 +164,6 @@ var brFirstDay = ptBr.supplemental.weekData.firstDay();
 // ptBr.get( "supplemental/weekData/firstDay/001" );
 ```
 
-## How to get CLDR JSON data?
-
-CLDR makes available a file for download ([`json.zip`](http://www.unicode.org/Public/cldr/latest/)) with the data of the top 20 (by the time of this writting) languages they consider to be the "most used" languages. It contains the complete amount of data per language. Also, all this information have been fully resolved.
-
-You can generate the JSON representation of the languages not available in the ZIP file by using the official conversion tool ([`tools.zip`](http://www.unicode.org/Public/cldr/latest/)). This ZIP contains a README with instructions on how to build the data. `tools/scripts/CLDRWrapper` may also be useful.
-
-You can opt to generate unresolved data to save space (or bandwidth) (`-r false` option of the conversion tool), and have it resolved during execution time (available after loading the `cldr/unresolved.js` extension module).
-
-## Usage and installation
-
-The cldr js has no external dependencies. You can include it in the script tag of your page, as shown in Getting Started above, and you're ready to go.
-
-```html
-<script src="cldr.js"></script>
-```
-
-```javascript
-// Load the appropriate portion of CLDR JSON data.
-// See "How to get CLDR JSON data?" below for more information on how to get that data.
-Cldr.load( data );
-
-// Instantiate it by passing a locale.
-var ptBr = new Cldr( "pt_BR" );
-
-// Get CLDR item data given its path.
-ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
-// ➡ ","
-// Equivalent to:
-// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
-```
-
-We are UMD wrapped, so you can also use this lib on node.js via CommonJS or on browsers via AMD.
-
-### AMD
-
-```bash
-bower install cldr.js
-```
-
-```javascript
-require.config({
-	path: {
-		"cldr": "bower_components/cldr.js/dist/cldr"
-	}
-});
-
-require([
-	"cldr",
-	"cldr/supplemental",
-	"cldr/unresolved"
-], function( Cldr ) {
-	...
-});
-```
-
-### CommonJS / Node.js
-
-```bash
-npm install cldr.js
-```
-
-```javascript
-var Cldr = require( "cldr.js" );
-```
-
 ### Browser support
 
 We officially support:
@@ -246,6 +181,135 @@ Sniff tests show cldr.js also works on the following browsers:
 - Opera 11.1+
 
 If you find any bugs, please just let us know. We'll be glad to fix them for the officially supported browsers, or at least update the documentation for the unsupported ones.
+
+## Usage and installation
+
+cldr.js has no external dependencies. You can include it in the script tag of your page, as shown in Getting Started above, and you're ready to go.
+
+```html
+<script src="cldr.js"></script>
+```
+
+```javascript
+// Load the appropriate portion of CLDR JSON data.
+// See "How to get CLDR JSON data?" below for more information on how to get that data.
+Cldr.load( cldrJsonData );
+
+// Instantiate it by passing a locale.
+var ptBr = new Cldr( "pt_BR" );
+
+// Get CLDR item data given its path.
+ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
+// ➡ ","
+// Equivalent to:
+// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
+```
+
+We are UMD wrapped. So, it supports AMD, CommonJS, or global variables (in case neither AMD nor CommonJS have been detected).
+
+Example of usage on AMD:
+
+```bash
+bower install cldr.js
+```
+
+```javascript
+require.config({
+  paths: {
+    "cldr": "bower_components/cldr.js/dist/cldr"
+  }
+});
+
+require( [ "cldr", "cldr/supplemental", "cldr/unresolved" ], function( Cldr ) {
+  ...
+});
+```
+
+Example of usage with Node.js:
+
+```bash
+npm install cldr.js
+```
+
+```javascript
+var Cldr = require( "cldr.js" );
+```
+
+### How to get CLDR JSON data?
+
+The Unicode CLDR is available for download as JSON ([`json.zip`](http://www.unicode.org/Public/cldr/latest/json.zip)). This file contains the complete data of what the Unicode CLDR Project considers the top 20 languages (at the time of this writing).
+
+You can generate the JSON representation of the languages not available in the ZIP file by using the official conversion tool ([`tools.zip`](http://www.unicode.org/Public/cldr/latest/)). This ZIP contains a README with instructions on how to build the data.
+
+You can choose to generate unresolved data to save space or bandwidth (`-r false` option of the conversion tool), and instead have it resolve at runtime.
+
+For the examples below, first fetch CLDR JSON data:
+
+```bash
+wget http://www.unicode.org/Public/cldr/latest/json.zip
+unzip json.zip -d cldr
+```
+
+Example of embedding CLDR JSON data:  
+
+```html
+<script>
+// Embedded (hard-coded) CLDR JSON data.
+Cldr.load({
+  supplemental: {
+    likelySubtags: {
+      ...
+    }
+  }
+});
+</script>
+```
+
+Example of loading it dynamically:
+
+```html
+<script src="jquery.js"></script>
+<script>
+$.get( "cldr/supplemental/likelySubtags.json", Cldr.load );
+</script>
+```
+
+Example using AMD (also see our [functional tests](test/functional.js)):
+```javascript
+define([
+  "cldr",
+  "json!cldr/supplemental/likelySubtags.json"
+], function( Cldr, likelySubtags ) {
+
+  Cldr.load( likelySubtags );
+
+});
+```
+
+Example using Node.js:
+
+```javascript
+var Cldr = require( "cldr.js" );
+Cldr.load( require( "./cldr/supplemental/likelySubtags.json" ) );
+```
+
+#### Atention: library owners, do not embed data
+
+It's NOT recommended that libraries embed data into its code logic for some reasons: avoid forcing a certain data version on users, avoid maintaining locale changes, avoid duplicating data among different i18n libraries.
+
+We recommend loading CLDR data must be performed by end user code.
+
+#### Which CLDR portion to load?
+
+It depends on the used modules.
+
+| File | Required CLDR JSON data |
+|---|---|
+| cldr.js | `cldr/supplemental/likelySubtags.json` |
+| cldr/unresolved.js |  - |
+| cldr/supplemental.js | `cldr/supplemental/{timeData, weekData}.json` |
+
+You must also load any portion of the CLDR data you plan to use in your library or your end-application.
 
 ## API
 
