@@ -11,7 +11,7 @@ define([
 	// 4. If you do not get a match, return max + variants.
 	// 
 	// @maxLanguageId [Array] maxLanguageId tuple (see init.js).
-	return function( cldr, maxLanguageId ) {
+	return function( Cldr, cldr, maxLanguageId ) {
 		var match, matchFound,
 			language = maxLanguageId[ 0 ],
 			script = maxLanguageId[ 1 ],
@@ -23,7 +23,7 @@ define([
 			[ [ language, "Zzzz", territory ], [ language, territory ] ],
 			[ [ language, script, "ZZ" ], [ language, script ] ]
 		], function( test ) {
-			var result = likelySubtags( cldr, test[ 0 ] );
+			var result = likelySubtags( Cldr, cldr, test[ 0 ] );
 			match = test[ 1 ];
 			return result && result[ 0 ] === maxLanguageId[ 0 ] &&
 				result[ 1 ] === maxLanguageId[ 1 ] &&

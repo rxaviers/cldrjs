@@ -49,7 +49,7 @@ var en = new Cldr( "en" );
 en.attributes;
 // {
 //   "languageId": "en",
-//   "maxLanguageId": "en_Latn_US",
+//   "maxLanguageId": "en-Latn-US",
 //   "language": "en",
 //   "script": "Latn",
 //   "territory": "US",
@@ -64,17 +64,17 @@ Comparison between different locales.
 
 | locale | languageId | maxLanguageId | language | script | region |
 | --- | --- | --- | --- | --- | --- |
-| **en** |  `"en"` |  `"en_Latn_US"`  |  `"en"` |  `"Latn"` |  `"US"` |
-| **en_US** |  `"en"` |  `"en_Latn_US"`  |  `"en"` |  `"Latn"` |  `"US"` |
-| **de** |  `"de"` |  `"de_Latn_DE"`  |  `"de"` |  `"Latn"` |  `"DE"` |
-| **zh** |  `"zh"` |  `"zh_Hans_CN"`  |  `"zh"` |  `"Hans"` |  `"CN"` |
-| **zh_TW** |  `"zh_TW"` |  `"zh_Hant_TW"`  |  `"zh"` |  `"Hant"` | `"TW"` |
-| **ar** |  `"ar"` |  `"ar_Arab_EG"` |  `"ar"` |  `"Arab"` | `"EG"` |
-| **pt** | `"pt"` | `"pt_Latn_BR"` | `"pt"` | `"Latn"` | `"BR"` |
-| **pt_BR** | `"pt"` | `"pt_Latn_BR"` | `"pt"` | `"Latn"` | `"BR"` |
-| **pt_PT** | `"pt_PT"` | `"pt_Latn_PT"` | `"pt"` | `"Latn"` | `"PT"` |
-| **es** | `"es"` | `"es_Latn_ES"` | `"es"` | `"Latn"` | `"ES"` |
-| **es_AR** | `"es_AR"` | `"es_Latn_AR"` | `"es"` | `"Latn"` | `"AR"` |
+| **en** |  `"en"` |  `"en-Latn-US"`  |  `"en"` |  `"Latn"` |  `"US"` |
+| **en-US** |  `"en"` |  `"en-Latn-US"`  |  `"en"` |  `"Latn"` |  `"US"` |
+| **de** |  `"de"` |  `"de-Latn-DE"`  |  `"de"` |  `"Latn"` |  `"DE"` |
+| **zh** |  `"zh"` |  `"zh-Hans-CN"`  |  `"zh"` |  `"Hans"` |  `"CN"` |
+| **zh-TW** |  `"zh-TW"` |  `"zh-Hant-TW"`  |  `"zh"` |  `"Hant"` | `"TW"` |
+| **ar** |  `"ar"` |  `"ar-Arab-EG"` |  `"ar"` |  `"Arab"` | `"EG"` |
+| **pt** | `"pt"` | `"pt-Latn-BR"` | `"pt"` | `"Latn"` | `"BR"` |
+| **pt-BR** | `"pt"` | `"pt-Latn-BR"` | `"pt"` | `"Latn"` | `"BR"` |
+| **pt-PT** | `"pt-PT"` | `"pt-Latn-PT"` | `"pt"` | `"Latn"` | `"PT"` |
+| **es** | `"es"` | `"es-Latn-ES"` | `"es"` | `"Latn"` | `"ES"` |
+| **es-AR** | `"es-AR"` | `"es-Latn-AR"` | `"es"` | `"Latn"` | `"AR"` |
 
 ### Get item given its path
 
@@ -133,16 +133,16 @@ Cldr.load( unresolvedEnInData );
 Cldr.load( parentLocalesData ); // supplemental
 Cldr.load( likelySubtagsData ); // supplemental
 
-var enIn = new Cldr( "en_IN" );
+var enIn = new Cldr( "en-IN" );
 
 enIn.main( "dates/calendars/gregorian/dateTimeFormats/availableFormats/yMd" );
 // ➡ "dd/MM/y"
-// 1st time retrieved by resolving: en_IN ➡ en_GB (parent locale lookup).
+// 1st time retrieved by resolving: en-IN ➡ en-GB (parent locale lookup).
 // Further times retrieved straight from the resolved cache.
 
 enIn.main( "numbers/symbols-numberSystem-latn/decimal" );
 // ➡ "."
-// 1st time retrieved by resolving: en_IN ➡ en_GB (parent locale lookup) ➡ en (truncate lookup)
+// 1st time retrieved by resolving: en-IN ➡ en-GB (parent locale lookup) ➡ en (truncate lookup)
 // Further times retrieved straight from the resolved cache.
 ```
 
@@ -196,7 +196,7 @@ cldr.js has no external dependencies. You can include it in the script tag of yo
 Cldr.load( cldrJsonData );
 
 // Instantiate it by passing a locale.
-var ptBr = new Cldr( "pt_BR" );
+var ptBr = new Cldr( "pt-BR" );
 
 // Get CLDR item data given its path.
 ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
@@ -322,7 +322,7 @@ Load resolved or unresolved [1] JSON data.
 ```javascript
 Cldr.load({
 	"main": {
-		"pt_BR": {
+		"pt-BR": {
 			"numbers": {
 				"symbols-numberSystem-latn": {
 					"decimal": ","
@@ -337,7 +337,7 @@ Cldr.load({
 
 ### cldr = new Cldr( locale )
 
-- **locale** String eg. `"en"`, `"pt_BR"`. More information in the [specification](http://www.unicode.org/reports/tr35/#Locale).
+- **locale** String eg. `"en"`, `"pt-BR"`. More information in the [specification](http://www.unicode.org/reports/tr35/#Locale).
 
 Create a new instance of Cldr.
 

@@ -18,7 +18,7 @@ define([
 		}
 
 		// Or truncate locale.
-		parent = locale.substr( 0, locale.lastIndexOf( "_" ) );
+		parent = locale.substr( 0, locale.lastIndexOf( Cldr.localeSep ) );
 		if ( !parent ) {
 			return "root";
 		}

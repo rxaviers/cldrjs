@@ -6,9 +6,9 @@ define([
 	Cldr.load({
 		supplemental: {
 			likelySubtags: {
-				"en": "en_Latn_US",
-				"fr": "fr_Latn_FR",
-				"pt": "pt_Latn_BR"
+				"en": "en-Latn-US",
+				"fr": "fr-Latn-FR",
+				"pt": "pt-Latn-BR"
 			},
 			timeData: {
 				"001": {

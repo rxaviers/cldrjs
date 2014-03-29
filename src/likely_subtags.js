@@ -31,10 +31,11 @@ define([
 
 	//
 	// @subtags [Array] normalized language id subtags tuple (see init.js).
-	return function( cldr, subtags, options ) {
+	return function( Cldr, cldr, subtags, options ) {
 		var match, matchFound,
 			language = subtags[ 0 ],
 			script = subtags[ 1 ],
+			sep = Cldr.localeSep,
 			territory = subtags[ 2 ];
 		options = options || {};
 
@@ -56,13 +57,13 @@ define([
 			[ language ],
 			[ "und", script ]
 		], function( test ) {
-			return match = !(/\b(Zzzz|ZZ)\b/).test( test.join( "_" ) ) /* [1.4] */ && cldr.get( [ "supplemental/likelySubtags", test.join( "_" ) ] );
+			return match = !(/\b(Zzzz|ZZ)\b/).test( test.join( sep ) ) /* [1.4] */ && cldr.get( [ "supplemental/likelySubtags", test.join( sep ) ] );
 		});
 
 		// [3]
 		if ( matchFound ) {
 			// [3.2 .. 3.4]
-			match = match.split( "_" );
+			match = match.split( sep );
 			return [
 				language !== "und" ? language : match[ 0 ],
 				script !== "Zzzz" ? script : match[ 1 ],
@@ -70,7 +71,7 @@ define([
 			];
 		} else if ( options.force ) {
 			// [3.1.2]
-			return cldr.get( "supplemental/likelySubtags/und" ).split( "_" );
+			return cldr.get( "supplemental/likelySubtags/und" ).split( sep );
 		} else {
 			// [3.1.1]
 			return;

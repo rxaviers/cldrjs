@@ -21,8 +21,8 @@ define([
 				}
 			},
 			likelySubtags: {
-				"pt": "pt_Latn_BR",
-				"und": "en_Latn_US"
+				"pt": "pt-Latn-BR",
+				"und": "en-Latn-US"
 			}
 		}
 	});

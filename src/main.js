@@ -14,6 +14,9 @@ define([
 
 	Cldr._resolved = {};
 
+	// Allow user to override locale separator "-" (default) | "_". According to http://www.unicode.org/reports/tr35/#Unicode_language_identifier, both "-" and "_" are valid locale separators (eg. "en_GB", "en-GB"). According to http://unicode.org/cldr/trac/ticket/6786 its usage must be consistent throughout the data set.
+	Cldr.localeSep = "-";
+
 	// Load resolved cldr data
 	// @json [JSON]
 	Cldr.load = function( json ) {
@@ -30,7 +33,8 @@ define([
 	Cldr._resourceGet = resourceGet;
 
 	Cldr.prototype.init = function( locale ) {
-		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant;
+		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant,
+			sep = Cldr.localeSep;
 
 		if ( typeof locale !== "string" ) {
 			throw new Error( "invalid locale type: \"" + JSON.stringify( locale ) + "\"" );
@@ -97,20 +101,19 @@ define([
 		}
 
 		// When a locale id does not specify a language, or territory (region), or script, they are obtained by Likely Subtags.
-		maxLanguageId = likelySubtags( this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
+		maxLanguageId = likelySubtags( Cldr, this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
 		language = maxLanguageId[ 0 ];
 		script = maxLanguageId[ 1 ];
 		territory  = maxLanguageId[ 2 ];
 
-		// TODO json content distributed on zip file use languageId with `-` on main.<lang>. Why `-` vs. `_` ?
-		languageId = removeLikelySubtags( this, maxLanguageId ).join( "_" );
+		languageId = removeLikelySubtags( Cldr, this, maxLanguageId ).join( sep );
 
 		// Set attributes
 		this.attributes = {
 
 			// Unicode Language Id
 			languageId: languageId,
-			maxLanguageId: maxLanguageId.join( "_" ),
+			maxLanguageId: maxLanguageId.join( sep ),
 
 			// Unicode Language Id Subtabs
 			language: language,
@@ -120,7 +123,7 @@ define([
 			variant: variant
 		};
 
-		this.locale = variant ? [ languageId, variant ].join( "_" ) : languageId;
+		this.locale = variant ? [ languageId, variant ].join( sep ) : languageId;
 	};
 
 	Cldr.prototype.get = function( path ) {

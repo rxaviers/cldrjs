@@ -7,7 +7,7 @@ define([
 		supplemental: {
 			parentLocales: {
 				parentLocale: {
-					en_IN: "en_GB"
+					"en-IN": "en-GB"
 				}
 			}
 		}
@@ -16,7 +16,7 @@ define([
 	describe( "Bundle Parent Lookup", function() {
 
 		it( "should truncate locale", function() {
-			expect( parentLookup( Cldr, "pt_BR" ) ).to.equal( "pt" );
+			expect( parentLookup( Cldr, [ "pt", "BR" ].join( Cldr.localeSep ) ) ).to.equal( "pt" );
 		});
 
 		it( "should end with root", function() {
@@ -24,7 +24,7 @@ define([
 		});
 
 		it( "should use supplemental resource", function() {
-			expect( parentLookup( Cldr, "en_IN" ) ).to.equal( "en_GB" );
+			expect( parentLookup( Cldr, [ "en", "IN" ].join( Cldr.localeSep ) ) ).to.equal( [ "en", "GB" ].join( Cldr.localeSep ) );
 		});
 
 	});
