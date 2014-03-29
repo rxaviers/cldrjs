@@ -1,6 +1,9 @@
 require.config({
 	paths: {
-		src: "../src"
+		fixtures: "./fixtures",
+		json: "../bower_components/requirejs-plugins/src/json",
+		src: "../src",
+		text: "../bower_components/requirejs-text/text"
 	}
 });
 

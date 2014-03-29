@@ -1,25 +1,11 @@
 define([
-	"src/main"
-], function( Cldr ) {
+	"src/main",
+	"json!fixtures/cldr/main/en/numbers.json",
+	"json!fixtures/cldr/supplemental/likelySubtags.json"
+], function( Cldr, enNumbersJson, likelySubtagsJson ) {
 
-	Cldr.load({
-		main: {
-			en: {
-				numbers: {
-					"symbols-numberSystem-latn": {
-						decimal: "."
-					}
-				}
-			}
-		},
-		supplemental: {
-			likelySubtags: {
-				"en": "en-Latn-US",
-				"pt": "pt-Latn-BR",
-				"und": "en-Latn-US"
-			}
-		}
-	});
+	Cldr.load( enNumbersJson );
+	Cldr.load( likelySubtagsJson );
 
 	describe( "Cldr (core)", function() {
 		var cldr;

@@ -1,19 +1,10 @@
 define([
 	"src/main",
-	"src/likely_subtags"
-], function( Cldr, likelySubtags ) {
+	"src/likely_subtags",
+	"json!fixtures/cldr/supplemental/likelySubtags.json"
+], function( Cldr, likelySubtags, likelySubtagsJson ) {
 
-	Cldr.load({
-		supplemental: {
-			likelySubtags: {
-				"az-Arab": "az-Arab-IR",
-				"und": "en-Latn-US",
-				"und-Java": "jv-Java-ID",
-				"und-Latn-RU": "krl-Latn-RU",
-				"zh-HK": "zh-Hant-HK"
-			}
-		}
-	});
+	Cldr.load( likelySubtagsJson );
 
 	describe( "Likely Subtags", function() {
 		var cldr = new Cldr( "root" );

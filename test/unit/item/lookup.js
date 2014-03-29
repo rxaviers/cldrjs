@@ -1,31 +1,15 @@
 define([
 	"src/main",
 	"src/item/lookup",
+	"json!fixtures/cldr/main/pt/numbers.json",
+	"json!fixtures/cldr/supplemental/gender.json",
+	"json!fixtures/cldr/supplemental/likelySubtags.json",
 	"src/main_unresolved"
-], function( Cldr, itemLookup ) {
+], function( Cldr, itemLookup, ptNumbersJson, genderJson, likelySubtagsJson ) {
 
-	Cldr.load({
-		main: {
-			pt: {
-				numbers: {
-					"symbols-numberSystem-latn": {
-						decimal: ","
-					}
-				}
-			}
-		},
-		supplemental: {
-			gender: {
-				personList: {
-					de: "neutral"
-				}
-			},
-			likelySubtags: {
-				"pt": "pt-Latn-BR",
-				"und": "en-Latn-US"
-			}
-		}
-	});
+	Cldr.load( genderJson );
+	Cldr.load( likelySubtagsJson );
+	Cldr.load( ptNumbersJson );
 
 	describe( "Item Lookup", function() {
 

@@ -1,17 +1,10 @@
 define([
 	"src/main",
-	"src/bundle/parent_lookup"
-], function( Cldr, parentLookup ) {
+	"src/bundle/parent_lookup",
+	"json!fixtures/cldr/supplemental/parentLocales.json"
+], function( Cldr, parentLookup, parentLocalesJson ) {
 
-	Cldr.load({
-		supplemental: {
-			parentLocales: {
-				parentLocale: {
-					"en-IN": "en-GB"
-				}
-			}
-		}
-	});
+	Cldr.load( parentLocalesJson );
 
 	describe( "Bundle Parent Lookup", function() {
 

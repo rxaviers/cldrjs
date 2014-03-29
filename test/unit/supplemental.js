@@ -1,59 +1,34 @@
 define([
 	"src/main",
-	"src/supplemental"
-], function( Cldr, supplemental ) {
+	"src/supplemental",
+	"json!fixtures/cldr/supplemental/likelySubtags.json",
+	"json!fixtures/cldr/supplemental/timeData.json",
+	"json!fixtures/cldr/supplemental/weekData.json"
+], function( Cldr, supplemental, likelySubtagsJson, timeDataJson, weekDataJson ) {
 
-	Cldr.load({
-		supplemental: {
-			likelySubtags: {
-				"en": "en-Latn-US",
-				"fr": "fr-Latn-FR",
-				"pt": "pt-Latn-BR"
-			},
-			timeData: {
-				"001": {
-					"_allowed": "H h",
-					"_preferred": "H"
-				},
-				"BR": {
-					"_allowed": "H",
-					"_preferred": "H"
-				},
-				"US": {
-					"_allowed": "H h",
-					"_preferred": "h"
-				}
-			},
-			weekData: {
-				firstDay: {
-					"001": "mon",
-					"US": "sun"
-				},
-				minDays: {
-					"001": "1",
-					"FR": "4"
-				}
-			}
-		}
-	});
+	Cldr.load( likelySubtagsJson );
+	Cldr.load( timeDataJson );
+	Cldr.load( weekDataJson );
 
 	describe( "Supplemental", function() {
 		var en = new Cldr( "en" ),
 			enGb = new Cldr( "en_GB" ),
 			fr = new Cldr( "fr" ),
-			ptBr = new Cldr( "pt_BR" );
+			ptBr = new Cldr( "pt_BR" ),
+			ty = new Cldr( "ty" );
 
 		en.supplemental = supplemental( en );
 		enGb.supplemental = supplemental( enGb );
 		fr.supplemental = supplemental( fr );
 		ptBr.supplemental = supplemental( ptBr );
+		ty.supplemental = supplemental( ty );
 
 		it( "should get weekData.firstDay", function() {
 			// Explicitly defined firstDay.
 			expect( en.supplemental.weekData.firstDay() ).to.equal( "sun" );
 
 			// Or default (001).
-			expect( ptBr.supplemental.weekData.firstDay() ).to.equal( "mon" );
+			expect( ty.supplemental.weekData.firstDay() ).to.equal( "mon" );
 		});
 
 		it( "should get weekData.minDays", function() {

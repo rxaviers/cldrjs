@@ -1,18 +1,10 @@
 define([
 	"src/main",
-	"src/remove_likely_subtags"
-], function( Cldr, removeLikelySubtags ) {
+	"src/remove_likely_subtags",
+	"json!fixtures/cldr/supplemental/likelySubtags.json"
+], function( Cldr, removeLikelySubtags, likelySubtagsJson ) {
 
-	Cldr.load({
-		supplemental: {
-			likelySubtags: {
-				"az-Arab": "az-Arab-IR",
-				"en": "en-Latn-US",
-				"pt": "pt-Latn-BR",
-				"zh-HK": "zh-Hant-HK"
-			}
-		}
-	});
+	Cldr.load( likelySubtagsJson );
 
 	describe( "Remove Likely Subtags", function() {
 
@@ -35,7 +27,7 @@ define([
 		});
 
 		it( "Should reduce \"az_Arab_IR\" into \"az_Arab\"", function() {
-			expect( removeLikelySubtags( Cldr, cldr, [ "az", "Arab", "IR" ] ) ).to.eql( [ "az", "Arab" ] );
+			expect( removeLikelySubtags( Cldr, cldr, [ "az", "Arab", "IR" ] ) ).to.eql( [ "az", "IR" ] );
 		});
 
 	});
