@@ -8,14 +8,14 @@
 | cldr/unresolved.js | +1.1KB | Provides inheritance support for unresolved data |
 | cldr/supplemental.js | +1.2KB | Provides supplemental helper methods |
 
-## Getting Started
-
 Quick jump:
 - [About cldr.js?](#about-cldrjs)
-- [How to get CLDR JSON data?](#how-to-get-cldr-json-data)
-- [Usage and installation](#usage-and-installation)
+- [Getting Started](#getting-started)
+  - [Usage and installation](#usage-and-installation)
+  - [How to get CLDR JSON data?](#how-to-get-cldr-json-data)
 - [API](#api)
 - [Development / Contributing](#development--contributing)
+
 
 ## About cldr.js?
 
@@ -182,13 +182,17 @@ Sniff tests show cldr.js also works on the following browsers:
 
 If you find any bugs, please just let us know. We'll be glad to fix them for the officially supported browsers, or at least update the documentation for the unsupported ones.
 
-## Usage and installation
 
-cldr.js has no external dependencies. You can include it in the script tag of your page, as shown in Getting Started above, and you're ready to go.
+## Getting Started
+
+### Usage and installation
+
+cldr.js has no external dependencies. You can include it in the script tag of your page and you're ready to go. [Download it by clicking here](https://github.com/rxaviers/cldr/releases).
 
 ```html
 <script src="cldr.js"></script>
 ```
+
 
 ```javascript
 // Load the appropriate portion of CLDR JSON data.
