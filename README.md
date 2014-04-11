@@ -210,13 +210,13 @@ We are UMD wrapped. So, it supports AMD, CommonJS, or global variables (in case 
 Example of usage on AMD:
 
 ```bash
-bower install cldr.js
+bower install cldrjs
 ```
 
 ```javascript
 require.config({
   paths: {
-    "cldr": "bower_components/cldr.js/dist/cldr"
+    "cldr": "bower_components/cldrjs/dist/cldr"
   }
 });
 
@@ -228,11 +228,11 @@ require( [ "cldr", "cldr/supplemental", "cldr/unresolved" ], function( Cldr ) {
 Example of usage with Node.js:
 
 ```bash
-npm install cldr.js
+npm install cldrjs
 ```
 
 ```javascript
-var Cldr = require( "cldr.js" );
+var Cldr = require( "cldrjs" );
 ```
 
 ### How to get CLDR JSON data?
@@ -289,7 +289,7 @@ define([
 Example using Node.js:
 
 ```javascript
-var Cldr = require( "cldr.js" );
+var Cldr = require( "cldrjs" );
 Cldr.load( require( "./cldr/supplemental/likelySubtags.json" ) );
 ```
 
