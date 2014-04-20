@@ -26,6 +26,11 @@ define([
 			expect( cldr.attributes.script ).to.equal( "Latn" );
 			expect( cldr.attributes.territory ).to.equal( "GB" );
 
+			cldr = new Cldr( "lkt" );
+			expect( cldr.attributes.language ).to.equal( "lkt" );
+			expect( cldr.attributes.script ).to.equal( "Latn" );
+			expect( cldr.attributes.territory ).to.equal( "US" );
+
 			cldr = new Cldr( "root" );
 			expect( cldr.attributes.language ).to.equal( "en" );
 			expect( cldr.attributes.script ).to.equal( "Latn" );

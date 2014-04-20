@@ -64,7 +64,7 @@ define([
 		switch ( true ) {
 
 			// language_script_territory..
-			case /^[a-z]{2}_[A-Z][a-z]{3}_[A-Z0-9]{2}(\b|_)/.test( unicodeLanguageId ):
+			case /^[a-z]{2,3}_[A-Z][a-z]{3}_[A-Z0-9]{2}(\b|_)/.test( unicodeLanguageId ):
 				language = unicodeLanguageId.split( "_" )[ 0 ];
 				script = unicodeLanguageId.split( "_" )[ 1 ];
 				territory = unicodeLanguageId.split( "_" )[ 2 ];
@@ -72,7 +72,7 @@ define([
 				break;
 
 			// language_script..
-			case /^[a-z]{2}_[A-Z][a-z]{3}(\b|_)/.test( unicodeLanguageId ):
+			case /^[a-z]{2,3}_[A-Z][a-z]{3}(\b|_)/.test( unicodeLanguageId ):
 				language = unicodeLanguageId.split( "_" )[ 0 ];
 				script = unicodeLanguageId.split( "_" )[ 1 ];
 				territory = "ZZ";
@@ -80,7 +80,7 @@ define([
 				break;
 
 			// language_territory..
-			case /^[a-z]{2}_[A-Z0-9]{2}(\b|_)/.test( unicodeLanguageId ):
+			case /^[a-z]{2,3}_[A-Z0-9]{2}(\b|_)/.test( unicodeLanguageId ):
 				language = unicodeLanguageId.split( "_" )[ 0 ];
 				script = "Zzzz";
 				territory = unicodeLanguageId.split( "_" )[ 1 ];
@@ -88,7 +88,7 @@ define([
 				break;
 
 			// language.., or root
-			case /^([a-z]{2}|root)(\b|_)/.test( unicodeLanguageId ):
+			case /^([a-z]{2,3}|root)(\b|_)/.test( unicodeLanguageId ):
 				language = unicodeLanguageId.split( "_" )[ 0 ];
 				script = "Zzzz";
 				territory = "ZZ";
