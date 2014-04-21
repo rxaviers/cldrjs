@@ -33,7 +33,11 @@ define([
 			expect( likelySubtags( Cldr, cldr, [ "und", "Zzzz", "ZZ" ] ) ).to.eql( [ "en", "Latn", "US" ] );
 		});
 
-		it( "should lookup inexistent when option { force: true }", function() {
+		it( "should lookup und", function() {
+			expect( likelySubtags( Cldr, cldr, [ "und", "Zzzz", "ZZ" ] ) ).to.eql( [ "en", "Latn", "US" ] );
+		});
+
+		it( "should lookup non-existent when option { force: true }", function() {
 			expect( likelySubtags( Cldr, cldr, [ "foo", "Zzzz", "bar" ], { force: true } ) ).to.eql( [ "en", "Latn", "US" ] );
 		});
 

@@ -35,6 +35,12 @@ define([
 			expect( cldr.attributes.language ).to.equal( "en" );
 			expect( cldr.attributes.script ).to.equal( "Latn" );
 			expect( cldr.attributes.territory ).to.equal( "US" );
+
+			// Should not identify nonExistent as a language subtag, due to its length. So, it should become `und_Zzzz_ZZ`. Then, the `und` likelySubtags value.
+			cldr = new Cldr( "nonExistent" );
+			expect( cldr.attributes.language ).to.equal( "en" );
+			expect( cldr.attributes.script ).to.equal( "Latn" );
+			expect( cldr.attributes.territory ).to.equal( "US" );
 		});
 
 		it( "should implement cldr.main as an alias of get( \"main/{languageId}...\" )", function() {

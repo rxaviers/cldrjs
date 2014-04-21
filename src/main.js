@@ -97,6 +97,8 @@ define([
 
 			default:
 				language = "und";
+				script = "Zzzz";
+				territory = "ZZ";
 				break;
 		}
 
