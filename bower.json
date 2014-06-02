@@ -1,6 +1,6 @@
 {
   "name": "cldrjs",
-  "version": "0.3.5",
+  "version": "0.3.6-pre",
   "devDependencies": {
     "chai": "1.7.x",
     "mocha": "1.12.x",
