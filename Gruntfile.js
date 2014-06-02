@@ -199,6 +199,19 @@ module.exports = function(grunt) {
 					"dist/cldr/unresolved.min.js": [ "dist/cldr/unresolved.js" ]
 				}
 			}
+		},
+		compare_size: {
+			files: [
+				"dist/cldr.min.js",
+				"dist/cldr/*min.js"
+			],
+			options: {
+				compress: {
+					gz: function( fileContents ) {
+						return require( "gzip-js" ).zip( fileContents, {} ).length;
+					}
+				}
+			}
 		}
 	});
 
@@ -217,7 +230,8 @@ module.exports = function(grunt) {
 		"requirejs",
 		"copy",
 		"jshint:dist",
-		"uglify"
+		"uglify",
+		"compare_size"
 	]);
 
 };
