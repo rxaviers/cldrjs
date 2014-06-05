@@ -2,7 +2,8 @@ module.exports = function(grunt) {
 
 	"use strict";
 
-	var rdefineEnd = /\}\);[^}\w]*$/,
+	var isConnectTestRunning,
+		rdefineEnd = /\}\);[^}\w]*$/,
 		pkg = grunt.file.readJSON( "package.json" );
 
 	function camelCase( input ) {
@@ -70,12 +71,21 @@ module.exports = function(grunt) {
 			}
 		},
 		mocha: {
-			all: {
+			unit: {
 				options: {
 					log: true,
 					urls: [
 						"http://localhost:<%= connect.options.port %>/unit.html",
 						"http://localhost:<%= connect.options.port %>/unit_unresolved.html"
+					]
+				}
+			},
+			functional: {
+				options: {
+					log: true,
+					urls: [
+						"http://localhost:<%= connect.options.port %>/functional.html"//,
+						//"http://localhost:<%= connect.options.port %>/functional_unresolved.html"
 					]
 				}
 			}
@@ -96,7 +106,7 @@ module.exports = function(grunt) {
 				// c) "Main" means the define wrappers are removed, but content is untouched. Only for main* files.
 				onBuildWrite: function ( id, path, contents ) {
 					var name = id
-						.replace(/util\//, "");
+						.replace(/util\/|common\//, "");
 
 					// 1, and 2: Remove define() wrap.
 					// 3: Remove empty define()'s.
@@ -217,19 +227,24 @@ module.exports = function(grunt) {
 
 	require( "matchdep" ).filterDev( "grunt-*" ).forEach( grunt.loadNpmTasks );
 
-	grunt.registerTask( "test", [
-		"connect:test",
-		"mocha"
-	]);
+	grunt.registerTask( "test", function() {
+		var args = [].slice.call( arguments );
+		if ( !isConnectTestRunning ) {
+			grunt.task.run( "connect:test" );
+			isConnectTestRunning = true;
+		}
+		grunt.task.run( [ "mocha" ].concat( args ).join( ":" ) );
+	});
 
 	grunt.registerTask( "default", [
 		"jshint:grunt",
 		"jshint:source",
 		"jshint:test",
-		"test",
+		"test:unit",
 		"requirejs",
 		"copy",
 		"jshint:dist",
+		"test:functional",
 		"uglify",
 		"compare_size"
 	]);

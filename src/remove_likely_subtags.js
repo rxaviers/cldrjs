@@ -3,14 +3,18 @@ define([
 	"./util/array/some"
 ], function( likelySubtags, arraySome ) {
 
-	// Given a locale, remove any fields that Add Likely Subtags would add.
-	// http://www.unicode.org/reports/tr35/#Likely_Subtags
-	// 1. First get max = AddLikelySubtags(inputLocale). If an error is signaled, return it.
-	// 2. Remove the variants from max.
-	// 3. Then for trial in {language, language _ region, language _ script}. If AddLikelySubtags(trial) = max, then return trial + variants.
-	// 4. If you do not get a match, return max + variants.
-	// 
-	// @maxLanguageId [Array] maxLanguageId tuple (see init.js).
+	/**
+	 * Given a locale, remove any fields that Add Likely Subtags would add.
+	 * http://www.unicode.org/reports/tr35/#Likely_Subtags
+	 * 1. First get max = AddLikelySubtags(inputLocale). If an error is signaled,
+	 * return it.
+	 * 2. Remove the variants from max.
+	 * 3. Then for trial in {language, language _ region, language _ script}. If
+	 * AddLikelySubtags(trial) = max, then return trial + variants.
+	 * 4. If you do not get a match, return max + variants.
+	 * 
+	 * @maxLanguageId [Array] maxLanguageId tuple (see init.js).
+	 */
 	return function( Cldr, cldr, maxLanguageId ) {
 		var match, matchFound,
 			language = maxLanguageId[ 0 ],

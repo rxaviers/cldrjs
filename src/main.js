@@ -1,4 +1,9 @@
 define([
+	"./common/create_error",
+	"./common/validate/presence",
+	"./common/validate/type/path",
+	"./common/validate/type/plain_object",
+	"./common/validate/type/string",
 	"./item/get_resolved",
 	"./likely_subtags",
 	"./path/normalize",
@@ -6,17 +11,25 @@ define([
 	"./resource/get",
 	"./util/always_array",
 	"./util/json/merge"
-], function( itemGetResolved, likelySubtags, pathNormalize, removeLikelySubtags, resourceGet, alwaysArray, jsonMerge ) {
+], function( createError, validatePresence, validateTypePath, validateTypePlainObject, validateTypeString, itemGetResolved, likelySubtags, pathNormalize, removeLikelySubtags, resourceGet, alwaysArray, jsonMerge ) {
 
+	/**
+	 * new Cldr()
+	 */
 	var Cldr = function( locale ) {
 		this.init( locale );
 	};
 
 	// Build optimization hack to avoid duplicating functions across modules.
 	Cldr._alwaysArray = alwaysArray;
+	Cldr._createError = createError;
+	Cldr._itemGetResolved = itemGetResolved;
 	Cldr._jsonMerge = jsonMerge;
 	Cldr._pathNormalize = pathNormalize;
 	Cldr._resourceGet = resourceGet;
+	Cldr._validatePresence = validatePresence;
+	Cldr._validateTypePath = validateTypePath;
+	Cldr._validateTypePlainObject = validateTypePlainObject;
 
 	Cldr._resolved = {};
 
@@ -26,19 +39,20 @@ define([
 	// Load resolved cldr data
 	// @json [JSON]
 	Cldr.load = function( json ) {
-		if ( typeof json !== "object" ) {
-			throw new Error( "invalid json" );
-		}
+		validatePresence( json, "json" );
+		validateTypePlainObject( json, "json" );
 		Cldr._resolved = jsonMerge( Cldr._resolved, json );
 	};
 
+	/**
+	 * .init() automatically run on instantiation/construction.
+	 */
 	Cldr.prototype.init = function( locale ) {
 		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant,
 			sep = Cldr.localeSep;
 
-		if ( typeof locale !== "string" ) {
-			throw new Error( "invalid locale type: \"" + JSON.stringify( locale ) + "\"" );
-		}
+		validatePresence( locale, "locale" );
+		validateTypeString( locale, "locale" );
 
 		// Normalize locale code.
 		// Get (or deduce) the "triple subtags": language, territory (also aliased as region), and script subtags.
@@ -128,11 +142,24 @@ define([
 		this.locale = variant ? [ languageId, variant ].join( sep ) : languageId;
 	};
 
+	/**
+	 * .get()
+	 */
 	Cldr.prototype.get = function( path ) {
+
+		validatePresence( path, "path" );
+		validateTypePath( path, "path" );
+
 		return itemGetResolved( Cldr, path, this.attributes );
 	};
 
+	/**
+	 * .main()
+	 */
 	Cldr.prototype.main = function( path ) {
+		validatePresence( path, "path" );
+		validateTypePath( path, "path" );
+
 		path = alwaysArray( path );
 		return this.get( [ "main/{languageId}" ].concat( path ) );
 	};
