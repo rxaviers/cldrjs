@@ -127,7 +127,7 @@ module.exports = function(grunt) {
 						create: true,
 						override: {
 							wrap: {
-								startFile: "src/build/intro.js",
+								startFile: "src/build/intro_main.js",
 								endFile: "src/build/outro.js"
 							}
 						}

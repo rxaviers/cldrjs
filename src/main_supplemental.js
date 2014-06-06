@@ -3,11 +3,7 @@ define([
 	"./supplemental"
 ], function( Cldr, supplemental ) {
 
-	var alwaysArray,
-		initSuper = Cldr.prototype.init;
-
-	// Build optimization hack to avoid duplicating functions across modules.
-	alwaysArray = Cldr._alwaysArray;
+	var initSuper = Cldr.prototype.init;
 
 	Cldr.prototype.init = function() {
 		initSuper.apply( this, arguments );

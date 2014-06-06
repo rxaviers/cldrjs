@@ -12,6 +12,12 @@ define([
 		this.init( locale );
 	};
 
+	// Build optimization hack to avoid duplicating functions across modules.
+	Cldr._alwaysArray = alwaysArray;
+	Cldr._jsonMerge = jsonMerge;
+	Cldr._pathNormalize = pathNormalize;
+	Cldr._resourceGet = resourceGet;
+
 	Cldr._resolved = {};
 
 	// Allow user to override locale separator "-" (default) | "_". According to http://www.unicode.org/reports/tr35/#Unicode_language_identifier, both "-" and "_" are valid locale separators (eg. "en_GB", "en-GB"). According to http://unicode.org/cldr/trac/ticket/6786 its usage must be consistent throughout the data set.
@@ -25,12 +31,6 @@ define([
 		}
 		Cldr._resolved = jsonMerge( Cldr._resolved, json );
 	};
-
-	// Build optimization hack to avoid duplicating functions across modules.
-	Cldr._alwaysArray = alwaysArray;
-	Cldr._jsonMerge = jsonMerge;
-	Cldr._pathNormalize = pathNormalize;
-	Cldr._resourceGet = resourceGet;
 
 	Cldr.prototype.init = function( locale ) {
 		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant,

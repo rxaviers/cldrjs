@@ -26,3 +26,7 @@
 	}
 
 }(function( Cldr ) {
+
+	// Build optimization hack to avoid duplicating functions across modules.
+	var alwaysArray = Cldr._alwaysArray;
+
