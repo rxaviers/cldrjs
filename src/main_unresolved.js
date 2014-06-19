@@ -1,9 +1,8 @@
 define([
 	"./main",
 	"./item/lookup",
-	"./item/get_resolved",
 	"./util/json/merge"
-], function( Cldr, itemLookup, itemGetResolved, jsonMerge ) {
+], function( Cldr, itemLookup, jsonMerge ) {
 
 	var getSuper;
 

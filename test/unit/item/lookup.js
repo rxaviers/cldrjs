@@ -23,6 +23,12 @@ define([
 			expect( itemLookup( Cldr, cldr.locale, "/main/{languageId}/numbers/symbols-numberSystem-latn/decimal", cldr.attributes ) ).to.equal( "," );
 		});
 
+		it( "should only cache found resolved items", function() {
+			var cldr = new Cldr( "root" );
+			itemLookup( Cldr, cldr.locale, "/lookup-inexistent-item/data", cldr.attributes );
+			expect( Cldr._resolved[ "lookup-inexistent-item" ] ).to.be.undefined;
+		});
+
 	});
 
 });

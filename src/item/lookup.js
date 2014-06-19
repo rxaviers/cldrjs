@@ -35,8 +35,10 @@ define([
 			value = lookup( Cldr, parent, path, jsonMerge( attributes, { languageId: parent }), locale );
 		}
 
-		// Set resolved (cached)
-		resourceSet( Cldr._resolved, normalizedPath, value );
+		if ( value ) {
+			// Set resolved (cached)
+			resourceSet( Cldr._resolved, normalizedPath, value );
+		}
 
 		return value;
 	};
