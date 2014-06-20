@@ -21,8 +21,10 @@ define([
 		normalizedPath = pathNormalize( path, attributes );
 
 		// Check resolved (cached) data first
+		// 1: Due to #16, never use the cached resolved non-leaf nodes. It may not
+		//    represent its leafs in its entirety.
 		value = resourceGet( Cldr._resolved, normalizedPath );
-		if ( value ) {
+		if ( value && typeof value !== "object" /* 1 */ ) {
 			return value;
 		}
 

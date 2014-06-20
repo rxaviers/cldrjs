@@ -10,6 +10,12 @@ define([
 	Cldr.load( genderJson );
 	Cldr.load( likelySubtagsJson );
 	Cldr.load( ptNumbersJson );
+	Cldr.load({
+		"lookup-test": {
+			a: 1,
+			b: 2
+		}
+	});
 
 	describe( "Item Lookup", function() {
 
@@ -27,6 +33,12 @@ define([
 			var cldr = new Cldr( "root" );
 			itemLookup( Cldr, cldr.locale, "/lookup-inexistent-item/data", cldr.attributes );
 			expect( Cldr._resolved[ "lookup-inexistent-item" ] ).to.be.undefined;
+		});
+
+		it( "should only cache leaf items", function() {
+			var cldr = new Cldr( "root" );
+			expect( itemLookup( Cldr, cldr.locale, "/lookup-test/a", cldr.attributes ) ).to.equal( 1 );
+			expect( itemLookup( Cldr, cldr.locale, "/lookup-test", cldr.attributes ) ).to.eql({ a: 1, b: 2 });
 		});
 
 	});
