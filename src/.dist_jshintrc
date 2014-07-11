@@ -13,10 +13,5 @@
 	"undef": true,
 	"unused": true,
 
-	"globals": {
-		"Cldr": false,
-		"define": false,
-		"module": false,
-		"require": false
-	}
+	"predef": [ "Cldr", "define", "module", "require" ]
 }

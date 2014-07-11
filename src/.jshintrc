@@ -13,7 +13,5 @@
 	"undef": true,
 	"unused": true,
 
-	"globals": {
-		"define": false
-	}
+	"predef": [ "define" ]
 }

@@ -13,12 +13,5 @@
 	"undef": true,
 	"unused": true,
 
-	"globals": {
-		"define": false,
-		"describe": false,
-		"expect": false,
-		"it": false,
-		"mocha": false,
-		"require": false
-	}
+	"predef": [ "define", "describe", "expect", "it", "mocha", "require" ]
 }
