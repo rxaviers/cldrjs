@@ -10,6 +10,7 @@ require.config({
 require([
 
 	"./functional/main",
+	"./functional/event"
 
 ], function() {
 	mocha.run();

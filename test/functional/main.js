@@ -30,15 +30,11 @@ define([
 		var cldr = new Cldr( "en" );
 
 		it( "should throw error on invalid parameter type", function() {
-			expect(function() {
-				cldr.get( {} );
-			}).to.throw( Error, /E_INVALID_PAR_TYPE/ );
-			expect(function() {
-				cldr.get( 7 );
-			}).to.throw( Error, /E_INVALID_PAR_TYPE/ );
-			expect(function() {
-				cldr.get( null );
-			}).to.throw( Error, /E_INVALID_PAR_TYPE/ );
+			util.assertPathParameter( expect, function( invalidValue ) {
+				return function() {
+					cldr.get( invalidValue );
+				};
+			});
 		});
 
 	});
@@ -47,15 +43,11 @@ define([
 		var cldr = new Cldr( "en" );
 
 		it( "should throw error on invalid parameter type", function() {
-			expect(function() {
-				cldr.main( {} );
-			}).to.throw( Error, /E_INVALID_PAR_TYPE/ );
-			expect(function() {
-				cldr.main( 7 );
-			}).to.throw( Error, /E_INVALID_PAR_TYPE/ );
-			expect(function() {
-				cldr.main( null );
-			}).to.throw( Error, /E_INVALID_PAR_TYPE/ );
+			util.assertPathParameter( expect, function( invalidValue ) {
+				return function() {
+					cldr.main( invalidValue );
+				};
+			});
 		});
 
 	});

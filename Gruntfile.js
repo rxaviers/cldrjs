@@ -96,6 +96,9 @@ module.exports = function(grunt) {
 				appDir: "src",
 				baseUrl: ".",
 				optimize: "none",
+				paths: {
+					EventEmitter: "../bower_components/eventEmitter/EventEmitter"
+				},
 				skipSemiColonInsertion: true,
 				skipModuleInsertion: true,
 
@@ -106,7 +109,14 @@ module.exports = function(grunt) {
 				// c) "Main" means the define wrappers are removed, but content is untouched. Only for main* files.
 				onBuildWrite: function ( id, path, contents ) {
 					var name = id
-						.replace(/util\/|common\//, "");
+						.replace( /util\/|common\//, "" );
+
+					if ( (/^EventEmitter$/).test( id ) ) {
+						contents = contents
+							.replace( /(\(function \(\) {)/, "var EventEmitter;\n/* jshint ignore:start */\nEventEmitter = $1" )
+							.replace( /\/\/ Expose the class either via AMD, CommonJS[\S\s]*}\.call\(this\)\);/, "return EventEmitter;\n}());\n/* jshint ignore:end */" );
+						return contents;
+					}
 
 					// 1, and 2: Remove define() wrap.
 					// 3: Remove empty define()'s.
@@ -138,6 +148,17 @@ module.exports = function(grunt) {
 						override: {
 							wrap: {
 								startFile: "src/build/intro_main.js",
+								endFile: "src/build/outro.js"
+							}
+						}
+					}, {
+						name: "cldr_event",
+						include: [ "main_event" ],
+						exclude: [ "main" ],
+						create: true,
+						override: {
+							wrap: {
+								startFile: "src/build/intro_event.js",
 								endFile: "src/build/outro.js"
 							}
 						}
@@ -205,6 +226,7 @@ module.exports = function(grunt) {
 			dist: {
 				files: {
 					"dist/cldr.min.js": [ "dist/cldr.js" ],
+					"dist/cldr/event.min.js": [ "dist/cldr/event.js" ],
 					"dist/cldr/supplemental.min.js": [ "dist/cldr/supplemental.js" ],
 					"dist/cldr/unresolved.min.js": [ "dist/cldr/unresolved.js" ]
 				}

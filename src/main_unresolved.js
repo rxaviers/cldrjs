@@ -33,6 +33,11 @@ define([
 		return itemLookup( Cldr, this.attributes && this.attributes.languageId /* 1 */ || "" /* 2 */, path, this.attributes );
 	};
 
+	// In case cldr/unresolved is loaded after cldr/event, we trigger its overloads again. Because, .get is overwritten in here.
+	if ( Cldr._eventInit ) {
+		Cldr._eventInit();
+	}
+
 	return Cldr;
 
 });

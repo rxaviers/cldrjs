@@ -8,6 +8,7 @@ var allTypes = {
 	number: 7,
 	object: new Foo(),
 	plainObject: {},
+	regexp: /foo/,
 	string: "foo"
 };
 
@@ -40,6 +41,18 @@ function not( a ) {
 }
 
 return {
+
+	assertEventParameter: function( expect, fn ) {
+		assertParameterType( expect, [ "regexp", "string" ], fn );
+	},
+
+	assertFunctionParameter: function( expect, fn ) {
+		assertParameterType( expect, [ "function" ], fn );
+	},
+
+	assertPathParameter: function( expect, fn ) {
+		assertParameterType( expect, [ "array", "string" ], fn );
+	},
 
 	assertStringParameter: function( expect, fn ) {
 		assertParameterType( expect, [ "string" ], fn );

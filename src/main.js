@@ -1,6 +1,7 @@
 define([
 	"./common/create_error",
 	"./common/validate/presence",
+	"./common/validate/type",
 	"./common/validate/type/path",
 	"./common/validate/type/plain_object",
 	"./common/validate/type/string",
@@ -11,7 +12,7 @@ define([
 	"./resource/get",
 	"./util/always_array",
 	"./util/json/merge"
-], function( createError, validatePresence, validateTypePath, validateTypePlainObject, validateTypeString, itemGetResolved, likelySubtags, pathNormalize, removeLikelySubtags, resourceGet, alwaysArray, jsonMerge ) {
+], function( createError, validatePresence, validateType, validateTypePath, validateTypePlainObject, validateTypeString, itemGetResolved, likelySubtags, pathNormalize, removeLikelySubtags, resourceGet, alwaysArray, jsonMerge ) {
 
 	/**
 	 * new Cldr()
@@ -28,6 +29,7 @@ define([
 	Cldr._pathNormalize = pathNormalize;
 	Cldr._resourceGet = resourceGet;
 	Cldr._validatePresence = validatePresence;
+	Cldr._validateType = validateType;
 	Cldr._validateTypePath = validateTypePath;
 	Cldr._validateTypePlainObject = validateTypePlainObject;
 

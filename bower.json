@@ -3,6 +3,7 @@
   "version": "0.3.7-pre",
   "devDependencies": {
     "chai": "1.7.x",
+    "eventEmitter", "4.2.7",
     "mocha": "1.12.x",
     "requirejs": "2.1.x",
     "requirejs-plugins": "1.0.2",
