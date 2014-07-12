@@ -1,5 +1,5 @@
 define([
-	"src/main",
+	"src/core",
 	"src/bundle/parent_lookup",
 	"json!fixtures/cldr/supplemental/parentLocales.json"
 ], function( Cldr, parentLookup, parentLocalesJson ) {

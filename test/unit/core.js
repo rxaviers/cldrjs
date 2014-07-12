@@ -1,5 +1,5 @@
 define([
-	"src/main",
+	"src/core",
 	"json!fixtures/cldr/main/en/numbers.json",
 	"json!fixtures/cldr/supplemental/likelySubtags.json"
 ], function( Cldr, enNumbersJson, likelySubtagsJson ) {

@@ -1,6 +1,6 @@
 define([
-	"src/main",
-	"src/supplemental",
+	"src/core",
+	"src/supplemental/main",
 	"json!fixtures/cldr/supplemental/likelySubtags.json",
 	"json!fixtures/cldr/supplemental/timeData.json",
 	"json!fixtures/cldr/supplemental/weekData.json"

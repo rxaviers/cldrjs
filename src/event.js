@@ -3,7 +3,7 @@ define([
 	"./common/validate/presence",
 	"./common/validate/type",
 	"./common/validate/type/function",
-	"./main",
+	"./core",
 	"./path/normalize"
 ], function( EventEmitter, validatePresence, validateType, validateTypeFunction, Cldr, pathNormalize ) {
 

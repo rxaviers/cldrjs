@@ -1,7 +1,7 @@
 define([
 	"./likely_subtags",
-	"./util/array/some"
-], function( likelySubtags, arraySome ) {
+	"../util/array/some"
+], function( coreLikelySubtags, arraySome ) {
 
 	/**
 	 * Given a locale, remove any fields that Add Likely Subtags would add.
@@ -27,7 +27,7 @@ define([
 			[ [ language, "Zzzz", territory ], [ language, territory ] ],
 			[ [ language, script, "ZZ" ], [ language, script ] ]
 		], function( test ) {
-			var result = likelySubtags( Cldr, cldr, test[ 0 ] );
+			var result = coreLikelySubtags( Cldr, cldr, test[ 0 ] );
 			match = test[ 1 ];
 			return result && result[ 0 ] === maxLanguageId[ 0 ] &&
 				result[ 1 ] === maxLanguageId[ 1 ] &&

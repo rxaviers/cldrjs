@@ -5,14 +5,15 @@ define([
 	"./common/validate/type/path",
 	"./common/validate/type/plain_object",
 	"./common/validate/type/string",
+	"./core/likely_subtags",
+	"./core/remove_likely_subtags",
 	"./item/get_resolved",
-	"./likely_subtags",
 	"./path/normalize",
-	"./remove_likely_subtags",
 	"./resource/get",
 	"./util/always_array",
 	"./util/json/merge"
-], function( createError, validatePresence, validateType, validateTypePath, validateTypePlainObject, validateTypeString, itemGetResolved, likelySubtags, pathNormalize, removeLikelySubtags, resourceGet, alwaysArray, jsonMerge ) {
+], function( createError, validatePresence, validateType, validateTypePath,
+validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikelySubtags, itemGetResolved, pathNormalize, resourceGet, alwaysArray, jsonMerge ) {
 
 	/**
 	 * new Cldr()
@@ -119,12 +120,12 @@ define([
 		}
 
 		// When a locale id does not specify a language, or territory (region), or script, they are obtained by Likely Subtags.
-		maxLanguageId = likelySubtags( Cldr, this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
+		maxLanguageId = coreLikelySubtags( Cldr, this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
 		language = maxLanguageId[ 0 ];
 		script = maxLanguageId[ 1 ];
 		territory  = maxLanguageId[ 2 ];
 
-		languageId = removeLikelySubtags( Cldr, this, maxLanguageId ).join( sep );
+		languageId = coreRemoveLikelySubtags( Cldr, this, maxLanguageId ).join( sep );
 
 		// Set attributes
 		this.attributes = {

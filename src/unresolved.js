@@ -2,7 +2,7 @@ define([
 	"./common/validate/presence",
 	"./common/validate/type/path",
 	"./common/validate/type/plain_object",
-	"./main",
+	"./core",
 	"./item/lookup",
 	"./util/json/merge"
 ], function( validatePresence, validateTypePath, validateTypePlainObject, Cldr, itemLookup, jsonMerge ) {

@@ -16,9 +16,9 @@ require([
 	"./unit/path/normalize",
 
 	// 2nd unit tests group.
-	"./unit/main",
-	"./unit/likely_subtags",
-	"./unit/remove_likely_subtags",
+	"./unit/core",
+	"./unit/core/likely_subtags",
+	"./unit/core/remove_likely_subtags",
 	"./unit/supplemental"
 
 ], function() {

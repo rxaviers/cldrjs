@@ -7,7 +7,7 @@ require.config({
 	}
 });
 
-require( [ "src/main_unresolved" ], function() {
+require( [ "src/unresolved" ], function() {
 
 	require([
 		"./unit/item/lookup",

@@ -1,6 +1,6 @@
 define([
-	"./path/normalize",
-	"./util/array/some"
+	"../path/normalize",
+	"../util/array/some"
 ], function( pathNormalize, arraySome ) {
 
 	/**

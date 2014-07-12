@@ -1,6 +1,6 @@
 define([
-	"src/main",
-	"src/remove_likely_subtags",
+	"src/core",
+	"src/core/remove_likely_subtags",
 	"json!fixtures/cldr/supplemental/likelySubtags.json"
 ], function( Cldr, removeLikelySubtags, likelySubtagsJson ) {
 

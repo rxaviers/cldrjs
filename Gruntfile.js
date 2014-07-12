@@ -131,7 +131,7 @@ module.exports = function(grunt) {
 							contents + "}());";
 					}
 					// Type a (single return)
-					else if ( !(/^main/).test( id ) ) {
+					else if ( (/\//).test( id ) ) {
 						contents = contents
 							.replace( /	return/, "	var " + camelCase( name ) + " =" );
 					}
@@ -143,18 +143,18 @@ module.exports = function(grunt) {
 				options: {
 					modules: [{
 						name: "cldr",
-						include: [ "main" ],
+						include: [ "core" ],
 						create: true,
 						override: {
 							wrap: {
-								startFile: "src/build/intro_main.js",
+								startFile: "src/build/intro_core.js",
 								endFile: "src/build/outro.js"
 							}
 						}
 					}, {
 						name: "cldr_event",
-						include: [ "main_event" ],
-						exclude: [ "main" ],
+						include: [ "event" ],
+						exclude: [ "core" ],
 						create: true,
 						override: {
 							wrap: {
@@ -164,8 +164,8 @@ module.exports = function(grunt) {
 						}
 					}, {
 						name: "cldr_supplemental",
-						include: [ "main_supplemental" ],
-						exclude: [ "main" ],
+						include: [ "supplemental" ],
+						exclude: [ "core" ],
 						create: true,
 						override: {
 							wrap: {
@@ -175,8 +175,8 @@ module.exports = function(grunt) {
 						}
 					}, {
 						name: "cldr_unresolved",
-						include: [ "main_unresolved" ],
-						exclude: [ "main" ],
+						include: [ "unresolved" ],
+						exclude: [ "core" ],
 						create: true,
 						override: {
 							wrap: {

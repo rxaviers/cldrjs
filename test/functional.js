@@ -9,7 +9,7 @@ require.config({
 
 require([
 
-	"./functional/main",
+	"./functional/core",
 	"./functional/event"
 
 ], function() {
