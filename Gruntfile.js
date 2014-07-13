@@ -57,6 +57,12 @@ module.exports = function(grunt) {
 					jshintrc: ".jshintrc"
 				}
 			},
+			metafiles: {
+				src: [ "bower.json", "package.json" ],
+				options: {
+					jshintrc: ".jshintrc"
+				}
+			},
 			test: {
 				src: [ "test/**/*.js" ],
 				options: {
@@ -259,6 +265,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask( "default", [
+		"jshint:metafiles",
 		"jshint:grunt",
 		"jshint:source",
 		"jshint:test",
