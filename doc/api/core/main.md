@@ -1,4 +1,4 @@
-## cldr.main( path )
+## .main( path )
 
 It's an alias for `.get([ "main/{languageId}", ... ])`.
 

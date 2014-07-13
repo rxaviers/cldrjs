@@ -1,4 +1,4 @@
-## cldr.off( event, listener )
+## .off( event, listener )
 
 Removes a listener function from the specified event for this instance.
 

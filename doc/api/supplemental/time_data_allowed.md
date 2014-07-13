@@ -1,4 +1,4 @@
-## cldr.supplemental.timeData.allowed()
+## .supplemental.timeData.allowed()
 
 Helper function. Return the supplemental timeData allowed of locale's territory.
 

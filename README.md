@@ -329,25 +329,25 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
  1: Unresolved processing is **only available** after loading `cldr/unresolved.js` extension module.
 
-- **`cldr = new Cldr( locale )`**
+- **`new Cldr( locale )`**
 
  Create a new instance of Cldr.
 
  [Read more...](doc/api/core/constructor.md)
 
-- **`cldr.attributes`**
+- **`.attributes`**
 
  Attributes is an Object created during instance initialization (construction), and are used internally by `.get()` to replace dynamic parts of an item path.
 
  [Read more...](doc/api/core/attributes.md)
 
-- **`cldr.get( path )`**
+- **`.get( path )`**
 
  Get the item data given its path, or `undefined` if missing.
 
  [Read more...](doc/api/core/get.md)
 
-- **`cldr.main( path )`**
+- **`.main( path )`**
 
  It's an alias for `.get([ "main/{languageId}", ... ])`.
 
@@ -373,19 +373,19 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
  [Read more...](doc/api/event/global_off.md)
 
-- **`cldr.on( event, listener )`**
+- **`.on( event, listener )`**
 
  Add a listener function to the specified event for this instance.
 
  [Read more...](doc/api/event/on.md)
 
-- **`cldr.once( event, listener )`**
+- **`.once( event, listener )`**
 
  Add a listener function to the specified event for this instance. It will be automatically removed after it's first execution.
 
  [Read more...](doc/api/event/once.md)
 
-- **`cldr.off( event, listener )`**
+- **`.off( event, listener )`**
 
  Remove a listener function from the specified event for this instance.
 
@@ -401,31 +401,31 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
 ### cldr/supplemental.js
 
-- **`cldr.supplemental( path )`**
+- **`.supplemental( path )`**
 
  It's an alias for `.get([ "supplemental", ... ])`.
 
  [Read more...](doc/api/supplemental.md)
 
-- **`cldr.supplemental.timeData.allowed()`**
+- **`.supplemental.timeData.allowed()`**
 
  Helper function. Return the supplemental timeData allowed of locale's territory.
 
  [Read more...](doc/api/supplemental/time_data_allowed.md)
 
-- **`cldr.supplemental.timeData.preferred()`**
+- **`.supplemental.timeData.preferred()`**
 
  Helper function. Return the supplemental timeData preferred of locale's territory.
 
  [Read more...](doc/api/supplemental/time_data_preferred.md)
 
-- **`cldr.supplemental.weekData.firstDay()`**
+- **`.supplemental.weekData.firstDay()`**
 
  Helper function. Return the supplemental weekData firstDay of locale's territory. 
 
  [Read more...](doc/api/supplemental/week_data_first_day.md)
 
-- **`cldr.supplemental.weekData.minDays()`**
+- **`.supplemental.weekData.minDays()`**
 
  Helper function. Return the supplemental weekData minDays of locale's territory as a Number.
 
@@ -433,7 +433,7 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
 ### cldr/unresolved.js
 
-- **`cldr.get( path )`**
+- **`.get( path )`**
 
  Overload (extend) `.get()` to get the item data or lookup by following [locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance), set a local resolved cache if it's found (for subsequent faster access), or return `undefined`.
 

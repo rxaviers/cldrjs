@@ -1,4 +1,4 @@
-## cldr.supplemental( path )
+## .supplemental( path )
 
 It's an alias for `.get([ "supplemental", ... ])`.
 

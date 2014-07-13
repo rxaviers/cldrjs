@@ -1,4 +1,4 @@
-## cldr.on( event, listener )
+## .on( event, listener )
 
 Add a listener function to the specified event for this instance.
 

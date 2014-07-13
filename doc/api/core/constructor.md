@@ -1,4 +1,4 @@
-## cldr = new Cldr( locale )
+## new Cldr( locale )
 
 Create a new instance of Cldr.
 

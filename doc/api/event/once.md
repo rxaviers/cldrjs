@@ -1,4 +1,4 @@
-## cldr.once( event, listener )
+## .once( event, listener )
 
 Add a listener function to the specified event for this instance. It will be automatically removed after it's first execution.
 

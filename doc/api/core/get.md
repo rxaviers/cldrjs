@@ -1,4 +1,4 @@
-## cldr.get( path )
+## .get( path )
 
 Get the item data given its path, or `undefined` if missing.
 

@@ -1,4 +1,4 @@
-## cldr.attributes
+## .attributes
 
 Attributes is an Object created during instance initialization (construction), and are used internally by `.get()` to replace dynamic parts of an item path.
 

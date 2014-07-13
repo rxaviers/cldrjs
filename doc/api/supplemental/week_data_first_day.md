@@ -1,4 +1,4 @@
-## cldr.supplemental.weekData.firstDay()
+## .supplemental.weekData.firstDay()
 
 Helper function. Return the supplemental weekData firstDay of locale's territory. 
 
