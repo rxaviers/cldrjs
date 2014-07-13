@@ -1,6 +1,6 @@
 {
   "name": "cldrjs",
-  "version": "0.3.8-pre",
+  "version": "0.3.8",
   "devDependencies": {
     "chai": "1.7.x",
     "eventEmitter": "4.2.7",
