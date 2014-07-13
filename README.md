@@ -15,6 +15,7 @@ Quick jump:
   - [Usage and installation](#usage-and-installation)
   - [How to get CLDR JSON data?](#how-to-get-cldr-json-data)
 - [API](#api)
+- [Error reference](#error)
 - [Development / Contributing](#development--contributing)
 
 
@@ -391,6 +392,33 @@ You must also load any portion of the CLDR data you plan to use in your library 
  Helper function. Return the supplemental weekData minDays of locale's territory as a Number.
 
  [Read more...](doc/api/supplemental/week_data_min_days.md)
+
+
+### Error reference
+
+#### `E_MISSING_PARAMETER`
+
+Thrown when a required parameter is missing on any static or instance methods.
+
+Error object:
+
+| Attribute | Value |
+| --- | --- |
+| code | `E_MISSING_PARAMETER` |
+| name | Name of the missing parameter |
+
+#### `E_INVALID_PAR_TYPE`
+
+Thrown when a parameter has an invalid type on any static or instance methods.
+
+Error object:
+
+| Attribute | Value |
+| --- | --- |
+| code | `E_INVALID_PAR_TYPE` |
+| name | Name of the invalid parameter |
+| value | Invalid value |
+| expected | Expected type |
 
 
 ### Development / Contributing
