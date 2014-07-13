@@ -8,6 +8,7 @@
 | cldr/unresolved.js | +1.1KB | Provides inheritance support for unresolved data |
 | cldr/supplemental.js | +1.2KB | Provides supplemental helper methods |
 
+
 Quick jump:
 - [About cldr.js?](#about-cldrjs)
 - [Getting Started](#getting-started)
@@ -317,125 +318,82 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
 ## API
 
-### Cldr.load( json )
+### Core
 
-- **json** Object with resolved or unresolved [1] CLDR JSON data.
+- **`Cldr.load( json )`**
 
-Load resolved or unresolved [1] JSON data.
+ Load resolved or unresolved [1] JSON data.
 
-```javascript
-Cldr.load({
-	"main": {
-		"pt-BR": {
-			"numbers": {
-				"symbols-numberSystem-latn": {
-					"decimal": ","
-				}
-			}
-		}
-	}
-});
-```
+ [Read more...](doc/api/core/load.md)
 
-1: Unresolved processing is **only available** after loading `cldr/unresolved.js` extension module.
+ 1: Unresolved processing is **only available** after loading `cldr/unresolved.js` extension module.
 
-### cldr = new Cldr( locale )
+- **`cldr = new Cldr( locale )`**
 
-- **locale** String eg. `"en"`, `"pt-BR"`. More information in the [specification](http://www.unicode.org/reports/tr35/#Locale).
+ Create a new instance of Cldr.
 
-Create a new instance of Cldr.
+ [Read more...](doc/api/core/constructor.md)
 
-### cldr.attributes
+- **`cldr.attributes`**
 
-Attributes is an Object created during instance initialization (construction), and are used internally by `.get()` to replace dynamic parts of an item path.
+ Attributes is an Object created during instance initialization (construction), and are used internally by `.get()` to replace dynamic parts of an item path.
 
-| Attribute | Field | 
-| --- | --- |
-| `language` | Language Subtag ([spec](http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions)) | 
-| `script` | Script Subtag ([spec](http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions)) | 
-| `region` or `territory` | Region Subtag ([spec](http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions)) | 
-| `languageId` | Language Id ([spec](http://www.unicode.org/reports/tr35/#Unicode_language_identifier)) | 
-| `maxLanguageId` | Maximized Language Id ([spec](http://www.unicode.org/reports/tr35/#Likely_Subtags)) | 
+ [Read more...](doc/api/core/attributes.md)
 
-- `language`, `script`, `territory` (also aliased as `region`), and `maxLanguageId` are computed by [adding likely subtags](./src/likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
-- `languageId` is always in the succint form, obtained by [removing the likely subtags from `maxLanguageId`](./src/remove-likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
+- **`cldr.get( path )`**
 
-### cldr.get( path )
+ Get the item data given its path, or `undefined` if missing.
 
-- **path**
- - String, eg. `"/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal"`; or
- - Array, eg. `[ "cldr", "main", "{languageId}", "numbers", "symbols-numberSystem-latn", "decimal" ]`, or `[ "cldr/main", "{languageId}", "numbers/symbols-numberSystem-latn/"decimal" ]` (notice the subpath parts);
- - The leading "/cldr" can be ommited;
- - [Locale attributes](#cldrattributes), eg. `{languageId}`, are replaced with their appropriate values;
+ [Read more...](doc/api/core/get.md)
 
-Get the item data given its path, or return `undefined`.
+- **`cldr.main( path )`**
 
-If extended with `cldr/unresolved.js`, get the item data or lookup by following [locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance), set a local resolved cache if it's found (for subsequent faster access), or return `undefined`.
+ It's an alias for `.get([ "main/{languageId}", ... ])`.
 
-```javascript
-ptBr.get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
-// ➡ ","
-```
+ [Read more...](doc/api/core/main.md)
 
-### cldr.main( path )
+### cldr/unresolved.js
 
-- **path** String or Array. Same specification of `cldr.get()`.
+- **`cldr.get( path )`**
 
-It's an alias for `.get([ "main/{languageId}", ... ])`.
+ Overload (extend) `.get()` to get the item data or lookup by following [locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance), set a local resolved cache if it's found (for subsequent faster access), or return `undefined`.
 
-```javascript
-ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
-// ➡ ","
-```
+ [Read more...](doc/api/unresolved/get.md)
 
-### cldr.supplemental( path )
+### cldr/supplemental.js
 
-- **path** String or Array. Same specification of `cldr.get()`.
+- **`cldr.supplemental( path )`**
 
-It's an alias for `.get([ "supplemental", ... ])`. Provided by `cldr/supplemental.js`.
+ It's an alias for `.get([ "supplemental", ... ])`.
 
-```javascript
-en.supplemental( "gender/personList/{language}" );
-// ➡ "neutral"
-```
+ [Read more...](doc/api/supplemental.md)
 
-### cldr.supplemental.timeData.allowed()
+- **`cldr.supplemental.timeData.allowed()`**
 
-Helper function. Return the supplemental timeData allowed of locale's territory. Provided by `cldr/supplemental.js`.
+ Helper function. Return the supplemental timeData allowed of locale's territory.
 
-```javascript
-en.supplemental.timeData.allowed();
-// ➡ "H h"
-```
+ [Read more...](doc/api/supplemental/time_data_allowed.md)
 
-### cldr.supplemental.timeData.preferred()
+- **`cldr.supplemental.timeData.preferred()`**
 
-Helper function. Return the supplemental timeData preferred of locale's territory. Provided by `cldr/supplemental.js`.
+ Helper function. Return the supplemental timeData preferred of locale's territory.
 
-```javascript
-en.supplemental.timeData.preferred();
-// ➡ "h"
-```
+ [Read more...](doc/api/supplemental/time_data_preferred.md)
 
-### cldr.supplemental.weekData.firstDay()
+- **`cldr.supplemental.weekData.firstDay()`**
 
-Helper function. Return the supplemental weekData firstDay of locale's territory. Provided by `cldr/supplemental.js`.
+ Helper function. Return the supplemental weekData firstDay of locale's territory. 
 
-```javascript
-en.supplemental.weekData.firstDay();
-// ➡ "sun"
-```
+ [Read more...](doc/api/supplemental/week_data_first_day.md)
 
-### cldr.supplemental.weekData.minDays()
+- **`cldr.supplemental.weekData.minDays()`**
 
-Helper function. Return the supplemental weekData minDays of locale's territory as a Number. Provided by `cldr/supplemental.js`.
+ Helper function. Return the supplemental weekData minDays of locale's territory as a Number.
 
-```javascript
-en.supplemental.weekData.minDays();
-// ➡ 1
-```
+ [Read more...](doc/api/supplemental/week_data_min_days.md)
 
-## Development / Contributing
+
+### Development / Contributing
 
 Install grunt and tests external dependencies. First, install the [grunt-cli](http://gruntjs.com/getting-started#installing-the-cli) and [bower](http://bower.io/) packages if you haven't before. These should be done as global installs. Then:
 
