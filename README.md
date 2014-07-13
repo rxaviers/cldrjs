@@ -2,12 +2,12 @@
 
 [CLDR (unicode.org)](http://cldr.unicode.org/) provides locale content for I18n software. The data is provided in two formats: LDML (XML format), and JSON. Our goal is to provide a simple layer to facilitate I18n softwares to access and use the [official CLDR JSON data](http://cldr.unicode.org/index/cldr-spec/json).
 
-| File | Minified size | Summary |
+| File | Minified + gzipped size | Summary |
 |---|--:|---|
-| cldr.js | 3.2KB | Core library |
-| cldr/unresolved.js | +1.1KB | Provides inheritance support for unresolved data |
-| cldr/supplemental.js | +1.2KB | Provides supplemental helper methods |
-
+| cldr.js | 1.7KB | Core library |
+| cldr/event.js | +1.4KB | Provides methods to allow listening to events, eg. `get` |
+| cldr/supplemental.js | +0.5KB | Provides supplemental helper methods |
+| cldr/unresolved.js | +0.6KB | Provides inheritance support for unresolved data |
 
 Quick jump:
 - [About cldr.js?](#about-cldrjs)
@@ -353,13 +353,51 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
  [Read more...](doc/api/core/main.md)
 
-### cldr/unresolved.js
+### cldr/event.js
 
-- **`cldr.get( path )`**
+- **`Cldr.on( event, listener )`**
 
- Overload (extend) `.get()` to get the item data or lookup by following [locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance), set a local resolved cache if it's found (for subsequent faster access), or return `undefined`.
+ Add a listener function to the specified event globally (for all instances).
 
- [Read more...](doc/api/unresolved/get.md)
+ [Read more...](doc/api/event/global_on.md)
+
+- **`Cldr.once( event, listener )`**
+
+ Add a listener function to the specified event globally (for all instances). It will be automatically removed after it's first execution.
+
+ [Read more...](doc/api/event/global_once.md)
+
+- **`Cldr.off( event, listener )`**
+
+ Remove a listener function from the specified event globally (for all instances).
+
+ [Read more...](doc/api/event/global_off.md)
+
+- **`cldr.on( event, listener )`**
+
+ Add a listener function to the specified event for this instance.
+
+ [Read more...](doc/api/event/on.md)
+
+- **`cldr.once( event, listener )`**
+
+ Add a listener function to the specified event for this instance. It will be automatically removed after it's first execution.
+
+ [Read more...](doc/api/event/once.md)
+
+- **`cldr.off( event, listener )`**
+
+ Remove a listener function from the specified event for this instance.
+
+ [Read more...](doc/api/event/off.md)
+
+#### Events
+
+- `get` ➡ `( path, value )`
+
+ Triggered before a `.get()` (or any alias) return. The triggered listener receives the normalized *path* and the *value* found.
+
+ [Read more...](doc/api/event/event_get.md)
 
 ### cldr/supplemental.js
 
@@ -393,6 +431,13 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
  [Read more...](doc/api/supplemental/week_data_min_days.md)
 
+### cldr/unresolved.js
+
+- **`cldr.get( path )`**
+
+ Overload (extend) `.get()` to get the item data or lookup by following [locale inheritance](http://www.unicode.org/reports/tr35/#Locale_Inheritance), set a local resolved cache if it's found (for subsequent faster access), or return `undefined`.
+
+ [Read more...](doc/api/unresolved/get.md)
 
 ### Error reference
 
