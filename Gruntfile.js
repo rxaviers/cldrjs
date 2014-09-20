@@ -76,6 +76,15 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		dco: {
+			current: {
+				options: {
+					exceptionalAuthors: {
+						"rxaviers@gmail.com": "Rafael Xavier de Souza"
+					}
+				}
+			}
+		},
 		mocha: {
 			unit: {
 				options: {
@@ -275,7 +284,8 @@ module.exports = function(grunt) {
 		"jshint:dist",
 		"test:functional",
 		"uglify",
-		"compare_size"
+		"compare_size",
+		"dco"
 	]);
 
 };
