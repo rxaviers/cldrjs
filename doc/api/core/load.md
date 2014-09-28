@@ -1,4 +1,4 @@
-## Cldr.load( json )
+## Cldr.load( json, ... )
 
 Load resolved or unresolved [1] JSON data.
 

@@ -42,9 +42,21 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 	// Load resolved cldr data
 	// @json [JSON]
 	Cldr.load = function( json ) {
+		var i, j;
+
 		validatePresence( json, "json" );
-		validateTypePlainObject( json, "json" );
-		Cldr._resolved = jsonMerge( Cldr._resolved, json );
+
+		// Support arbitrary parameters, e.g., `Cldr.load({...}, {...})`.
+		for ( i = 0; i < arguments.length; i++ ) {
+
+			// Support array parameters, e.g., `Cldr.load([{...}, {...}])`.
+			json = alwaysArray( arguments[ i ] );
+
+			for ( j = 0; j < json.length; j++ ) {
+				validateTypePlainObject( json[ j ], "json" );
+				Cldr._resolved = jsonMerge( Cldr._resolved, json[ j ] );
+			}
+		}
 	};
 
 	/**

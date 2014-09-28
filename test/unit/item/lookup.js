@@ -7,15 +7,17 @@ define([
 	"src/unresolved"
 ], function( Cldr, itemLookup, ptNumbersJson, genderJson, likelySubtagsJson ) {
 
-	Cldr.load( genderJson );
-	Cldr.load( likelySubtagsJson );
-	Cldr.load( ptNumbersJson );
-	Cldr.load({
-		"lookup-test": {
-			a: 1,
-			b: 2
+	Cldr.load(
+		genderJson,
+		likelySubtagsJson,
+		ptNumbersJson,
+		{
+			"lookup-test": {
+				a: 1,
+				b: 2
+			}
 		}
-	});
+	);
 
 	describe( "Item Lookup", function() {
 

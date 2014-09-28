@@ -7,7 +7,7 @@
 | cldr.js | 1.7KB | Core library |
 | cldr/event.js | +1.4KB | Provides methods to allow listening to events, eg. `get` |
 | cldr/supplemental.js | +0.5KB | Provides supplemental helper methods |
-| cldr/unresolved.js | +0.6KB | Provides inheritance support for unresolved data |
+| cldr/unresolved.js | +0.7KB | Provides inheritance support for unresolved data |
 
 Quick jump:
 - [About cldr.js?](#about-cldrjs)
@@ -37,9 +37,11 @@ See [Usage and installation](#usage-and-installation).
 
 ```javascript
 // Load the appropriate portion of CLDR JSON data
-Cldr.load( likelySubtagsData );
-Cldr.load( enData );
-Cldr.load( ptBrData );
+Cldr.load(
+  likelySubtagsData,
+  enData,
+  ptBrData
+);
 ```
 
 See [How to get CLDR JSON data?](#how-to-get-cldr-json-data) below for more information on how to get that data.
@@ -129,11 +131,13 @@ enData && enData.crazy && enData.crazy.invalid && enData.crazy.invalid.path;
 If you are using unresolved JSON data, you can resolve them dynamically during runtime by loading the `cldr/unresolved.js` extension module. Currently, we support bundle inheritance.
 
 ```javascript
-Cldr.load( unresolvedEnData );
-Cldr.load( unresolvedEnGbData );
-Cldr.load( unresolvedEnInData );
-Cldr.load( parentLocalesData ); // supplemental
-Cldr.load( likelySubtagsData ); // supplemental
+Cldr.load(
+  unresolvedEnData
+  unresolvedEnGbData,
+  unresolvedEnInData,
+  parentLocalesData, // supplemental
+  likelySubtagsData  // supplemental
+);
 
 var enIn = new Cldr( "en-IN" );
 
@@ -321,7 +325,7 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
 ### Core
 
-- **`Cldr.load( json )`**
+- **`Cldr.load( json, ... )`**
 
  Load resolved or unresolved [1] JSON data.
 

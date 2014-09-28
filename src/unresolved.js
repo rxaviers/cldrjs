@@ -4,8 +4,9 @@ define([
 	"./common/validate/type/plain_object",
 	"./core",
 	"./item/lookup",
+	"./util/always_array",
 	"./util/json/merge"
-], function( validatePresence, validateTypePath, validateTypePlainObject, Cldr, itemLookup, jsonMerge ) {
+], function( validatePresence, validateTypePath, validateTypePlainObject, Cldr, itemLookup, alwaysArray, jsonMerge ) {
 
 	Cldr._raw = {};
 
@@ -16,9 +17,21 @@ define([
 	 * Overwrite Cldr.load().
 	 */
 	Cldr.load = function( json ) {
+		var i, j;
+
 		validatePresence( json, "json" );
-		validateTypePlainObject( json, "json" );
-		Cldr._raw = jsonMerge( Cldr._raw, json );
+
+		// Support arbitrary parameters, e.g., `Cldr.load({...}, {...})`.
+		for ( i = 0; i < arguments.length; i++ ) {
+
+			// Support array parameters, e.g., `Cldr.load([{...}, {...}])`.
+			json = alwaysArray( arguments[ i ] );
+
+			for ( j = 0; j < json.length; j++ ) {
+				validateTypePlainObject( json[ j ], "json" );
+				Cldr._raw = jsonMerge( Cldr._raw, json[ j ] );
+			}
+		}
 	};
 
 	/**

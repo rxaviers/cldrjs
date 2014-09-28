@@ -1,7 +1,7 @@
 define(function() {
 
 var allTypes = {
-	array: [],
+	array: [ 7 ],
 	date: new Date(),
 	"function": function() {},
 	"null": null,
@@ -52,6 +52,10 @@ return {
 
 	assertPathParameter: function( expect, fn ) {
 		assertParameterType( expect, [ "array", "string" ], fn );
+	},
+
+	assertObjectParameter: function( expect, fn ) {
+		assertParameterType( expect, [ "object", "plainObject" ], fn );
 	},
 
 	assertStringParameter: function( expect, fn ) {

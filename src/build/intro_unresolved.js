@@ -28,6 +28,7 @@
 }(function( Cldr ) {
 
 	// Build optimization hack to avoid duplicating functions across modules.
+	var alwaysArray = Cldr._alwaysArray;
 	var jsonMerge = Cldr._jsonMerge;
 	var pathNormalize = Cldr._pathNormalize;
 	var resourceGet = Cldr._resourceGet;

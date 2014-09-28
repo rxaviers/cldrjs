@@ -5,10 +5,52 @@ define([
 	"json!fixtures/cldr/supplemental/likelySubtags.json"
 ], function( Cldr, util, enNumbersJson, likelySubtagsJson ) {
 
-	Cldr.load( enNumbersJson );
-	Cldr.load( likelySubtagsJson );
+	var isLoaded;
+
+	function cldrLoad() {
+		if ( isLoaded ) {
+			return;
+		}
+		Cldr.load( enNumbersJson, likelySubtagsJson );
+		isLoaded = true;
+	}
+
+	describe( "Cldr.load( json )", function() {
+
+		it( "should throw error on missing json parameter", function() {
+			expect(function() {
+				Cldr.load();
+			}).to.throw( Error, /E_MISSING_PARAMETER/ );
+		});
+
+		it( "should throw error on invalid locale parameter type", function() {
+			util.assertObjectParameter( expect, function( invalidValue ) {
+				return function() {
+					Cldr.load( invalidValue );
+				};
+			});
+		});
+
+		it( "should throw error on invalid locale parameter type", function() {
+			util.assertObjectParameter( expect, function( invalidValue ) {
+				return function() {
+					Cldr.load([ { a: 1 }, invalidValue ]);
+				};
+			});
+		});
+
+		it( "should throw error on invalid locale parameter type", function() {
+			util.assertObjectParameter( expect, function( invalidValue ) {
+				return function() {
+					Cldr.load( { a: 1 }, invalidValue );
+				};
+			});
+		});
+
+	});
 
 	describe( "new Cldr( locale )", function() {
+		cldrLoad();
 
 		it( "should throw error on missing locale parameter", function() {
 			expect(function() {
@@ -27,7 +69,9 @@ define([
 	});
 
 	describe( ".get( path )", function() {
-		var cldr = new Cldr( "en" );
+		var cldr;
+		cldrLoad();
+		cldr = new Cldr( "en" );
 
 		it( "should throw error on invalid parameter type", function() {
 			util.assertPathParameter( expect, function( invalidValue ) {
@@ -40,7 +84,9 @@ define([
 	});
 
 	describe( ".main( path )", function() {
-		var cldr = new Cldr( "en" );
+		var cldr;
+		cldrLoad();
+		cldr = new Cldr( "en" );
 
 		it( "should throw error on invalid parameter type", function() {
 			util.assertPathParameter( expect, function( invalidValue ) {

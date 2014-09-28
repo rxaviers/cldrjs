@@ -6,9 +6,11 @@ define([
 	"json!fixtures/cldr/supplemental/weekData.json"
 ], function( Cldr, supplemental, likelySubtagsJson, timeDataJson, weekDataJson ) {
 
-	Cldr.load( likelySubtagsJson );
-	Cldr.load( timeDataJson );
-	Cldr.load( weekDataJson );
+	Cldr.load(
+		likelySubtagsJson,
+		timeDataJson,
+		weekDataJson
+	);
 
 	describe( "Supplemental", function() {
 		var en = new Cldr( "en" ),

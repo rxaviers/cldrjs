@@ -4,8 +4,7 @@ define([
 	"json!fixtures/cldr/supplemental/likelySubtags.json"
 ], function( Cldr, enNumbersJson, likelySubtagsJson ) {
 
-	Cldr.load( enNumbersJson );
-	Cldr.load( likelySubtagsJson );
+	Cldr.load( enNumbersJson, likelySubtagsJson );
 
 	describe( "Cldr (core)", function() {
 		var cldr;
