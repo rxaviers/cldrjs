@@ -1,8 +1,8 @@
 define([
 	"cldr",
 	"../util",
-	"json!fixtures/cldr/main/en/numbers.json",
-	"json!fixtures/cldr/supplemental/likelySubtags.json"
+	"json!cldr-data/main/en/numbers.json",
+	"json!cldr-data/supplemental/likelySubtags.json"
 ], function( Cldr, util, enNumbersJson, likelySubtagsJson ) {
 
 	var isLoaded;

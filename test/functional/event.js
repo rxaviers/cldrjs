@@ -1,7 +1,7 @@
 define([
 	"cldr",
 	"../util",
-	"json!fixtures/cldr/supplemental/likelySubtags.json",
+	"json!cldr-data/supplemental/likelySubtags.json",
 	"cldr/event"
 ], function( Cldr, util, likelySubtagsJson ) {
 

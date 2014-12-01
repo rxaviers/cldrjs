@@ -1,9 +1,9 @@
 define([
 	"src/core",
 	"src/item/lookup",
-	"json!fixtures/cldr/main/pt/numbers.json",
-	"json!fixtures/cldr/supplemental/gender.json",
-	"json!fixtures/cldr/supplemental/likelySubtags.json",
+	"json!cldr-data/main/pt/numbers.json",
+	"json!cldr-data/supplemental/gender.json",
+	"json!cldr-data/supplemental/likelySubtags.json",
 	"src/unresolved"
 ], function( Cldr, itemLookup, ptNumbersJson, genderJson, likelySubtagsJson ) {
 

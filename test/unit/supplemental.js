@@ -1,9 +1,9 @@
 define([
 	"src/core",
 	"src/supplemental/main",
-	"json!fixtures/cldr/supplemental/likelySubtags.json",
-	"json!fixtures/cldr/supplemental/timeData.json",
-	"json!fixtures/cldr/supplemental/weekData.json"
+	"json!cldr-data/supplemental/likelySubtags.json",
+	"json!cldr-data/supplemental/timeData.json",
+	"json!cldr-data/supplemental/weekData.json"
 ], function( Cldr, supplemental, likelySubtagsJson, timeDataJson, weekDataJson ) {
 
 	Cldr.load(

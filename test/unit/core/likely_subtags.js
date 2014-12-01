@@ -1,7 +1,7 @@
 define([
 	"src/core",
 	"src/core/likely_subtags",
-	"json!fixtures/cldr/supplemental/likelySubtags.json"
+	"json!cldr-data/supplemental/likelySubtags.json"
 ], function( Cldr, likelySubtags, likelySubtagsJson ) {
 
 	Cldr.load( likelySubtagsJson );
