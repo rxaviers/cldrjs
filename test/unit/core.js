@@ -42,6 +42,17 @@ define([
 			expect( cldr.attributes.territory ).to.equal( "US" );
 		});
 
+		it( "should set unicode locale extensions attributes", function() {
+			cldr = new Cldr( "en-u-cu-usd" );
+			expect( cldr.attributes[ "u-cu" ] ).to.equal( "usd" );
+
+			cldr = new Cldr( "en-u-foo-bar-nu-arab-cu-usd" );
+			expect( cldr.attributes[ "u-foo" ] ).to.be.true;
+			expect( cldr.attributes[ "u-bar" ] ).to.be.true;
+			expect( cldr.attributes[ "u-cu" ] ).to.equal( "usd" );
+			expect( cldr.attributes[ "u-nu" ] ).to.equal( "arab" );
+		});
+
 		it( "should implement cldr.main as an alias of get( \"main/{languageId}...\" )", function() {
 			cldr = new Cldr( "en" );
 			expect( cldr.main( "numbers/symbols-numberSystem-latn/decimal" ) ).to.equal( "." );

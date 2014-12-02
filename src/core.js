@@ -63,7 +63,7 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 	 * .init() automatically run on instantiation/construction.
 	 */
 	Cldr.prototype.init = function( locale ) {
-		var language, languageId, maxLanguageId, script, territory, unicodeLanguageId, variant,
+		var attributes, aux, language, languageId, maxLanguageId, script, territory, unicodeLanguageId, unicodeLocaleExtensions, variant,
 			sep = Cldr.localeSep;
 
 		validatePresence( locale, "locale" );
@@ -77,15 +77,16 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 		// - http://www.unicode.org/reports/tr35/#Language_and_Locale_IDs
 		// - http://www.unicode.org/reports/tr35/#Unicode_locale_identifier
 
-		locale = locale.replace( /-/, "_" );
+		locale = locale.replace( /_/, "-" );
 
-		// TODO normalize unicode locale extensions. Currently, skipped.
-		// unicodeLocaleExtensions = locale.split( "_u_" )[ 1 ];
-		locale = locale.split( "_u_" )[ 0 ];
+		// Unicode locale extensions.
+		aux = locale.split( "-u-" );
+		locale = aux[ 0 ];
+		unicodeLocaleExtensions = aux[ 1 ];
 
 		// TODO normalize transformed extensions. Currently, skipped.
-		// transformedExtensions = locale.split( "_t_" )[ 1 ];
-		locale = locale.split( "_t_" )[ 0 ];
+		// transformedExtensions = locale.split( "-t-" )[ 1 ];
+		locale = locale.split( "-t-" )[ 0 ];
 
 		unicodeLanguageId = locale;
 
@@ -93,35 +94,35 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 		switch ( true ) {
 
 			// language_script_territory..
-			case /^[a-z]{2,3}_[A-Z][a-z]{3}_[A-Z0-9]{2}(\b|_)/.test( unicodeLanguageId ):
-				language = unicodeLanguageId.split( "_" )[ 0 ];
-				script = unicodeLanguageId.split( "_" )[ 1 ];
-				territory = unicodeLanguageId.split( "_" )[ 2 ];
-				variant = unicodeLanguageId.split( "_" )[ 3 ];
+			case /^[a-z]{2,3}-[A-Z][a-z]{3}-[A-Z0-9]{2}(\b|-)/.test( unicodeLanguageId ):
+				language = unicodeLanguageId.split( "-" )[ 0 ];
+				script = unicodeLanguageId.split( "-" )[ 1 ];
+				territory = unicodeLanguageId.split( "-" )[ 2 ];
+				variant = unicodeLanguageId.split( "-" )[ 3 ];
 				break;
 
 			// language_script..
-			case /^[a-z]{2,3}_[A-Z][a-z]{3}(\b|_)/.test( unicodeLanguageId ):
-				language = unicodeLanguageId.split( "_" )[ 0 ];
-				script = unicodeLanguageId.split( "_" )[ 1 ];
+			case /^[a-z]{2,3}-[A-Z][a-z]{3}(\b|-)/.test( unicodeLanguageId ):
+				language = unicodeLanguageId.split( "-" )[ 0 ];
+				script = unicodeLanguageId.split( "-" )[ 1 ];
 				territory = "ZZ";
-				variant = unicodeLanguageId.split( "_" )[ 2 ];
+				variant = unicodeLanguageId.split( "-" )[ 2 ];
 				break;
 
 			// language_territory..
-			case /^[a-z]{2,3}_[A-Z0-9]{2}(\b|_)/.test( unicodeLanguageId ):
-				language = unicodeLanguageId.split( "_" )[ 0 ];
+			case /^[a-z]{2,3}-[A-Z0-9]{2}(\b|-)/.test( unicodeLanguageId ):
+				language = unicodeLanguageId.split( "-" )[ 0 ];
 				script = "Zzzz";
-				territory = unicodeLanguageId.split( "_" )[ 1 ];
-				variant = unicodeLanguageId.split( "_" )[ 2 ];
+				territory = unicodeLanguageId.split( "-" )[ 1 ];
+				variant = unicodeLanguageId.split( "-" )[ 2 ];
 				break;
 
 			// language.., or root
-			case /^([a-z]{2,3}|root)(\b|_)/.test( unicodeLanguageId ):
-				language = unicodeLanguageId.split( "_" )[ 0 ];
+			case /^([a-z]{2,3}|root)(\b|-)/.test( unicodeLanguageId ):
+				language = unicodeLanguageId.split( "-" )[ 0 ];
 				script = "Zzzz";
 				territory = "ZZ";
-				variant = unicodeLanguageId.split( "_" )[ 1 ];
+				variant = unicodeLanguageId.split( "-" )[ 1 ];
 				break;
 
 			default:
@@ -132,7 +133,7 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 		}
 
 		// When a locale id does not specify a language, or territory (region), or script, they are obtained by Likely Subtags.
-		maxLanguageId = coreLikelySubtags( Cldr, this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "_" );
+		maxLanguageId = coreLikelySubtags( Cldr, this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "-" );
 		language = maxLanguageId[ 0 ];
 		script = maxLanguageId[ 1 ];
 		territory  = maxLanguageId[ 2 ];
@@ -140,7 +141,7 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 		languageId = coreRemoveLikelySubtags( Cldr, this, maxLanguageId ).join( sep );
 
 		// Set attributes
-		this.attributes = {
+		this.attributes = attributes = {
 
 			// Unicode Language Id
 			languageId: languageId,
@@ -153,6 +154,20 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 			region: territory, /* alias */
 			variant: variant
 		};
+
+		// Unicode locale extensions.
+		unicodeLocaleExtensions && ( "-" + unicodeLocaleExtensions ).replace( /-[a-z]{3,8}|(-[a-z]{2})-([a-z]{3,8})/g, function( attribute, key, type ) {
+
+			if ( key ) {
+
+				// Extension is in the `keyword` form.
+				attributes[ "u" + key ] = type;
+			} else {
+
+				// Extension is in the `attribute` form.
+				attributes[ "u" + attribute ] = true;
+			}
+		});
 
 		this.locale = variant ? [ languageId, variant ].join( sep ) : languageId;
 	};

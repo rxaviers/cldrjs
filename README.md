@@ -59,10 +59,25 @@ en.attributes;
 //   "territory": "US",
 //   "region": "US"
 // }
+
+var zh = new Cldr( "zh-u-nu-finance-cu-cny" );
+zh.attributes;
+// {
+//   "languageId": "zh",
+//   "maxLanguageId": "zh-Hans-CN",
+//   "language": "zh",
+//   "script": "Hans",
+//   "territory": "CN",
+//   "region": "CN",
+//   "u-nu": "finance",
+//   "u-cu": "cny"
+// }
+
 ```
 
 - `language`, `script`, `territory` (also aliased as `region`), and `maxLanguageId` are computed by [adding likely subtags](./src/likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
 - `languageId` is always in the succinct form, obtained by [removing the likely subtags from `maxLanguageId`](./src/remove-likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
+- [Unicode locale extensions](http://www.unicode.org/reports/tr35/#u_Extension).
 
 Comparison between different locales.
 
