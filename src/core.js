@@ -94,7 +94,7 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 		switch ( true ) {
 
 			// language_script_territory..
-			case /^[a-z]{2,3}-[A-Z][a-z]{3}-[A-Z0-9]{2}(\b|-)/.test( unicodeLanguageId ):
+			case /^[a-z]{2,3}-[A-Z][a-z]{3}-[A-Z0-9]{2,3}(\b|-)/.test( unicodeLanguageId ):
 				language = unicodeLanguageId.split( "-" )[ 0 ];
 				script = unicodeLanguageId.split( "-" )[ 1 ];
 				territory = unicodeLanguageId.split( "-" )[ 2 ];
@@ -110,7 +110,7 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 				break;
 
 			// language_territory..
-			case /^[a-z]{2,3}-[A-Z0-9]{2}(\b|-)/.test( unicodeLanguageId ):
+			case /^[a-z]{2,3}-[A-Z0-9]{2,3}(\b|-)/.test( unicodeLanguageId ):
 				language = unicodeLanguageId.split( "-" )[ 0 ];
 				script = "Zzzz";
 				territory = unicodeLanguageId.split( "-" )[ 1 ];
