@@ -1,6 +1,6 @@
 {
   "name": "cldrjs",
-  "version": "0.3.11-pre",
+  "version": "0.3.11",
   "description": "Simple CLDR API",
   "keywords": [
     "utility",
