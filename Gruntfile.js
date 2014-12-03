@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 				}
 			},
 			dist: {
-				src: [ "dist/**/*.js", "!dist/**/*.min.js" ],
+				src: [ "dist/**/*.js" ],
 				options: {
 					jshintrc: "src/.dist_jshintrc"
 				}
@@ -240,17 +240,17 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					"dist/cldr.min.js": [ "dist/cldr.js" ],
-					"dist/cldr/event.min.js": [ "dist/cldr/event.js" ],
-					"dist/cldr/supplemental.min.js": [ "dist/cldr/supplemental.js" ],
-					"dist/cldr/unresolved.min.js": [ "dist/cldr/unresolved.js" ]
+					"tmp/cldr.min.js": [ "dist/cldr.js" ],
+					"tmp/cldr/event.min.js": [ "dist/cldr/event.js" ],
+					"tmp/cldr/supplemental.min.js": [ "dist/cldr/supplemental.js" ],
+					"tmp/cldr/unresolved.min.js": [ "dist/cldr/unresolved.js" ]
 				}
 			}
 		},
 		compare_size: {
 			files: [
-				"dist/cldr.min.js",
-				"dist/cldr/*min.js"
+				"tmp/cldr.min.js",
+				"tmp/cldr/*min.js"
 			],
 			options: {
 				compress: {
