@@ -1,6 +1,6 @@
 # cldr.js - Simple CLDR API
 
-[CLDR (unicode.org)](http://cldr.unicode.org/) provides locale content for I18n software. The data is provided in two formats: LDML (XML format), and JSON. Our goal is to provide a simple layer to facilitate I18n softwares to access and use the [official CLDR JSON data](http://cldr.unicode.org/index/cldr-spec/json).
+[CLDR (unicode.org)](http://cldr.unicode.org/) provides locale content for i18n software. The data is provided in two formats: LDML (XML format) and JSON. Our goal is to provide a simple layer to facilitate i18n software to access and use the [official CLDR JSON data](http://cldr.unicode.org/index/cldr-spec/json).
 
 | File | Minified + gzipped size | Summary |
 |---|--:|---|
@@ -29,7 +29,7 @@ Quick jump:
 
 ### Where to use it?
 
-It's designed to work both in the [browser](#usage-and-installation), or in [node.js](#commonjs--nodejs). It supports [AMD](#usage-and-installation), and [CommonJs](#usage-and-installation);
+It's designed to work both in the [browser](#usage-and-installation) and in [Node.js](#commonjs--nodejs). It supports [AMD](#usage-and-installation) and [CommonJs](#usage-and-installation);
 
 See [Usage and installation](#usage-and-installation).
 
@@ -109,7 +109,7 @@ ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
 // .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
 ```
 
-Have any [locale attributes](#cldrattributes) replaced with their corresponding values by embracing it with `{}`. In the example below, `{language}` is replaced with `"en"`, and `{territory}` with `"US"`.
+Have any [locale attributes](#cldrattributes) replaced with their corresponding values by embracing it with `{}`. In the example below, `{language}` is replaced with `"en"` and `{territory}` with `"US"`.
 
 ```javascript
 var enGender = en.get( "supplemental/gender/personList/{language}" );
@@ -266,7 +266,7 @@ The Unicode CLDR is available for download as JSON ([`json.zip`](http://www.unic
 
 You can generate the JSON representation of the languages not available in the ZIP file by using the official conversion tool ([`tools.zip`](http://www.unicode.org/Public/cldr/latest/)). This ZIP contains a README with instructions on how to build the data.
 
-You can choose to generate unresolved data to save space or bandwidth (`-r false` option of the conversion tool), and instead have it resolve at runtime.
+You can choose to generate unresolved data to save space or bandwidth (`-r false` option of the conversion tool) and instead have it resolve at runtime.
 
 For the examples below, first fetch CLDR JSON data:
 
@@ -318,9 +318,9 @@ var Cldr = require( "cldrjs" );
 Cldr.load( require( "./cldr/supplemental/likelySubtags.json" ) );
 ```
 
-#### Atention: library owners, do not embed data
+#### Attention: library owners, do not embed data
 
-It's NOT recommended that libraries embed data into its code logic for some reasons: avoid forcing a certain data version on users, avoid maintaining locale changes, avoid duplicating data among different i18n libraries.
+It's NOT recommended that libraries embed data into their code logic for several reasons: avoid forcing a certain data version on users, avoid maintaining locale changes, avoid duplicating data among different i18n libraries.
 
 We recommend loading CLDR data must be performed by end user code.
 
@@ -356,7 +356,7 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
 - **`.attributes`**
 
- Attributes is an Object created during instance initialization (construction), and are used internally by `.get()` to replace dynamic parts of an item path.
+ Attributes is an Object created during instance initialization (construction) and are used internally by `.get()` to replace dynamic parts of an item path.
 
  [Read more...](doc/api/core/attributes.md)
 
