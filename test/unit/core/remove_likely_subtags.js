@@ -4,11 +4,12 @@ define([
 	"json!cldr-data/supplemental/likelySubtags.json"
 ], function( Cldr, removeLikelySubtags, likelySubtagsJson ) {
 
-	Cldr.load( likelySubtagsJson );
-
 	describe( "Remove Likely Subtags", function() {
-
 		var cldr = new Cldr( "root" );
+
+		before(function() {
+			Cldr.load( likelySubtagsJson );
+		});
 
 		it( "Should reduce \"en_Latn_US\" into \"en\"", function() {
 			expect( removeLikelySubtags( Cldr, cldr, [ "en", "Latn", "US" ] ) ).to.eql( [ "en" ] );

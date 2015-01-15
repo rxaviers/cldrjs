@@ -16,10 +16,17 @@ require([
 	"./unit/path/normalize",
 
 	// 2nd unit tests group.
+	"./unit/core/load",
+	"./unit/core/set_available_bundles",
+
+	// 3rd unit tests group.
 	"./unit/core",
 	"./unit/core/likely_subtags",
 	"./unit/core/remove_likely_subtags",
-	"./unit/supplemental"
+	"./unit/supplemental",
+
+	// 4th unit tests group.
+	"./unit/bundle/lookup"
 
 ], function() {
 	mocha.run();

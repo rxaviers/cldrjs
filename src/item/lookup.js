@@ -34,7 +34,7 @@ define([
 		if ( !value ) {
 			// Or, lookup at parent locale
 			parent = bundleParentLookup( Cldr, locale );
-			value = lookup( Cldr, parent, path, jsonMerge( attributes, { languageId: parent }), locale );
+			value = lookup( Cldr, parent, path, jsonMerge( attributes, { bundle: parent }), locale );
 		}
 
 		if ( value ) {

@@ -96,6 +96,14 @@ define([
 			});
 		});
 
+		it( "should throw error on missing bundle", function() {
+			var cldr = new Cldr( "sr-RS" );
+			expect( cldr.attributes.bundle ).to.be.null;
+			expect(function() {
+				cldr.main( "numbers" );
+			}).to.throw( Error, /E_MISSING_BUNDLE/ );
+		});
+
 	});
 
 });

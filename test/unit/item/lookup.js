@@ -7,19 +7,21 @@ define([
 	"src/unresolved"
 ], function( Cldr, itemLookup, ptNumbersJson, genderJson, likelySubtagsJson ) {
 
-	Cldr.load(
-		genderJson,
-		likelySubtagsJson,
-		ptNumbersJson,
-		{
-			"lookup-test": {
-				a: 1,
-				b: 2
-			}
-		}
-	);
-
 	describe( "Item Lookup", function() {
+
+		before(function() {
+			Cldr.load(
+				genderJson,
+				likelySubtagsJson,
+				ptNumbersJson,
+				{
+					"lookup-test": {
+						a: 1,
+						b: 2
+					}
+				}
+			);
+		});
 
 		it( "should get resolved items", function() {
 			var cldr = new Cldr( "root" );
@@ -28,7 +30,7 @@ define([
 
 		it( "should resolve and get unresolved items", function() {
 			var cldr = new Cldr( "pt_BR" );
-			expect( itemLookup( Cldr, cldr.locale, "/main/{languageId}/numbers/symbols-numberSystem-latn/decimal", cldr.attributes ) ).to.equal( "," );
+			expect( itemLookup( Cldr, cldr.locale, "/main/{bundle}/numbers/symbols-numberSystem-latn/decimal", cldr.attributes ) ).to.equal( "," );
 		});
 
 		it( "should only cache found resolved items", function() {

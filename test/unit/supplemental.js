@@ -6,24 +6,28 @@ define([
 	"json!cldr-data/supplemental/weekData.json"
 ], function( Cldr, supplemental, likelySubtagsJson, timeDataJson, weekDataJson ) {
 
-	Cldr.load(
-		likelySubtagsJson,
-		timeDataJson,
-		weekDataJson
-	);
-
 	describe( "Supplemental", function() {
-		var en = new Cldr( "en" ),
+		var en, enGb, fr, ptBr, ty;
+
+		before(function() {
+			Cldr.load(
+				likelySubtagsJson,
+				timeDataJson,
+				weekDataJson
+			);
+
+			en = new Cldr( "en" ),
 			enGb = new Cldr( "en_GB" ),
 			fr = new Cldr( "fr" ),
 			ptBr = new Cldr( "pt_BR" ),
 			ty = new Cldr( "ty" );
 
-		en.supplemental = supplemental( en );
-		enGb.supplemental = supplemental( enGb );
-		fr.supplemental = supplemental( fr );
-		ptBr.supplemental = supplemental( ptBr );
-		ty.supplemental = supplemental( ty );
+			en.supplemental = supplemental( en );
+			enGb.supplemental = supplemental( enGb );
+			fr.supplemental = supplemental( fr );
+			ptBr.supplemental = supplemental( ptBr );
+			ty.supplemental = supplemental( ty );
+		});
 
 		it( "should get weekData.firstDay", function() {
 			// Explicitly defined firstDay.

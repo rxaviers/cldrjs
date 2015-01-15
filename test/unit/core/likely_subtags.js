@@ -4,10 +4,12 @@ define([
 	"json!cldr-data/supplemental/likelySubtags.json"
 ], function( Cldr, likelySubtags, likelySubtagsJson ) {
 
-	Cldr.load( likelySubtagsJson );
-
 	describe( "Likely Subtags", function() {
 		var cldr = new Cldr( "root" );
+
+		before(function() {
+			Cldr.load( likelySubtagsJson );
+		});
 
 		it( "should skip empty language tag", function() {
 			expect( likelySubtags( Cldr, cldr, [ "en", "Latn", "US" ] ) ).to.eql( [ "en", "Latn", "US" ] );

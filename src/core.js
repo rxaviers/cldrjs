@@ -1,19 +1,22 @@
 define([
+	"./bundle/lookup",
 	"./common/create_error",
+	"./common/validate",
 	"./common/validate/presence",
 	"./common/validate/type",
 	"./common/validate/type/path",
 	"./common/validate/type/plain_object",
 	"./common/validate/type/string",
 	"./core/likely_subtags",
+	"./core/load",
 	"./core/remove_likely_subtags",
+	"./core/subtags",
 	"./item/get_resolved",
 	"./path/normalize",
 	"./resource/get",
 	"./util/always_array",
 	"./util/json/merge"
-], function( createError, validatePresence, validateType, validateTypePath,
-validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikelySubtags, itemGetResolved, pathNormalize, resourceGet, alwaysArray, jsonMerge ) {
+], function( bundleLookup, createError, validate, validatePresence, validateType, validateTypePath, validateTypePlainObject, validateTypeString, coreLikelySubtags, coreLoad, coreRemoveLikelySubtags, coreSubtags, itemGetResolved, pathNormalize, resourceGet, alwaysArray, jsonMerge ) {
 
 	/**
 	 * new Cldr()
@@ -24,6 +27,7 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 
 	// Build optimization hack to avoid duplicating functions across modules.
 	Cldr._alwaysArray = alwaysArray;
+	Cldr._coreLoad = coreLoad;
 	Cldr._createError = createError;
 	Cldr._itemGetResolved = itemGetResolved;
 	Cldr._jsonMerge = jsonMerge;
@@ -34,40 +38,38 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 	Cldr._validateTypePath = validateTypePath;
 	Cldr._validateTypePlainObject = validateTypePlainObject;
 
+	Cldr._availableBundleMap = {};
+	Cldr._availableBundleMapQueue = [];
 	Cldr._resolved = {};
 
 	// Allow user to override locale separator "-" (default) | "_". According to http://www.unicode.org/reports/tr35/#Unicode_language_identifier, both "-" and "_" are valid locale separators (eg. "en_GB", "en-GB"). According to http://unicode.org/cldr/trac/ticket/6786 its usage must be consistent throughout the data set.
 	Cldr.localeSep = "-";
 
-	// Load resolved cldr data
-	// @json [JSON]
-	Cldr.load = function( json ) {
-		var i, j;
-
-		validatePresence( json, "json" );
-
-		// Support arbitrary parameters, e.g., `Cldr.load({...}, {...})`.
-		for ( i = 0; i < arguments.length; i++ ) {
-
-			// Support array parameters, e.g., `Cldr.load([{...}, {...}])`.
-			json = alwaysArray( arguments[ i ] );
-
-			for ( j = 0; j < json.length; j++ ) {
-				validateTypePlainObject( json[ j ], "json" );
-				Cldr._resolved = jsonMerge( Cldr._resolved, json[ j ] );
-			}
-		}
+	/**
+	 * Cldr.load( json [, json, ...] )
+	 *
+	 * @json [JSON] CLDR data or [Array] Array of @json's.
+	 *
+	 * Load resolved cldr data.
+	 */
+	Cldr.load = function() {
+		Cldr._resolved = coreLoad( Cldr, Cldr._resolved, arguments );
 	};
 
 	/**
 	 * .init() automatically run on instantiation/construction.
 	 */
 	Cldr.prototype.init = function( locale ) {
-		var attributes, aux, language, languageId, maxLanguageId, script, territory, unicodeLanguageId, unicodeLocaleExtensions, variant,
+		var attributes, language, maxLanguageId, minLanguageId, script, subtags, territory, unicodeLocaleExtensions, variant,
 			sep = Cldr.localeSep;
 
 		validatePresence( locale, "locale" );
 		validateTypeString( locale, "locale" );
+
+		subtags = coreSubtags( locale );
+
+		unicodeLocaleExtensions = subtags[ 4 ];
+		variant = subtags[ 3 ];
 
 		// Normalize locale code.
 		// Get (or deduce) the "triple subtags": language, territory (also aliased as region), and script subtags.
@@ -77,74 +79,20 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 		// - http://www.unicode.org/reports/tr35/#Language_and_Locale_IDs
 		// - http://www.unicode.org/reports/tr35/#Unicode_locale_identifier
 
-		locale = locale.replace( /_/, "-" );
-
-		// Unicode locale extensions.
-		aux = locale.split( "-u-" );
-		locale = aux[ 0 ];
-		unicodeLocaleExtensions = aux[ 1 ];
-
-		// TODO normalize transformed extensions. Currently, skipped.
-		// transformedExtensions = locale.split( "-t-" )[ 1 ];
-		locale = locale.split( "-t-" )[ 0 ];
-
-		unicodeLanguageId = locale;
-
-		// unicodeLanguageId = ...
-		switch ( true ) {
-
-			// language_script_territory..
-			case /^[a-z]{2,3}-[A-Z][a-z]{3}-[A-Z0-9]{2,3}(\b|-)/.test( unicodeLanguageId ):
-				language = unicodeLanguageId.split( "-" )[ 0 ];
-				script = unicodeLanguageId.split( "-" )[ 1 ];
-				territory = unicodeLanguageId.split( "-" )[ 2 ];
-				variant = unicodeLanguageId.split( "-" )[ 3 ];
-				break;
-
-			// language_script..
-			case /^[a-z]{2,3}-[A-Z][a-z]{3}(\b|-)/.test( unicodeLanguageId ):
-				language = unicodeLanguageId.split( "-" )[ 0 ];
-				script = unicodeLanguageId.split( "-" )[ 1 ];
-				territory = "ZZ";
-				variant = unicodeLanguageId.split( "-" )[ 2 ];
-				break;
-
-			// language_territory..
-			case /^[a-z]{2,3}-[A-Z0-9]{2,3}(\b|-)/.test( unicodeLanguageId ):
-				language = unicodeLanguageId.split( "-" )[ 0 ];
-				script = "Zzzz";
-				territory = unicodeLanguageId.split( "-" )[ 1 ];
-				variant = unicodeLanguageId.split( "-" )[ 2 ];
-				break;
-
-			// language.., or root
-			case /^([a-z]{2,3}|root)(\b|-)/.test( unicodeLanguageId ):
-				language = unicodeLanguageId.split( "-" )[ 0 ];
-				script = "Zzzz";
-				territory = "ZZ";
-				variant = unicodeLanguageId.split( "-" )[ 1 ];
-				break;
-
-			default:
-				language = "und";
-				script = "Zzzz";
-				territory = "ZZ";
-				break;
-		}
-
 		// When a locale id does not specify a language, or territory (region), or script, they are obtained by Likely Subtags.
-		maxLanguageId = coreLikelySubtags( Cldr, this, [ language, script, territory ], { force: true } ) || unicodeLanguageId.split( "-" );
+		maxLanguageId = coreLikelySubtags( Cldr, this, subtags, { force: true } ) || subtags;
 		language = maxLanguageId[ 0 ];
 		script = maxLanguageId[ 1 ];
-		territory  = maxLanguageId[ 2 ];
+		territory = maxLanguageId[ 2 ];
 
-		languageId = coreRemoveLikelySubtags( Cldr, this, maxLanguageId ).join( sep );
+		minLanguageId = coreRemoveLikelySubtags( Cldr, this, maxLanguageId ).join( sep );
 
 		// Set attributes
 		this.attributes = attributes = {
+			bundle: bundleLookup( Cldr, this, minLanguageId ),
 
 			// Unicode Language Id
-			languageId: languageId,
+			minlanguageId: minLanguageId,
 			maxLanguageId: maxLanguageId.join( sep ),
 
 			// Unicode Language Id Subtabs
@@ -169,7 +117,7 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 			}
 		});
 
-		this.locale = variant ? [ languageId, variant ].join( sep ) : languageId;
+		this.locale = locale;
 	};
 
 	/**
@@ -190,8 +138,12 @@ validateTypePlainObject, validateTypeString, coreLikelySubtags, coreRemoveLikely
 		validatePresence( path, "path" );
 		validateTypePath( path, "path" );
 
+		validate( "E_MISSING_BUNDLE", this.attributes.bundle !== null, {
+			locale: this.locale
+		});
+
 		path = alwaysArray( path );
-		return this.get( [ "main/{languageId}" ].concat( path ) );
+		return this.get( [ "main/{bundle}" ].concat( path ) );
 	};
 
 	return Cldr;

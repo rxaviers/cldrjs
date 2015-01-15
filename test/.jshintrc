@@ -13,5 +13,5 @@
 	"undef": true,
 	"unused": true,
 
-	"predef": [ "define", "describe", "expect", "it", "mocha", "require", "setTimeout" ]
+	"predef": [ "after", "before", "define", "describe", "expect", "it", "mocha", "require", "setTimeout" ]
 }

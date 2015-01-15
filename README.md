@@ -52,7 +52,8 @@ See [How to get CLDR JSON data?](#how-to-get-cldr-json-data) below for more info
 var en = new Cldr( "en" );
 en.attributes;
 // {
-//   "languageId": "en",
+//   "bundle": "en",
+//   "minLanguageId": "en",
 //   "maxLanguageId": "en-Latn-US",
 //   "language": "en",
 //   "script": "Latn",
@@ -63,7 +64,8 @@ en.attributes;
 var zh = new Cldr( "zh-u-nu-finance-cu-cny" );
 zh.attributes;
 // {
-//   "languageId": "zh",
+//   "bundle": "zh-Hant",
+//   "minLanguageId": "zh",
 //   "maxLanguageId": "zh-Hans-CN",
 //   "language": "zh",
 //   "script": "Hans",
@@ -75,13 +77,13 @@ zh.attributes;
 
 ```
 
-- `language`, `script`, `territory` (also aliased as `region`), and `maxLanguageId` are computed by [adding likely subtags](./src/likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
-- `languageId` is always in the succinct form, obtained by [removing the likely subtags from `maxLanguageId`](./src/remove-likely-subtags.js) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
+- `language`, `script`, `territory` (also aliased as `region`), `maxLanguageId` (computed by [adding likely subtags](./src/core/likely_subtags.js)) and `minLanguageId` (computed by [removing likely subtags](./src/core/remove_likely_subtags.js)) according to the [specification](http://www.unicode.org/reports/tr35/#Likely_Subtags).
+- `bundle` holds the bundle lookup match based on the available loaded CLDR data, obtained by following [Bundle Lookup Matcher][].
 - [Unicode locale extensions](http://www.unicode.org/reports/tr35/#u_Extension).
 
 Comparison between different locales.
 
-| locale | languageId | maxLanguageId | language | script | region |
+| locale | minLanguageId | maxLanguageId | language | script | region |
 | --- | --- | --- | --- | --- | --- |
 | **en** |  `"en"` |  `"en-Latn-US"`  |  `"en"` |  `"Latn"` |  `"US"` |
 | **en-US** |  `"en"` |  `"en-Latn-US"`  |  `"en"` |  `"Latn"` |  `"US"` |
@@ -101,12 +103,12 @@ Comparison between different locales.
 en.main( "numbers/symbols-numberSystem-latn/decimal" );
 // ➡ "."
 // Equivalent to:
-// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
+// .get( "main/{bundle}/numbers/symbols-numberSystem-latn/decimal" );
 
 ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
 // ➡ ","
 // Equivalent to:
-// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
+// .get( "main/{bundle}/numbers/symbols-numberSystem-latn/decimal" );
 ```
 
 Have any [locale attributes](#cldrattributes) replaced with their corresponding values by embracing it with `{}`. In the example below, `{language}` is replaced with `"en"` and `{territory}` with `"US"`.
@@ -227,7 +229,7 @@ var ptBr = new Cldr( "pt-BR" );
 ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
 // ➡ ","
 // Equivalent to:
-// .get( "main/{languageId}/numbers/symbols-numberSystem-latn/decimal" );
+// .get( "main/{bundle}/numbers/symbols-numberSystem-latn/decimal" );
 ```
 
 We are UMD wrapped. So, it supports AMD, CommonJS, or global variables (in case neither AMD nor CommonJS have been detected).
@@ -368,7 +370,7 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
 - **`.main( path )`**
 
- It's an alias for `.get([ "main/{languageId}", ... ])`.
+ It's an alias for `.get([ "main/{bundle}", ... ])`.
 
  [Read more...](doc/api/core/main.md)
 
@@ -458,7 +460,22 @@ You must also load any portion of the CLDR data you plan to use in your library 
 
  [Read more...](doc/api/unresolved/get.md)
 
-### Error reference
+## Error reference
+
+### CLDR Errors
+
+#### `E_MISSING_BUNDLE`
+
+Thrown when none of the loaded CLDR data can be used as a bundle for the corresponding locale. See more information on [Bundle Lookup Matcher][].
+
+Error object:
+
+| Attribute | Value |
+| --- | --- |
+| code | `E_MISSING_BUNDLE` |
+| locale | Locale whose bundle could not be found |
+
+### Parameter Errors
 
 #### `E_MISSING_PARAMETER`
 
@@ -500,6 +517,8 @@ Build distribution file.
 ```bash
 grunt
 ```
+
+[Bundle Lookup Matcher]: ./doc/bundle_lookup_matcher.md
 
 ## License
 

@@ -4,9 +4,11 @@ define([
 	"json!cldr-data/supplemental/parentLocales.json"
 ], function( Cldr, parentLookup, parentLocalesJson ) {
 
-	Cldr.load( parentLocalesJson );
-
 	describe( "Bundle Parent Lookup", function() {
+
+		before(function() {
+			Cldr.load( parentLocalesJson );
+		});
 
 		it( "should truncate locale", function() {
 			expect( parentLookup( Cldr, [ "pt", "BR" ].join( Cldr.localeSep ) ) ).to.equal( "pt" );
