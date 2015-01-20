@@ -33,6 +33,10 @@ It's designed to work both in the [browser](#usage-and-installation) and in [Nod
 
 See [Usage and installation](#usage-and-installation).
 
+### What changed from 0.3.x to 0.4.x?
+
+See our [changelogs](./CHANGELOG.md).
+
 ### Load only the CLDR portion you need
 
 ```javascript
