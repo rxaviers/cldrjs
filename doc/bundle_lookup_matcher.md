@@ -60,7 +60,7 @@ console.log( enLatnUs.attributes.bundle ); // "en"
 
 All instances above obviously matches the same `en` bundle. Because, (a) `en` is the default content for `en-US` and (b) `en-US` is the default content for `en-Latn-US`.
 
-What happens if the requested locale includes unicode extensions?
+What happens if the requested locale includes [Unicode extensions][]?
 
 ```javascript
 var en = new Cldr( "en-US-u-cu-USD" );
@@ -68,7 +68,7 @@ console.log( en.attributes.bundle ); // "en"
 console.log( en.main( "numbers/currencies/{u-cu}/displayName" ) ); // "US Dollar"
 ```
 
-Unicode extensions are obviously ignored on bundle lookup. Note they are accessible via variable replacements.
+[Unicode extensions][] are obviously ignored on bundle lookup. Note they are accessible via variable replacements.
 
 Below are other non-obvious lookups.
 
@@ -130,4 +130,5 @@ This algorithm is faster than LanguageMatching and needs no extra CLDR to be cre
 [Fixing Inheritance doc]: https://docs.google.com/document/d/1qZwEVb4kfODi2TK5f4x15FYWj5rJRijXmSIg5m6OH8s/edit
 [Remove Likely Subtags]: http://www.unicode.org/reports/tr35/tr35.html#Likely_Subtags
 [RFC 4647]: http://www.ietf.org/rfc/rfc4647.txt
+[Unicode extensions]: http://Www.unicode.org/reports/tr35/#u_Extension
 [UTS#35]: http://www.unicode.org/reports/tr35
