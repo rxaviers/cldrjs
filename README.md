@@ -1,10 +1,10 @@
-# cldr.js - Simple CLDR API
+# cldr.js - Simple CLDR traverser
 
 [CLDR (unicode.org)](http://cldr.unicode.org/) provides locale content for i18n software. The data is provided in two formats: LDML (XML format) and JSON. Our goal is to provide a simple layer to facilitate i18n software to access and use the [official CLDR JSON data](http://cldr.unicode.org/index/cldr-spec/json).
 
 | File | Minified + gzipped size | Summary |
 |---|--:|---|
-| cldr.js | 1.7KB | Core library |
+| cldr.js | 2.1KB | Core library |
 | cldr/event.js | +1.4KB | Provides methods to allow listening to events, eg. `get` |
 | cldr/supplemental.js | +0.5KB | Provides supplemental helper methods |
 | cldr/unresolved.js | +0.7KB | Provides inheritance support for unresolved data |
