@@ -1,6 +1,6 @@
 {
   "name": "cldrjs",
-  "version": "0.4.0-pre",
+  "version": "0.4.0",
   "dependencies": {
     "cldr-data": ">=25"
   },
