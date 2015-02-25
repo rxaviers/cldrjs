@@ -1,7 +1,7 @@
 {
   "name": "cldrjs",
   "version": "0.4.1-pre",
-  "description": "Simple CLDR API",
+  "description": "Simple CLDR traverser",
   "keywords": [
     "utility",
     "globalization",
