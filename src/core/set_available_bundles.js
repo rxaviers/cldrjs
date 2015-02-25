@@ -18,7 +18,7 @@ define([
 
 		if ( main ) {
 			for ( bundle in main ) {
-				if ( main.hasOwnProperty( bundle ) ) {
+				if ( main.hasOwnProperty( bundle ) && bundle !== "root" ) {
 					availableBundleMapQueue.push( bundle );
 				}
 			}
