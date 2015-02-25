@@ -6,9 +6,9 @@ User must load likelySubtags and any wanted main datasets prior to creating an i
 
 ```javascript
 Cldr.load(
-  cldr( "supplemental/likelySubtags" ),   // JSON data from supplemental/likelySubtags.json
-  cldr( "main/en-US/ca-gregorian" ),      // JSON data from main/en-US/ca-gregorian.json
-  cldr( "main/en-GB/ca-gregorian" )       // JSON data from main/en-GB/ca-gregorian.json
+  require( "cldr-data/supplemental/likelySubtags" ),   // JSON data from supplemental/likelySubtags.json
+  require( "cldr-data/main/en-US/ca-gregorian" ),      // JSON data from main/en-US/ca-gregorian.json
+  require( "cldr-data/main/en-GB/ca-gregorian" )       // JSON data from main/en-GB/ca-gregorian.json
 );
 
 var enUs = new Cldr( "en-US" );
@@ -26,10 +26,10 @@ What happens if we include `main/en/ca-gregorian` to the above example?
 
 ```javascript
 Cldr.load(
-  cldr( "supplemental/likelySubtags" ),   // JSON data from supplemental/likelySubtags.json
-  cldr( "main/en/ca-gregorian" ),         // JSON data from main/en/ca-gregorian.json
-  cldr( "main/en-US/ca-gregorian" ),      // JSON data from main/en-US/ca-gregorian.json
-  cldr( "main/en-GB/ca-gregorian" )       // JSON data from main/en-GB/ca-gregorian.json
+  require( "cldr-data/supplemental/likelySubtags" ),   // JSON data from supplemental/likelySubtags.json
+  require( "cldr-data/main/en/ca-gregorian" ),         // JSON data from main/en/ca-gregorian.json
+  require( "cldr-data/main/en-US/ca-gregorian" ),      // JSON data from main/en-US/ca-gregorian.json
+  require( "cldr-data/main/en-GB/ca-gregorian" )       // JSON data from main/en-GB/ca-gregorian.json
 );
 
 var enUs = new Cldr( "en-US" ); // English as spoken in United States.
@@ -74,10 +74,10 @@ Below are other non-obvious lookups.
 
 ```javascript
 Cldr.load(
-  cldr( "supplemental/likelySubtags" ),   // JSON data from supplemental/likelySubtags.json
-  cldr( "main/sr-Cyrl/numbers" ),         // JSON data from main/sr-Cyrl/numbers.json
-  cldr( "main/sr-Latn/numbers" ),         // JSON data from main/sr-Latn/numbers.json
-  cldr( "main/zh-Hant/numbers" )          // JSON data from main/zh-Hant/numbers.json
+  require( "cldr-data/supplemental/likelySubtags" ),   // JSON data from supplemental/likelySubtags.json
+  require( "cldr-data/main/sr-Cyrl/numbers" ),         // JSON data from main/sr-Cyrl/numbers.json
+  require( "cldr-data/main/sr-Latn/numbers" ),         // JSON data from main/sr-Latn/numbers.json
+  require( "cldr-data/main/zh-Hant/numbers" )          // JSON data from main/zh-Hant/numbers.json
 );
 
 var srCyrl = new Cldr( "sr-Cyrl" );
