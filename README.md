@@ -55,7 +55,7 @@ See [How to get CLDR JSON data?](#how-to-get-cldr-json-data) below for more info
 ```javascript
 var en = new Cldr( "en" );
 en.attributes;
-// {
+// > {
 //   "bundle": "en",
 //   "minLanguageId": "en",
 //   "maxLanguageId": "en-Latn-US",
@@ -67,7 +67,7 @@ en.attributes;
 
 var zh = new Cldr( "zh-u-nu-finance-cu-cny" );
 zh.attributes;
-// {
+// > {
 //   "bundle": "zh-Hant",
 //   "minLanguageId": "zh",
 //   "maxLanguageId": "zh-Hans-CN",
@@ -104,37 +104,38 @@ Comparison between different locales.
 ### Get item given its path
 
 ```javascript
+// Equivalent to:
+// .get( "main/{bundle}/numbers/symbols-numberSystem-latn/decimal" );
 en.main( "numbers/symbols-numberSystem-latn/decimal" );
-// ➡ "."
-// Equivalent to:
-// .get( "main/{bundle}/numbers/symbols-numberSystem-latn/decimal" );
+// > "."
 
-ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
-// ➡ ","
 // Equivalent to:
 // .get( "main/{bundle}/numbers/symbols-numberSystem-latn/decimal" );
+ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
+// > ","
 ```
 
 Have any [locale attributes](#cldrattributes) replaced with their corresponding values by embracing it with `{}`. In the example below, `{language}` is replaced with `"en"` and `{territory}` with `"US"`.
 
 ```javascript
-var enGender = en.get( "supplemental/gender/personList/{language}" );
-// ➡ "neutral"
 // Notice the more complete way to get this data is:
 // cldr.get( "supplemental/gender/personList/{language}" ) ||
 // cldr.get( "supplemental/gender/personList/001" );
+var enGender = en.get( "supplemental/gender/personList/{language}" );
+// > "neutral"
 
 var USCurrencies = en.get( "supplemental/currencyData/region/{territory}" );
-// ➡
-// [ { USD: { _from: "1792-01-01" } },
+// > [
+//   { USD: { _from: "1792-01-01" } },
 //   { USN: { _tender: "false" } },
-//   { USS: { _tender: "false" } } ]
+//   { USS: { _tender: "false" } }
+// ]
 
-var enMeasurementSystem = en.get( "supplemental/measurementData/measurementSystem/{territory}" );
-// ➡ "US"
 // Notice the more complete way to get this data is:
 // cldr.get( "supplemental/measurementData/measurementSystem/{territory}" ) ||
 // cldr.get( "supplemental/measurementData/measurementSystem/001" );
+var enMeasurementSystem = en.get( "supplemental/measurementData/measurementSystem/{territory}" );
+// > "US"
 ```
 
 Get `undefined` for non-existent data.
@@ -162,15 +163,15 @@ Cldr.load(
 
 var enIn = new Cldr( "en-IN" );
 
-enIn.main( "dates/calendars/gregorian/dateTimeFormats/availableFormats/yMd" );
-// ➡ "dd/MM/y"
 // 1st time retrieved by resolving: en-IN ➡ en-GB (parent locale lookup).
 // Further times retrieved straight from the resolved cache.
+enIn.main( "dates/calendars/gregorian/dateTimeFormats/availableFormats/yMd" );
+// > "dd/MM/y"
 
-enIn.main( "numbers/symbols-numberSystem-latn/decimal" );
-// ➡ "."
 // 1st time retrieved by resolving: en-IN ➡ en-GB (parent locale lookup) ➡ en (truncate lookup)
 // Further times retrieved straight from the resolved cache.
+enIn.main( "numbers/symbols-numberSystem-latn/decimal" );
+// > "."
 ```
 
 ### Helpers
@@ -230,10 +231,10 @@ Cldr.load( cldrJsonData );
 var ptBr = new Cldr( "pt-BR" );
 
 // Get CLDR item data given its path.
-ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
-// ➡ ","
 // Equivalent to:
 // .get( "main/{bundle}/numbers/symbols-numberSystem-latn/decimal" );
+ptBr.main( "numbers/symbols-numberSystem-latn/decimal" );
+// > ","
 ```
 
 We are UMD wrapped. So, it supports AMD, CommonJS, or global variables (in case neither AMD nor CommonJS have been detected).
@@ -337,7 +338,7 @@ It depends on the used modules.
 | File | Required CLDR JSON data |
 |---|---|
 | cldr.js | `cldr/supplemental/likelySubtags.json` |
-| cldr/unresolved.js |  - |
+| cldr/unresolved.js |  `cldr/supplemental/parentLocales.json` |
 | cldr/supplemental.js | `cldr/supplemental/{timeData, weekData}.json` |
 
 You must also load any portion of the CLDR data you plan to use in your library or your end-application.
