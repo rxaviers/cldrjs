@@ -269,7 +269,12 @@ var Cldr = require( "cldrjs" );
 
 ### How to get CLDR JSON data?
 
-The Unicode CLDR is available for download as JSON ([`json.zip`](http://www.unicode.org/Public/cldr/latest/json.zip)). This file contains the complete data of what the Unicode CLDR Project considers the top 20 languages (at the time of this writing).
+Unicode CLDR is available as JSON at https://github.com/unicode-cldr/ (after this [json-packaging proposal](http://cldr.unicode.org/development/development-process/design-proposals/json-packaging) took place) with the latest tools at http://www.unicode.org/Public/cldr/latest/.
+
+`cldr-data` can be used for convenience. It always downloads from the correct source:
+
+- https://github.com/rxaviers/cldr-data-npm
+- https://github.com/rxaviers/cldr-data-bower
 
 You can generate the JSON representation of the languages not available in the ZIP file by using the official conversion tool ([`tools.zip`](http://www.unicode.org/Public/cldr/latest/)). This ZIP contains a README with instructions on how to build the data.
 
