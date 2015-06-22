@@ -14,6 +14,7 @@ Quick jump:
 - [Getting Started](#getting-started)
   - [Usage and installation](#usage-and-installation)
   - [How to get CLDR JSON data?](#how-to-get-cldr-json-data)
+  - [How do I load CLDR data into Cldrjs?](#how-do-i-load-cldr-data-into-cldrjs)
 - [API](#api)
 - [Error reference](#error)
 - [Development / Contributing](#development--contributing)
@@ -269,16 +270,32 @@ var Cldr = require( "cldrjs" );
 
 ### How to get CLDR JSON data?
 
-Unicode CLDR is available as JSON at https://github.com/unicode-cldr/ (after this [json-packaging proposal](http://cldr.unicode.org/development/development-process/design-proposals/json-packaging) took place) with the latest tools at http://www.unicode.org/Public/cldr/latest/.
+*By downloading the JSON packages individually...*
 
-`cldr-data` can be used for convenience. It always downloads from the correct source:
+Unicode CLDR is available as JSON at https://github.com/unicode-cldr/ (after this [json-packaging proposal][] took place). Please, read https://github.com/unicode-cldr/cldr-json for more information about package organization.
+
+[json-packaging proposal]: http://cldr.unicode.org/development/development-process/design-proposals/json-packaging
+
+*By using a package manager...*
+
+`cldr-data` can be used for convenience. It always downloads from the correct source.
+
+Use bower `bower install cldr-data` ([detailed instructions][]) or npm `npm install cldr-data`. For more information, see:
 
 - https://github.com/rxaviers/cldr-data-npm
 - https://github.com/rxaviers/cldr-data-bower
 
+[detailed instructions]: https://github.com/rxaviers/cldr-data-bower
+
+*By generating the JSON mappings yourself...*
+
 You can generate the JSON representation of the languages not available in the ZIP file by using the official conversion tool ([`tools.zip`](http://www.unicode.org/Public/cldr/latest/)). This ZIP contains a README with instructions on how to build the data.
 
 You can choose to generate unresolved data to save space or bandwidth (`-r false` option of the conversion tool) and instead have it resolve at runtime.
+
+### How do I load CLDR data into Cldrjs?
+
+The short answer is by using `Cldr.load()` and passing the JSON data as the first argument. Below, follow several examples on how this could be accomplished.
 
 For the examples below, first fetch CLDR JSON data:
 
