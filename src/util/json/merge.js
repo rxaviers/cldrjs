@@ -1,7 +1,6 @@
 define([
-	"../array/for_each",
-	"../array/is_array"
-], function( arrayForEach, arrayIsArray ) {
+	"../array/for_each"
+], function( arrayForEach ) {
 
 	// Returns new deeply merged JSON.
 	//
@@ -17,12 +16,7 @@ define([
 		arrayForEach( sources, function( source ) {
 			var prop;
 			for ( prop in source ) {
-				if ( prop in destination && arrayIsArray( destination[ prop ] ) ) {
-
-					// Concat Arrays
-					destination[ prop ] = destination[ prop ].concat( source[ prop ] );
-
-				} else if ( prop in destination && typeof destination[ prop ] === "object" ) {
+				if ( prop in destination && typeof destination[ prop ] === "object" ) {
 
 					// Merge Objects
 					destination[ prop ] = merge( destination[ prop ], source[ prop ] );
