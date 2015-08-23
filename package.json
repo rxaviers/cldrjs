@@ -20,6 +20,14 @@
     "compiler"
   ],
   "main": "dist/node_main.js",
+  "files": [
+    "CHANGELOG.md",
+    "DCO.md",
+    "dist/",
+    "doc/",
+    "LICENSE-MIT",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/rxaviers/cldrjs.git"
