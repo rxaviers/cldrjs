@@ -19,7 +19,7 @@ define([
 		});
 
 		it( "should use supplemental resource", function() {
-			expect( parentLookup( Cldr, [ "en", "IN" ].join( Cldr.localeSep ) ) ).to.equal( [ "en", "GB" ].join( Cldr.localeSep ) );
+			expect( parentLookup( Cldr, [ "en", "IN" ].join( Cldr.localeSep ) )).to.equal( [ "en", "001" ].join( Cldr.localeSep ) );
 		});
 
 	});
