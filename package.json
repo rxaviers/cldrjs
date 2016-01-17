@@ -48,7 +48,7 @@
     "cldr-data": ">=25"
   },
   "devDependencies": {
-    "cldr-data-downloader": "0.1.x",
+    "cldr-data-downloader": "0.2.x",
     "grunt": "0.4.x",
     "grunt-compare-size": "0.4.0",
     "grunt-contrib-connect": "0.3.x",
