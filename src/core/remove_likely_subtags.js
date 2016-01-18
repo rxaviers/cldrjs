@@ -19,7 +19,8 @@ define([
 		var match, matchFound,
 			language = maxLanguageId[ 0 ],
 			script = maxLanguageId[ 1 ],
-			territory = maxLanguageId[ 2 ];
+			territory = maxLanguageId[ 2 ],
+			variants = maxLanguageId[ 3 ];
 
 		// [3]
 		matchFound = arraySome([
@@ -34,8 +35,15 @@ define([
 				result[ 2 ] === maxLanguageId[ 2 ];
 		});
 
+		if ( matchFound ) {
+			if ( variants ) {
+				match.push( variants );
+			}
+			return match;
+		}
+
 		// [4]
-		return matchFound ?  match : maxLanguageId;
+		return maxLanguageId;
 	};
 
 });

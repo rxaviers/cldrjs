@@ -22,7 +22,7 @@ define([
 			arrayForEach( availableBundleMapQueue, function( bundle ) {
 				var existing, maxBundle, minBundle, subtags;
 				subtags = coreSubtags( bundle );
-				maxBundle = coreLikelySubtags( Cldr, cldr, subtags, { force: true } ) || subtags;
+				maxBundle = coreLikelySubtags( Cldr, cldr, subtags );
 				minBundle = coreRemoveLikelySubtags( Cldr, cldr, maxBundle );
 				minBundle = minBundle.join( Cldr.localeSep );
 				existing = availableBundleMapQueue[ minBundle ];

@@ -31,6 +31,10 @@ define([
 			expect( removeLikelySubtags( Cldr, cldr, [ "az", "Arab", "IR" ] ) ).to.eql( [ "az", "IR" ] );
 		});
 
+		it( "Should reduce \"en_Latn_US_POSIX\" into \"en_POSIX\" - variant subtag", function() {
+			expect( removeLikelySubtags( Cldr, cldr, [ "en", "Latn", "US", "POSIX" ] )).to.eql( [ "en", "POSIX" ] );
+		});
+
 	});
 
 });

@@ -51,6 +51,13 @@ define([
 				expect( cldr.attributes.language ).to.equal( "en" );
 				expect( cldr.attributes.script ).to.equal( "Latn" );
 				expect( cldr.attributes.territory ).to.equal( "US" );
+
+				// Variant
+				cldr = new Cldr( "en-POSIX" );
+				expect( cldr.attributes.language ).to.equal( "en" );
+				expect( cldr.attributes.script ).to.equal( "Latn" );
+				expect( cldr.attributes.territory ).to.equal( "US" );
+				expect( cldr.attributes.variant ).to.equal( "POSIX" );
 			});
 
 			it( "should set unicode locale extensions attributes", function() {

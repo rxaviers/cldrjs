@@ -50,12 +50,13 @@ define([
 			language = subtags[ 0 ],
 			script = subtags[ 1 ],
 			sep = Cldr.localeSep,
-			territory = subtags[ 2 ];
+			territory = subtags[ 2 ],
+			variantsAndUnicodeLocaleExtensions = subtags.slice( 3, 4 );
 		options = options || {};
 
 		// Skip if (language, script, territory) is not empty [3.3]
 		if ( language !== "und" && script !== "Zzzz" && territory !== "ZZ" ) {
-			return [ language, script, territory ];
+			return [ language, script, territory ].concat( variantsAndUnicodeLocaleExtensions );
 		}
 
 		// Skip if no supplemental likelySubtags data is present
@@ -82,7 +83,9 @@ define([
 				language !== "und" ? language : match[ 0 ],
 				script !== "Zzzz" ? script : match[ 1 ],
 				territory !== "ZZ" ? territory : match[ 2 ]
-			];
+			].concat(
+				variantsAndUnicodeLocaleExtensions
+			);
 		} else if ( options.force ) {
 			// [3.1.2]
 			return cldr.get( "supplemental/likelySubtags/und" ).split( sep );

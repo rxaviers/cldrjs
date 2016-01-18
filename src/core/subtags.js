@@ -30,14 +30,16 @@ define(function() {
 		//     (sep unicode_variant_subtag)* ;
 		//
 		// Although unicode_language_subtag = alpha{2,8}, I'm using alpha{2,3}. Because, there's no language on CLDR lengthier than 3.
-		aux = unicodeLanguageId.match( /^(([a-z]{2,3})(-([A-Z][a-z]{3}))?(-([A-Z]{2}|[0-9]{3}))?)(-[a-zA-Z0-9]{5,8}|[0-9][a-zA-Z0-9]{3})*$|^(root)$/ );
+		aux = unicodeLanguageId.match( /^(([a-z]{2,3})(-([A-Z][a-z]{3}))?(-([A-Z]{2}|[0-9]{3}))?)((-([a-zA-Z0-9]{5,8}|[0-9][a-zA-Z0-9]{3}))*)$|^(root)$/ );
 		if ( aux === null ) {
 			return [ "und", "Zzzz", "ZZ" ];
 		}
-		subtags[ 0 /* language */ ] = aux[ 9 ] /* root */ || aux[ 2 ] || "und";
+		subtags[ 0 /* language */ ] = aux[ 10 ] /* root */ || aux[ 2 ] || "und";
 		subtags[ 1 /* script */ ] = aux[ 4 ] || "Zzzz";
 		subtags[ 2 /* territory */ ] = aux[ 6 ] || "ZZ";
-		subtags[ 3 /* variant */ ] = aux[ 7 ];
+		if ( aux[ 7 ] && aux[ 7 ].length ) {
+			subtags[ 3 /* variant */ ] = aux[ 7 ].slice( 1 ) /* remove leading "-" */;
+		}
 
 		// 0: language
 		// 1: script

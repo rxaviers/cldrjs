@@ -43,6 +43,11 @@ define([
 			expect( likelySubtags( Cldr, cldr, [ "foo", "Zzzz", "bar" ], { force: true } ) ).to.eql( [ "en", "Latn", "US" ] );
 		});
 
+		it( "should lookup variant subtag", function() {
+			expect( likelySubtags( Cldr, cldr, [ "en", "Zzzz", "US", "POSIX" ] ) ).to.eql( [ "en", "Latn", "US", "POSIX" ] );
+			expect( likelySubtags( Cldr, cldr, [ "ca", "Zzzz", "ES", "VALENCIA" ] ) ).to.eql( [ "ca", "Latn", "ES", "VALENCIA" ] );
+		});
+
 	});
 
 });
