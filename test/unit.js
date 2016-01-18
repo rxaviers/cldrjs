@@ -10,10 +10,11 @@ require.config({
 require([
 
 	// 1st unit tests group.
-	"./unit/util/json/merge",
+	"./unit/core/subtags",
+	"./unit/path/normalize",
 	"./unit/resource/get",
 	"./unit/resource/set",
-	"./unit/path/normalize",
+	"./unit/util/json/merge",
 
 	// 2nd unit tests group.
 	"./unit/core/load",
