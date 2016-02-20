@@ -2,7 +2,7 @@
 
 Add a listener function to the specified event for this instance.
 
-| Parameter | Type | Exampe |
+| Parameter | Type | Example |
 | --- | --- | --- |
 | *event* | String | `"get"` |
 | *listener* | Function | |

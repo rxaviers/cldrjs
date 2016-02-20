@@ -2,7 +2,7 @@
 
 Removes a listener function from the specified event for this instance.
 
-| Parameter | Type | Exampe |
+| Parameter | Type | Example |
 | --- | --- | --- |
 | *event* | String | `"get"` |
 | *listener* | Function | |

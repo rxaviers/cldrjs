@@ -2,7 +2,7 @@
 
 Add a listener function to the specified event globally (for all instances).
 
-| Parameter | Type | Exampe |
+| Parameter | Type | Example |
 | --- | --- | --- |
 | *event* | String | `"get"` |
 | *listener* | Function | |

@@ -2,7 +2,7 @@
 
 Get the item data given its path, or `undefined` if missing.
 
-| Parameter | Type | Exampe |
+| Parameter | Type | Example |
 | --- | --- | --- |
 | *path* | String or<br>Array | `"/cldr/main/{languageId}/numbers/symbols-numberSystem-latn/decimal"`<br>`[ "cldr", "main", "{languageId}", "numbers", "symbols-numberSystem-latn", "decimal" ]` |
 

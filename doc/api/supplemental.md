@@ -2,7 +2,7 @@
 
 It's an alias for `.get([ "supplemental", ... ])`.
 
-| Parameter | Type | Exampe |
+| Parameter | Type | Example |
 | --- | --- | --- |
 | *path* | String or<br>Array | See `cldr.get()` for more information |
 

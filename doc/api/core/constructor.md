@@ -2,7 +2,7 @@
 
 Create a new instance of Cldr.
 
-| Parameter | Type | Exampe |
+| Parameter | Type | Example |
 | --- | --- | --- |
 | *locale* | String | `"en"`, `"pt-BR"` |
 

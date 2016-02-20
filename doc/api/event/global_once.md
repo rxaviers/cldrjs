@@ -2,7 +2,7 @@
 
 Add a listener function to the specified event globally (for all instances). It will be automatically removed after it's first execution.
 
-| Parameter | Type | Exampe |
+| Parameter | Type | Example |
 | --- | --- | --- |
 | *event* | String | `"get"` |
 | *listener* | Function | |
