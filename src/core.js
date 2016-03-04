@@ -92,7 +92,7 @@ define([
 			bundle: bundleLookup( Cldr, this, minLanguageId ),
 
 			// Unicode Language Id
-			minlanguageId: minLanguageId,
+			minLanguageId: minLanguageId,
 			maxLanguageId: maxLanguageId.join( sep ),
 
 			// Unicode Language Id Subtabs
