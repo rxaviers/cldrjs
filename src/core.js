@@ -61,14 +61,22 @@ define([
 	 */
 	Cldr.prototype.init = function( locale ) {
 		var attributes, language, maxLanguageId, minLanguageId, script, subtags, territory, unicodeLocaleExtensions, variant,
-			sep = Cldr.localeSep;
+			sep = Cldr.localeSep,
+			unicodeLocaleExtensionsRaw = "";
 
 		validatePresence( locale, "locale" );
 		validateTypeString( locale, "locale" );
 
 		subtags = coreSubtags( locale );
 
-		unicodeLocaleExtensions = subtags[ 4 ];
+		if ( subtags.length === 5 ) {
+			unicodeLocaleExtensions = subtags.pop();
+			unicodeLocaleExtensionsRaw = sep + "u" + sep + unicodeLocaleExtensions;
+			// Remove trailing null when there is unicodeLocaleExtensions but no variants.
+			if ( !subtags[ 3 ] ) {
+				subtags.pop();
+			}
+		}
 		variant = subtags[ 3 ];
 
 		// Normalize locale code.
@@ -92,8 +100,8 @@ define([
 			bundle: bundleLookup( Cldr, this, minLanguageId ),
 
 			// Unicode Language Id
-			minLanguageId: minLanguageId,
-			maxLanguageId: maxLanguageId.join( sep ),
+			minLanguageId: minLanguageId + unicodeLocaleExtensionsRaw,
+			maxLanguageId: maxLanguageId.join( sep ) + unicodeLocaleExtensionsRaw,
 
 			// Unicode Language Id Subtabs
 			language: language,

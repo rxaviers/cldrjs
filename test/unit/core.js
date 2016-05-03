@@ -71,6 +71,20 @@ define([
 				expect( cldr.attributes[ "u-nu" ] ).to.equal( "arab" );
 			});
 
+			it( "should set minLanguageId and maxLanguageId attributes", function() {
+				cldr = new Cldr( "en" );
+				expect( cldr.attributes.minLanguageId ).to.equal( "en" );
+				expect( cldr.attributes.maxLanguageId ).to.equal( "en-Latn-US" );
+
+				cldr = new Cldr( "zh-Hant-HK-u-nu-native" );
+				expect( cldr.attributes.minLanguageId ).to.equal( "zh-HK-u-nu-native" );
+				expect( cldr.attributes.maxLanguageId ).to.equal( "zh-Hant-HK-u-nu-native" );
+
+				cldr = new Cldr( "en-POSIX-u-nu-native" );
+				expect( cldr.attributes.minLanguageId ).to.equal( "en-POSIX-u-nu-native" );
+				expect( cldr.attributes.maxLanguageId ).to.equal( "en-Latn-US-POSIX-u-nu-native" );
+			});
+
 			it( "should implement cldr.main as an alias of get( \"main/{bundle}...\" )", function() {
 				cldr = new Cldr( "en" );
 				expect( cldr.main( "numbers/symbols-numberSystem-latn/decimal" ) ).to.equal( "." );
