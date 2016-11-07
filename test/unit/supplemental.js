@@ -47,11 +47,11 @@ define([
 
 		it( "should get timeData.allowed", function() {
 			// Explicitly defined allowed.
-			expect( en.supplemental.timeData.allowed() ).to.equal( "H h" );
-			expect( ptBr.supplemental.timeData.allowed() ).to.equal( "H" );
+			expect( en.supplemental.timeData.allowed() ).to.equal( "h hb H hB" );
+			expect( ptBr.supplemental.timeData.allowed() ).to.equal( "H hB" );
 
 			// Or default (001).
-			expect( enGb.supplemental.timeData.allowed() ).to.equal( "H h" );
+			expect( enGb.supplemental.timeData.allowed() ).to.equal( "H h hb hB" );
 		});
 
 		it( "should get timeData.preferred", function() {
