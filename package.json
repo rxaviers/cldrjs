@@ -44,9 +44,6 @@
       "url": "https://github.com/rxaviers/cldrjs/blob/master/LICENSE-MIT"
     }
   ],
-  "peerDependencies": {
-    "cldr-data": ">=25"
-  },
   "devDependencies": {
     "cldr-data-downloader": "0.2.x",
     "grunt": "0.4.x",

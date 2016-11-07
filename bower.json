@@ -1,10 +1,9 @@
 {
   "name": "cldrjs",
-  "dependencies": {
-    "cldr-data": ">=25"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "1.7.x",
+    "cldr-data": ">=25",
     "eventEmitter": "4.2.7",
     "mocha": "1.12.x",
     "requirejs": "2.1.x",
