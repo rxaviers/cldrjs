@@ -122,6 +122,7 @@ module.exports = function(grunt) {
 				// a) "Single return" means the module only contains a return statement that is converted to a var declaration.
 				// b) "Not as simple as a single return" means the define wrappers are replaced by a function wrapper call and the returned value is assigned to a var.
 				// c) "Main" means the define wrappers are removed, but content is untouched. Only for main* files.
+				// d) For EventEmitter set 'exports' to '{}' to prevent error when using Babel (see https://github.com/rxaviers/cldrjs/issues/54)
 				onBuildWrite: function ( id, path, contents ) {
 					var name = id
 						.replace( /util\/|common\//, "" );
@@ -130,6 +131,8 @@ module.exports = function(grunt) {
 						contents = contents
 							.replace( /.*\buse strict\b.*/, "" )
 							.replace( /(\(function \(\) {)/, "var EventEmitter;\n/* jshint ignore:start */\nEventEmitter = $1" )
+							.replace( /var exports = this;/, "var exports = {};" )
+							.replace( /var originalGlobalValue = exports.EventEmitter;/, "" )
 							.replace( /\/\/ Expose the class either via AMD, CommonJS[\S\s]*}\.call\(this\)\);/, "return EventEmitter;\n}());\n/* jshint ignore:end */" );
 						return contents;
 					}
