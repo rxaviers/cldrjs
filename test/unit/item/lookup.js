@@ -18,6 +18,14 @@ define([
 					"lookup-test": {
 						a: 1,
 						b: 2
+					},
+					"falsy-items": {
+						boolean: false,
+						nan: NaN,
+						null: null,
+						number: 0,
+						string: "",
+						undefined: undefined
 					}
 				}
 			);
@@ -45,6 +53,15 @@ define([
 			expect( itemLookup( Cldr, cldr.locale, "/lookup-test", cldr.attributes ) ).to.eql({ a: 1, b: 2 });
 		});
 
+		it( "should get falsy items", function() {
+			var cldr = new Cldr( "root" );
+			expect( itemLookup( Cldr, cldr.locale, "/falsy-items/boolean", cldr.attributes ) ).to.equal( false );
+			expect( isNaN( itemLookup( Cldr, cldr.locale, "/falsy-items/nan", cldr.attributes ) ) ).to.equal( true );
+			expect( itemLookup( Cldr, cldr.locale, "/falsy-items/null", cldr.attributes ) ).to.equal( null );
+			expect( itemLookup( Cldr, cldr.locale, "/falsy-items/number", cldr.attributes ) ).to.equal( 0 );
+			expect( itemLookup( Cldr, cldr.locale, "/falsy-items/string", cldr.attributes ) ).to.equal( "" );
+			expect( itemLookup( Cldr, cldr.locale, "/falsy-items/undefined", cldr.attributes ) ).to.equal( undefined );
+		});
 	});
 
 });
