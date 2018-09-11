@@ -1,8 +1,9 @@
+import Cldr from "@cldrjs/core";
 import EventEmitter from "wolfy87-eventemitter";
+
 import validatePresence from "./common/validate/presence";
 import validateType from "./common/validate/type";
 import validateTypeFunction from "./common/validate/type/function";
-import Cldr from "./core";
 import pathNormalize from "./path/normalize";
 
 var superGet,

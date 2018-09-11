@@ -1,4 +1,5 @@
-import Cldr from "./core";
+import Cldr from "@cldrjs/core";
+
 import supplementalMain from "./supplemental/main";
 
 var initSuper = Cldr.prototype.init;

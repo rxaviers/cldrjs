@@ -3,7 +3,6 @@
 import Cldr from "../../../src/core.js";
 import parentLookup from "../../../src/bundle/parent_lookup.js";
 import parentLocalesJson from "cldr-data/supplemental/parentLocales.json";
-
 import "../../../src/unresolved.js";
 
 describe("Bundle Parent Lookup", function() {

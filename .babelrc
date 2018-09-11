@@ -1,3 +1,67 @@
 {
-  "presets": ["@swissquote/swissquote"]
+  "env": {
+    "test": {
+      "presets": [
+        ["@babel/preset-env", {
+          "targets": {
+            "node": "current"
+          },
+          "debug": true
+        }]
+      ],
+      "plugins": [
+        ["module-resolver", {
+          "root": ["."],
+          "alias": {
+            "@cldrjs/core": "./src/core"
+          }
+        }]
+      ]
+    },
+    "test-functional": {
+      "presets": [
+        ["@babel/preset-env", {
+          "targets": {
+            "node": "current"
+          },
+          "debug": true
+        }]
+      ],
+      "plugins": [
+        ["module-resolver", {
+          "root": ["."],
+          "alias": {
+            "@cldrjs/core": "./packages/cldrjs-core/node",
+            "@cldrjs/event": "./packages/cldrjs-event/node"
+          }
+        }]
+      ]
+    },
+    "node": {
+      "presets": [
+        ["@babel/preset-env", {
+          "targets": {
+            "node": "6"
+          },
+          "modules": false,
+          "loose": true,
+          "debug": true,
+          "useBuiltIns": "usage"
+        }]
+      ]
+    },
+    "browser": {
+      "presets": [
+        ["@babel/preset-env", {
+          "targets": {
+            "browsers": ["> 1%", "last 2 versions", "Firefox ESR"]
+          },
+          "modules": false,
+          "loose": true,
+          "debug": true,
+          "useBuiltIns": "usage"
+        }]
+      ]
+    }
+  }
 }

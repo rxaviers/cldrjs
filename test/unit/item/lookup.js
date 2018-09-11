@@ -5,7 +5,6 @@ import itemLookup from "../../../src/item/lookup.js";
 import ptNumbersJson from "cldr-data/main/pt/numbers.json";
 import genderJson from "cldr-data/supplemental/gender.json";
 import likelySubtagsJson from "cldr-data/supplemental/likelySubtags.json";
-
 import "../../../src/unresolved.js";
 
 describe("Item Lookup", function() {

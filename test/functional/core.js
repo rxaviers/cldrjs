@@ -1,5 +1,5 @@
 /* global describe, it, expect */
-import Cldr from "../../dist/cldr.js";
+import Cldr from "@cldrjs/core";
 
 import util from "../util";
 

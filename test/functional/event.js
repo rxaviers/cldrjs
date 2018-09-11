@@ -1,6 +1,6 @@
 /* global describe, it, expect */
 
-import Cldr from "../../dist/cldr.js";
+import Cldr from "@cldrjs/event";
 import "../../dist/cldr/event.js";
 
 import util from "../util";

@@ -1,6 +1,7 @@
+import Cldr from "@cldrjs/core";
+
 import validatePresence from "./common/validate/presence";
 import validateTypePath from "./common/validate/type/path";
-import Cldr from "./core";
 import coreLoad from "./core/load";
 import itemLookup from "./item/lookup";
 

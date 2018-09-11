@@ -1,0 +1,44 @@
+{
+  "name": "@cldrjs/event",
+  "version": "0.5.0",
+  "description": "Simple CLDR traverser",
+  "keywords": [
+    "utility",
+    "globalization",
+    "internationalization",
+    "multilingualization",
+    "localization",
+    "g11n",
+    "i18n",
+    "m17n",
+    "L10n",
+    "localize",
+    "locale",
+    "cldr",
+    "json",
+    "inheritance",
+    "compiler"
+  ],
+  "main": "node.js",
+  "browser": "browser.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rxaviers/cldrjs.git"
+  },
+  "readmeFilename": "README.md",
+  "author": {
+    "name": "Rafael Xavier de Souza",
+    "email": "rxaviers@gmail.com",
+    "url": "http://rafael.xavier.blog.br"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/rxaviers/cldrjs/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "core-js": "^2.0.0",
+    "wolfy87-eventemitter": "^5.2.5"
+  }
+}

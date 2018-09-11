@@ -1,5 +1,6 @@
 {
   "name": "cldrjs",
+  "private": true,
   "version": "0.5.0",
   "description": "Simple CLDR traverser",
   "keywords": [
@@ -39,17 +40,20 @@
     "url": "http://rafael.xavier.blog.br"
   },
   "scripts": {
-    "build": "npm run lint && npm run test:unit && npm run build:all && npm run test:functional && npm run validate",
-    "build:all": "npm run build:dist && npm run build:esm",
-    "validate": "npm run compare_size && npm run dco",
+    "check-version": "check-node-version --node '>= 8' -q",
     "lint": "eslint src test build",
     "prettier": "prettier --write '{src,test,build}/**/*.js'",
-    "compare_size": "node build/compare-size.js",
+    "test": "npm run check-version && export NODE_ENV=test && mocha './test/unit/**/*.js'",
+    "build": "npm run check-version && npm run build-cldrjs-core && npm run build-cldrjs-event && npm run build-cldrjs-supplemental && npm run build-cldrjs-unresolved",
+    "build-cldrjs-core": "npm run check-version && for _BABEL_ENV in browser node; do BABEL_ENV=$_BABEL_ENV rollup --config src/build/core/rollup-config.js; done",
+    "build-cldrjs-event": "npm run check-version && for _BABEL_ENV in browser node; do BABEL_ENV=$_BABEL_ENV rollup --config src/build/event/rollup-config.js; done",
+    "build-cldrjs-supplemental": "npm run check-version && for _BABEL_ENV in browser node; do BABEL_ENV=$_BABEL_ENV rollup --config src/build/supplemental/rollup-config.js; done",
+    "build-cldrjs-unresolved": "npm run check-version && for _BABEL_ENV in browser node; do BABEL_ENV=$_BABEL_ENV rollup --config src/build/unresolved/rollup-config.js; done",
+    "postbuild": "npm run compare-size && npm run dco",
+    "compare-size": "node build/compare-size.js",
     "dco": "node build/dco.js",
-    "test:unit": "export NODE_ENV=test && mocha --require @babel/register --require chai/register-expect './test/unit/**/*.js'",
-    "test:functional": "export NODE_ENV=test && mocha --require @babel/register --require chai/register-expect './test/functional/*.js'",
-    "build:dist": "webpack --mode production --config webpack.config.js",
-    "build:esm": "export NODE_ENV=production && babel src --out-dir dist-esm --delete-dir-on-start --ignore src/build/node_main.js --plugins $PWD/wrap-validate-with-env-check.js"
+    "test-functional": "npm run check-version && export NODE_ENV=test-functional && mocha './test/functional/*.js'",
+    "lerna-publish": "lerna publish"
   },
   "cldr-data-urls-filter": "(cldr-core|cldr-numbers-modern|cldr-dates-modern)",
   "dco": {
@@ -64,23 +68,29 @@
     }
   ],
   "devDependencies": {
-    "@babel/cli": "^7.0.0-rc.1",
-    "@babel/core": "^7.0.0-rc.1",
-    "@babel/register": "^7.0.0-rc.1",
-    "@swissquote/babel-preset-swissquote": "^1.2.1",
-    "babel-core": "7.0.0-bridge.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "babel-eslint": "^9.0.0",
+    "babel-plugin-module-resolver": "^3.1.1",
     "chai": "^4.1.2",
     "chalk": "^2.4.1",
+    "check-node-version": "^3.2.0",
     "cldr-data": "^33.0.0",
-    "copy-webpack-plugin": "^4.5.2",
+    "common-tags": "^1.8.0",
+    "core-js": "^2.5.7",
+    "dco": "^1.1.0",
     "debug": "^4.0.0",
     "eslint": "^5.3.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-prettier": "^2.6.2",
     "gzip-size": "^5.0.0",
+    "lerna": "^2.8.0",
     "mocha": "^5.2.0",
-    "prettier": "^1.14.2",
+    "prettier": "1.14.2",
+    "rollup": "^0.56.1",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-replace": "^2.0.0",
     "stats-webpack-plugin": "^0.7.0",
     "string-replace-webpack-plugin": "^0.1.3",
     "text-table": "^0.2.0",
@@ -88,7 +98,6 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "dco": "^1.1.0",
     "wolfy87-eventemitter": "^5.2.5"
   }
 }

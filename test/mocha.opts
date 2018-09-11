@@ -1,0 +1,3 @@
+--recursive
+--require chai/register-expect
+--require @babel/register
