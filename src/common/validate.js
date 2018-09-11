@@ -1,11 +1,7 @@
-define([
-	"./create_error"
-], function( createError ) {
+import createError from "./create_error";
 
-	return function( code, check, attributes ) {
-		if ( !check ) {
-			throw createError( code, attributes );
-		}
-	};
-
-});
+export default function(code, check, attributes) {
+  if (!check) {
+    throw createError(code, attributes);
+  }
+}

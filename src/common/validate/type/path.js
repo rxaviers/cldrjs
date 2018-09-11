@@ -1,10 +1,11 @@
-define([
-	"../type",
-	"../../../util/array/is_array"
-], function( validateType, arrayIsArray ) {
+import validateType from "../type";
+import arrayIsArray from "../../../util/array/is_array";
 
-	return function( value, name ) {
-		validateType( value, name, typeof value === "string" || arrayIsArray( value ), "String or Array" );
-	};
-
-});
+export default function(value, name) {
+  validateType(
+    value,
+    name,
+    typeof value === "string" || arrayIsArray(value),
+    "String or Array"
+  );
+}

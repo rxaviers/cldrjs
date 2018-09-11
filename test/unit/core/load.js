@@ -1,31 +1,28 @@
-define([
-	"src/core/load"
-], function( _load ) {
+/* global describe, it, expect */
 
-	describe( "Core load", function() {
-		var fakeCldr = {
-			_availableBundleMapQueue: []
-		};
+import _load from "../../../src/core/load.js";
 
-		function load() {
-			return _load( fakeCldr, {}, arguments );
-		}
+describe("Core load", function() {
+  var fakeCldr = {
+    _availableBundleMapQueue: []
+  };
 
-		it( "should load a json entry", function() {
-			var source = load({ foo: "bar" });
-			expect( source ).to.eql({ foo: "bar" });
-		});
+  function load() {
+    return _load(fakeCldr, {}, arguments);
+  }
 
-		it( "should load arbitrary json parameters, e.g., Cldr.load({...}, {...}, ...)", function() {
-			var source = load({ foo: "bar" }, { baz: "qux" });
-			expect( source ).to.eql({ baz: "qux", foo: "bar" });
-		});
+  it("should load a json entry", function() {
+    var source = load({ foo: "bar" });
+    expect(source).to.eql({ foo: "bar" });
+  });
 
-		it( "should load arbitrary jsons via Array, e.g., Cldr.load([{...}, {...}, ...])", function() {
-			var source = load([{ foo: "bar" }, { baz: "qux" }]);
-			expect( source ).to.eql({ baz: "qux", foo: "bar" });
-		});
+  it("should load arbitrary json parameters, e.g., Cldr.load({...}, {...}, ...)", function() {
+    var source = load({ foo: "bar" }, { baz: "qux" });
+    expect(source).to.eql({ baz: "qux", foo: "bar" });
+  });
 
-	});
-
+  it("should load arbitrary jsons via Array, e.g., Cldr.load([{...}, {...}, ...])", function() {
+    var source = load([{ foo: "bar" }, { baz: "qux" }]);
+    expect(source).to.eql({ baz: "qux", foo: "bar" });
+  });
 });

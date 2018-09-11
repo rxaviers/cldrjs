@@ -1,9 +1,5 @@
-define([
-	"../type"
-], function( validateType ) {
+import validateType from "../type";
 
-	return function( value, name ) {
-		validateType( value, name, typeof value === "string", "a string" );
-	};
-
-});
+export default function(value, name) {
+  validateType(value, name, typeof value === "string", "a string");
+}

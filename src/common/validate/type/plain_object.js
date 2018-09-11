@@ -1,10 +1,11 @@
-define([
-	"../type",
-	"../../../util/is_plain_object"
-], function( validateType, isPlainObject ) {
+import validateType from "../type";
+import isPlainObject from "../../../util/is_plain_object";
 
-	return function( value, name ) {
-		validateType( value, name, typeof value === "undefined" || isPlainObject( value ), "Plain Object" );
-	};
-
-});
+export default function(value, name) {
+  validateType(
+    value,
+    name,
+    typeof value === "undefined" || isPlainObject(value),
+    "Plain Object"
+  );
+}

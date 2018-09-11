@@ -1,13 +1,9 @@
-define([
-	"../resource/get",
-	"../path/normalize"
-], function( resourceGet, pathNormalize ) {
+import resourceGet from "../resource/get";
+import pathNormalize from "../path/normalize";
 
-	return function( Cldr, path, attributes ) {
-		// Resolve path
-		var normalizedPath = pathNormalize( path, attributes );
+export default function(Cldr, path, attributes) {
+  // Resolve path
+  var normalizedPath = pathNormalize(path, attributes);
 
-		return resourceGet( Cldr._resolved, normalizedPath );
-	};
-
-});
+  return resourceGet(Cldr._resolved, normalizedPath);
+}

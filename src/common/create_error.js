@@ -1,21 +1,18 @@
-define([
-	"../util/array/for_each",
-	"../util/object/keys"
-], function( arrayForEach, objectKeys ) {
+import arrayForEach from "../util/array/for_each";
+import objectKeys from "../util/object/keys";
 
-	return function( code, attributes ) {
-		var error, message;
+export default function(code, attributes) {
+  var error, message;
 
-		message = code + ( attributes && JSON ? ": " + JSON.stringify( attributes ) : "" );
-		error = new Error( message );
-		error.code = code;
+  message =
+    code + (attributes && JSON ? ": " + JSON.stringify(attributes) : "");
+  error = new Error(message);
+  error.code = code;
 
-		// extend( error, attributes );
-		arrayForEach( objectKeys( attributes ), function( attribute ) {
-			error[ attribute ] = attributes[ attribute ];
-		});
+  // extend( error, attributes );
+  arrayForEach(objectKeys(attributes), function(attribute) {
+    error[attribute] = attributes[attribute];
+  });
 
-		return error;
-	};
-
-});
+  return error;
+}

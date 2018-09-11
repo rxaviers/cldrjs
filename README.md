@@ -531,18 +531,19 @@ Error object:
 
 ### Development / Contributing
 
-Install grunt and tests external dependencies. First, install the [grunt-cli](http://gruntjs.com/getting-started#installing-the-cli) and [bower](http://bower.io/) packages if you haven't before. These should be done as global installs. Then:
+To run the tests and build, you can run npm scripts. You will need to install all dependencies before:
 
 ```bash
-npm install && bower install
+npm install
 ```
 Run tests
 ```bash
-grunt test
+npm run test:unit
+npm run test:functional
 ```
 Build distribution file.
 ```bash
-grunt
+npm run build
 ```
 
 [Bundle Lookup Matcher]: ./doc/bundle_lookup_matcher.md

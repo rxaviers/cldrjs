@@ -1,13 +1,9 @@
-define([
-	"../validate"
-], function( validate ) {
+import validate from "../validate";
 
-	return function( value, name, check, expected ) {
-		validate( "E_INVALID_PAR_TYPE", check, {
-			expected: expected,
-			name: name,
-			value: value
-		});
-	};
-
-});
+export default function(value, name, check, expected) {
+  validate("E_INVALID_PAR_TYPE", check, {
+    expected: expected,
+    name: name,
+    value: value
+  });
+}

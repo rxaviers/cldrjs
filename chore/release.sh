@@ -37,7 +37,7 @@ function assertions {
 	test :$input = :N -o :$input = :n && exit 1
 
 	h1 Test
-	grunt
+	npm run build
 }
 
 function h1 {
@@ -61,7 +61,7 @@ function build {
 	h1 Include distribution files
 
 	# Yeap, again. Now including the new version in the dist files.
-	grunt > /dev/null || error Build failed
+	npm run build > /dev/null || error Build failed
 
 	git add dist/* > /dev/null &&
 		git commit -a -m "Build: Include distribution files" > /dev/null &&

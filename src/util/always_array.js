@@ -1,9 +1,5 @@
-define([
-	"./array/is_array"
-], function( arrayIsArray ) {
+import arrayIsArray from "./array/is_array";
 
-	return function( somethingOrArray ) {
-		return arrayIsArray( somethingOrArray ) ?  somethingOrArray : [ somethingOrArray ];
-	};
-
-});
+export default function(somethingOrArray) {
+  return arrayIsArray(somethingOrArray) ? somethingOrArray : [somethingOrArray];
+}
