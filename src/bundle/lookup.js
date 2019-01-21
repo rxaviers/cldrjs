@@ -23,7 +23,7 @@ export default function(Cldr, cldr, minLanguageId) {
       maxBundle = coreLikelySubtags(Cldr, cldr, subtags);
       minBundle = coreRemoveLikelySubtags(Cldr, cldr, maxBundle);
       minBundle = minBundle.join(Cldr.localeSep);
-      existing = availableBundleMapQueue[minBundle];
+      existing = availableBundleMap[minBundle];
       if (existing && existing.length < bundle.length) {
         return;
       }
