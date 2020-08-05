@@ -56,4 +56,51 @@ define([
 
 	});
 
+	it("should always favor the grandest parent", function() {
+		var sr;
+		Cldr.load({
+			main: { sr: {} }
+		});
+		expect(Cldr._availableBundleMapQueue).to.include.members(["sr"]);
+		sr = new Cldr("sr");
+		expect(Cldr._availableBundleMapQueue).to.eql([]);
+		expect(Cldr._availableBundleMap).to.contain.keys("sr");
+		expect(Cldr._availableBundleMap.sr).to.equal("sr");
+		expect(sr.attributes.bundle).to.equal("sr");
+		sr = new Cldr("sr-Cyrl");
+		expect(sr.attributes.bundle).to.equal("sr");
+		sr = new Cldr("sr-RS");
+		expect(sr.attributes.bundle).to.equal("sr");
+	});
+
+	it("should remove problematic bundle from the global _availableBundleMapQueue on failure", function() {
+		Cldr.load(
+			{
+				main: { bg: {} } // valid
+			},
+			{
+				main: { xx: {} } // invalid
+			},
+			{
+				main: { sr: {} } // valid
+			}
+		);
+
+		expect(Cldr._availableBundleMapQueue).to.eql(["bg", "xx", "sr"]);
+
+		expect(() => {
+			// triggers the loading of bundle queue
+			new Cldr("bg");
+		}).to.throw();
+
+		expect(Cldr._availableBundleMapQueue).to.eql(["sr"]);
+
+		// the invalid bundle has been removed so we can load bg
+		new Cldr("bg");
+
+		// and sr, which will now trigger the loading of the rest of the queue
+		new Cldr("sr");
+
+		expect(Cldr._availableBundleMapQueue).to.eql([]);
+	});
 });
