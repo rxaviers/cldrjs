@@ -1,7 +1,6 @@
 import coreLikelySubtags from "../core/likely_subtags";
 import coreRemoveLikelySubtags from "../core/remove_likely_subtags";
 import coreSubtags from "../core/subtags";
-import arrayForEach from "../util/array/for_each";
 
 /**
  * bundleLookup( minLanguageId )
@@ -17,10 +16,19 @@ export default function(Cldr, cldr, minLanguageId) {
     availableBundleMapQueue = Cldr._availableBundleMapQueue;
 
   if (availableBundleMapQueue.length) {
-    arrayForEach(availableBundleMapQueue, function(bundle) {
+    while (availableBundleMapQueue.length > 0) {
+      const bundle = availableBundleMapQueue.shift();
+      if (!bundle) {
+        break;
+      }
+
       var existing, maxBundle, minBundle, subtags;
       subtags = coreSubtags(bundle);
       maxBundle = coreLikelySubtags(Cldr, cldr, subtags);
+      if (typeof maxBundle === "undefined") {
+        throw new Error(`Could not find likelySubtags for ${bundle}`);
+      }
+
       minBundle = coreRemoveLikelySubtags(Cldr, cldr, maxBundle);
       minBundle = minBundle.join(Cldr.localeSep);
       existing = availableBundleMap[minBundle];
@@ -28,8 +36,7 @@ export default function(Cldr, cldr, minLanguageId) {
         return;
       }
       availableBundleMap[minBundle] = bundle;
-    });
-    Cldr._availableBundleMapQueue = [];
+    }
   }
 
   return availableBundleMap[minLanguageId] || null;
