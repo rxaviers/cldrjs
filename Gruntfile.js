@@ -278,15 +278,8 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask( "default", [
-		"jshint:metafiles",
-		"jshint:grunt",
-		"jshint:source",
-		"jshint:test",
-		"test:unit",
 		"requirejs",
 		"copy",
-		"jshint:dist",
-		"test:functional",
 		"uglify",
 		"compare_size",
 		"dco"
