@@ -26,7 +26,8 @@ Quick jump:
 
 | Organization | Project |
 |---|---|
-| ![jQuery](doc/asset/jquery.png) | https://github.com/jquery/globalize |
+| ![jQuery](doc/asset/jquery.png) | https://github.com/globalize/globalize |
+| ![Angular](https://angular.io/assets/images/logos/angular/angular.png) | https://github.com/angular/angular |
 
 ### Where to use it?
 
