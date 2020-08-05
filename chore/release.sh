@@ -52,7 +52,11 @@ function error {
 
 function update_version {
 	h1 Update package.json '`versions`' attribute
-	sed -i.orig 's/"version": "[^"]\+"/"version": "'$1'"/' package.json &&
+	SED=sed
+	if [ :`uname` = :Darwin ]; then
+		SED=gsed
+	fi
+	$SED -i.orig 's/"version": "[^"]\+"/"version": "'$1'"/' package.json &&
 		git commit -a -m $1 &&
 		git show
 }
@@ -63,7 +67,7 @@ function build {
 	# Yeap, again. Now including the new version in the dist files.
 	npm run build > /dev/null || error Build failed
 
-	git add dist/* > /dev/null &&
+	git add -f dist/* dist-esm/* > /dev/null &&
 		git commit -a -m "Build: Include distribution files" > /dev/null &&
 		git show --stat ||
 		error Failed including distribution files
