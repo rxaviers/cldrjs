@@ -43,6 +43,7 @@
     "build:all": "npm run build:dist && npm run build:esm",
     "validate": "npm run compare_size && npm run dco",
     "lint": "eslint src test build",
+    "lint:fix": "eslint --fix src test build",
     "prettier": "prettier --write '{src,test,build}/**/*.js'",
     "compare_size": "node build/compare-size.js",
     "dco": "node build/dco.js",

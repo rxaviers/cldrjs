@@ -6,7 +6,7 @@ import jsonMerge from "../util/json/merge";
 
 var lookup;
 
-export default (lookup = function(Cldr, locale, path, attributes, childLocale) {
+export default lookup = function(Cldr, locale, path, attributes, childLocale) {
   var normalizedPath, parent, value;
 
   // 1: Finish recursion
@@ -47,4 +47,4 @@ export default (lookup = function(Cldr, locale, path, attributes, childLocale) {
   }
 
   return value;
-});
+};

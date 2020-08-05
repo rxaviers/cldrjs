@@ -25,8 +25,14 @@ export default function(Cldr, cldr, maxLanguageId) {
   matchFound = arraySome(
     [
       [[language, "Zzzz", "ZZ"], [language]],
-      [[language, "Zzzz", territory], [language, territory]],
-      [[language, script, "ZZ"], [language, script]]
+      [
+        [language, "Zzzz", territory],
+        [language, territory]
+      ],
+      [
+        [language, script, "ZZ"],
+        [language, script]
+      ]
     ],
     function(test) {
       var result = coreLikelySubtags(Cldr, cldr, test[0]);

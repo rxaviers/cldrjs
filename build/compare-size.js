@@ -260,8 +260,8 @@ function compareSizes(task) {
   // Obtain the current branch and continue...
   helpers.git_status(function(err, status) {
     var prefixes = compressors ? [""].concat(Object.keys(compressors)) : [""],
-      commonHeader = prefixes.map(
-        (label, i) => (i === 0 && compressors ? "raw" : label)
+      commonHeader = prefixes.map((label, i) =>
+        i === 0 && compressors ? "raw" : label
       );
 
     const tableOptions = {
