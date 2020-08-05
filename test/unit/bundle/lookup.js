@@ -93,7 +93,7 @@ define([
 			new Cldr("bg");
 		}).to.throw();
 
-		expect(Cldr._availableBundleMapQueue).to.eql(["sr"]);
+		expect(Cldr._availableBundleMapQueue).to.eql(["bg", "sr"]);
 
 		// the invalid bundle has been removed so we can load bg
 		new Cldr("bg");

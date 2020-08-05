@@ -2,7 +2,8 @@ define([
 	"../core/likely_subtags",
 	"../core/remove_likely_subtags",
 	"../core/subtags",
-], function( coreLikelySubtags, coreRemoveLikelySubtags, coreSubtags ) {
+	"../util/array/for_each"
+], function( coreLikelySubtags, coreRemoveLikelySubtags, coreSubtags, arrayForEach ) {
 
 	/**
 	 * bundleLookup( minLanguageId )
@@ -17,28 +18,24 @@ define([
 		var availableBundleMap = Cldr._availableBundleMap,
 			availableBundleMapQueue = Cldr._availableBundleMapQueue;
 
-		if (availableBundleMapQueue.length) {
-			while (availableBundleMapQueue.length > 0) {
-				const bundle = availableBundleMapQueue.shift();
-				if (!bundle) {
-					break;
-				}
-
+		if ( availableBundleMapQueue.length ) {
+			arrayForEach( availableBundleMapQueue, function( bundle ) {
 				var existing, maxBundle, minBundle, subtags;
-				subtags = coreSubtags(bundle);
-				maxBundle = coreLikelySubtags(Cldr, cldr, subtags);
-				if (typeof maxBundle === "undefined") {
-					throw new Error(`Could not find likelySubtags for ${bundle}`);
+				subtags = coreSubtags( bundle );
+				maxBundle = coreLikelySubtags( Cldr, cldr, subtags );
+				if ( maxBundle === undefined ) {
+					availableBundleMapQueue.splice( i, 1 );
+					throw new Error( "Could not find likelySubtags for " + bundle );
 				}
-
-				minBundle = coreRemoveLikelySubtags(Cldr, cldr, maxBundle);
-				minBundle = minBundle.join(Cldr.localeSep);
-				existing = availableBundleMap[minBundle];
-				if (existing && existing.length < bundle.length) {
+				minBundle = coreRemoveLikelySubtags( Cldr, cldr, maxBundle );
+				minBundle = minBundle.join( Cldr.localeSep );
+				existing = availableBundleMap[ minBundle ];
+				if ( existing && existing.length < bundle.length ) {
 					return;
 				}
-				availableBundleMap[minBundle] = bundle;
-			}
+				availableBundleMap[ minBundle ] = bundle;
+			});
+			Cldr._availableBundleMapQueue = [];
 		}
 
 		return availableBundleMap[ minLanguageId ] || null;
