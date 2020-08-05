@@ -547,6 +547,14 @@ Build distribution file.
 npm run build
 ```
 
+#### Release
+
+On MacOS, use gnu-sed (`brew install gnu-sed`)
+
+```bash
+./chore/release <version> # where version is for example 0.5.2
+```
+
 [Bundle Lookup Matcher]: ./doc/bundle_lookup_matcher.md
 
 ## License
