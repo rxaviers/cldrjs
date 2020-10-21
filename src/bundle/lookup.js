@@ -19,7 +19,7 @@ define([
 			availableBundleMapQueue = Cldr._availableBundleMapQueue;
 
 		if ( availableBundleMapQueue.length ) {
-			arrayForEach( availableBundleMapQueue, function( bundle ) {
+			arrayForEach( availableBundleMapQueue, function( bundle, i ) {
 				var existing, maxBundle, minBundle, subtags;
 				subtags = coreSubtags( bundle );
 				maxBundle = coreLikelySubtags( Cldr, cldr, subtags );
